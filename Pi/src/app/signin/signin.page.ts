@@ -1,20 +1,15 @@
-
-
-
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
-
-
-
 @Component({
-  selector: 'app-tab3',
-  templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss'],
+  selector: 'app-signin',
+  templateUrl: './signin.page.html',
+  styleUrls: ['./signin.page.scss'],
 })
-export class Tab3Page {  
+export class SigninPage {
+
   @ViewChild('email') emailField
   @ViewChild('password') passField
   loadingRef = null
