@@ -9,14 +9,13 @@ describe('Tab3Page', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ Tab3Page ],
+      declarations: [Tab3Page],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SigninPage);
+    fixture = TestBed.createComponent(Tab3Page);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -25,4 +24,3 @@ describe('Tab3Page', () => {
     expect(component).toBeTruthy();
   });
 });
-
