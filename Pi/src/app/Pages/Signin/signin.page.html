@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Sign In</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+
+    <ion-row>
+      <ion-col size='6' offset='3'>
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input #email></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size='6' offset='3'>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type='password' #password></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col text-center>
+        <ion-button (click)='signInUser()'>Sign In</ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

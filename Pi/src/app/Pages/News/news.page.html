@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>News Window</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #mainContent>
+
+  <ion-grid>
+    <ion-row *ngFor='let m of messages'>
+      <ion-col>
+        <app-post-bubble [fullName]='fullName' [data]='m'></app-post-bubble>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+
+<ion-footer>
+  <ion-toolbar>
+    <h6 slot='start'>Message:</h6>
+    <ion-input (keyup)='onKeyUp($event)' #messageField></ion-input>
+    <ion-button [disabled]='isMessageInvalid()' slot='end' (click)='sendMessage()'>Send</ion-button>
+  </ion-toolbar>
+</ion-footer>
