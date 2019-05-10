@@ -45,3 +45,26 @@
     text-decoration: none;
     font-size: 12px;
 }
+
+
+nav {
+  overflow: hidden;
+  background-color:rgba(89, 158, 252, 0.79);
+}
+nav a {
+  margin:0.01%;
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+  font-size: 120%;
+  border-bottom: 2% solid transparent;
+    transition:0s;
+}
+nav a:hover {
+    background-color: coral;
+  border-bottom: 5px solid red;
+    transition:0s;
+}

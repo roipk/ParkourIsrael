@@ -17,9 +17,9 @@ b(){
 // uid = this.afAuth.authState.pipe(map(authState => authState.uid));
 // isAdmin = observableOf('true');
 //   constructor(private afAuth: AngularFireAuth) { }
-//   GoogleLogin(){
-//     this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
-//   }
+  // GoogleLogin(){
+  //   this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+  // }
 //   GoogleLogout(){
 //     this.afAuth.auth.signOut();
 //   }
