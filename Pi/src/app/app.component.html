@@ -1,14 +1,31 @@
-<ion-app>
-  <ion-router-outlet>
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Parkour Israel WebSite
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  
+  <nav>
+      <a href="#"> Home </a> 
+      <a routerLink='/news' routerLinkActive="active"> News </a>
+      <a href="#"> Contact </a>
+      <a href="#"> Help </a>
+      <a id ='btnLogin'  (click)='login()'>Login</a>
+      <a id ='manager' routerLink = "/manager" routerLinkActive="active"> Manage </a>
+  
+  </nav>
 
-      <nav>
-          <a href="#"> Home </a> 
-          <a routerLink='/news'> News </a>
-          <a href="#"> Contact </a>
-          <a href="#"> Help </a>
-         <a routerLink='/login'>Login</a>
-      </nav>
+  <div >
+  <router-outlet> 
+  </router-outlet>
+</div>
 
-
-  </ion-router-outlet>
-</ion-app>
+  <!-- <ion-footer>
+      <ion-toolbar>
+        <h6  slot='start'>Message:</h6>
+        <input  (keyup)='onKeyUp($event)' #messageField></input> 
+        <ion-button  [disabled]='isMessageInvalid()' slot='end' (click)='sendMessage()' >Send</ion-button> 
+       </ion-toolbar>
+    </ion-footer> -->

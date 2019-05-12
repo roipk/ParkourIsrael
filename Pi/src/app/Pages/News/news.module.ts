@@ -7,20 +7,20 @@ import { IonicModule } from '@ionic/angular';
 
 import { NewsPage } from './news.page';
 import { PostBubbleComponent } from '../post-bubble/post-bubble.component';
+import { load } from '@angular/core/src/render3';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: NewsPage
-  }
-];
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild([
+      {
+        path: '',
+        component: NewsPage
+      }
+    ])
   ],
   declarations: [NewsPage, PostBubbleComponent]
 })

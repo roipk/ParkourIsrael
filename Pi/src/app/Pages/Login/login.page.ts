@@ -18,7 +18,6 @@ export class LoginPage {
   @ViewChild('email') emailField
   @ViewChild('password') passField
   loadingRef = null
-  manager = false;
   uid = this.afAuth.authState.pipe(
     map(authState =>{if(!authState)
       {
@@ -36,13 +35,10 @@ export class LoginPage {
     private userAuth: AngularFireAuth,
     private loadingController: LoadingController,
     private router: Router,
-    private db: AngularFirestore,
     private uAuth:AngularFireAuth) { }
 
     ngOnInit(): void {
-      this.uAuth.user.subscribe(() => {
-        this.adminMode()  
-        
+      this.uAuth.user.subscribe(() => {  
       })
      
     }
@@ -69,40 +65,7 @@ export class LoginPage {
     }
   }
 
-  adminMode()
-  {
-    
-    if(this.uAuth.auth.currentUser != null)
-    {
-     
-    
-    this.db.collection('users').doc(this.uAuth.auth.currentUser.uid)
-    .get().subscribe(result => {
-    this.manager = result.data().manager
-    if(this.manager != undefined && this.manager )
-    {
-      
-      document.getElementById('manager').style.visibility = 'visible'
-      document.getElementById('btnLogin').innerHTML='LogOut'
-    }
-    else
-    {
-      
-      document.getElementById('manager').style.visibility = 'hidden'
-      document.getElementById('btnLogin').innerHTML='LogOut'
-    }
-    })
-  }
-  else
-  {
-    
-    document.getElementById('manager').style.visibility = 'hidden'
-    document.getElementById('btnLogin').innerHTML='Login'
-  }
-
-}
-
-
+  
   googlelogin(){
     this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then((result)=> {
       this.router.navigateByUrl('/news')

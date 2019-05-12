@@ -9,7 +9,9 @@ const routes: Routes = [
   { path: 'signup', loadChildren: './Pages/Signup/signup.module#SignupPageModule' },
   { path: 'news', loadChildren: './Pages/News/news.module#NewsPageModule' },
   { path: 'login', loadChildren: './Pages/Login/login.module#LoginPageModule' },
+  { path: 'manager', loadChildren: './Pages/ManagePages/manage.module#ManagePageModule' },
 ];
+
 
 @NgModule({
   imports: [
@@ -17,4 +19,5 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

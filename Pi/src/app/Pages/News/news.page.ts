@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,21 +15,20 @@ export class NewsPage {
   messages = []
   fullName = ''
   manager = false;
+  
   constructor(
-    private userAuth: AngularFireAuth,
-    private router: Router,
     private uAuth: AngularFireAuth,
     private db: AngularFirestore) { }
 
   ngOnInit(): void {
     this.uAuth.user.subscribe(() => {
-      this.adminMode()
       this.afterUserInside()
-     
-    })
-   
-
-    
+    })  
+    var x = document.getElementById("manager");
+    if(this.uAuth.auth.currentUser == null )
+    {
+      document.getElementById("footerMassage").style.visibility = 'hidden' 
+    }
     this.db.collection('messages').valueChanges().subscribe(
      result => {
        result.sort((m1, m2) => {
@@ -45,39 +43,6 @@ export class NewsPage {
        }
      })
   }
-
-  adminMode()
-  {
-    if(this.uAuth.auth.currentUser != null)
-    {
-
-    
-    this.db.collection('users').doc(this.uAuth.auth.currentUser.uid)
-    .get().subscribe(result => {
-     
-      this.manager = result.data().manager
-      // this.fullName = result.data().nickName
-    
-    //alert(this.fullName +' is manager? ')
-    if(this.manager != undefined && this.manager )
-    {
-      document.getElementById('manager').style.visibility = 'visible'
-      document.getElementById('btnLogin').innerHTML = 'LogOut'
-    }
-    else
-    {
-      document.getElementById('manager').style.visibility = 'hidden'
-      document.getElementById('btnLogin').innerHTML = 'LogOut'
-    }
-    })
-  }
-  else
-  {
-    document.getElementById('manager').style.visibility = 'hidden'
-    document.getElementById('btnLogin').innerHTML='Login'
-  }
-}
-
 
   afterUserInside() {
     this.db.collection('users').doc(this.uAuth.auth.currentUser.uid)
@@ -103,25 +68,6 @@ export class NewsPage {
     return this.messageField == null || this.messageField.value == null || this.messageField.value.length <= 0
   }
 
-
-  login()
-  {
-    
-    if(document.getElementById('btnLogin').innerHTML=='Login')
-    { 
-      this.router.navigateByUrl('/login')
-    }
-    else
-    {
-      this.userAuth.auth.signOut().then((result)=> {
-        document.getElementById('btnLogin').innerHTML = 'Login'
-        this.router.navigateByUrl('/home').then(()=>{})
-      })
-    }
-  }
-
-
-  
 
   scrollToBottom() {
     setTimeout(() => {  this.mainContent.scrollToBottom(700) }, 120)

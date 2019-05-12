@@ -31,21 +31,21 @@ export class HomePage {
     
     if(this.uAuth.auth.currentUser != null)
     {
-      alert('in')
+      // alert('in')
     this.db.collection('users').doc(this.uAuth.auth.currentUser.uid)
     .get().subscribe(result => {
-      alert('in2')
+      // alert('in2')
     this.manager = result.data().manager
-    alert('in2.1')
+    // alert('in2.1')
     if(this.manager != undefined && this.manager )
     {
-      alert('in3')
+      // alert('in3')
       document.getElementById('manager').style.visibility = 'visible'
       document.getElementById('btnLogin').innerHTML='LogOut'
     }
     else
     { 
-      alert('in4')
+      //alert('in4')
       
       document.getElementById('manager').style.visibility = 'hidden'
       document.getElementById('btnLogin').innerHTML='LogOut'
@@ -54,11 +54,11 @@ export class HomePage {
   }
   else
   {
-    alert('in5')
+    // alert('in5')
     document.getElementById('manager').style.visibility = 'hidden'
     document.getElementById('btnLogin').innerHTML='Login'
   }
-  alert('in6')
+  // alert('in6')
 }
 
   login()
