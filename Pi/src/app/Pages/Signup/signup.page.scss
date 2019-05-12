@@ -19,12 +19,12 @@ nav {
     text-decoration: none;
     font-size: 120%;
     border-bottom: 2% solid transparent;
-      transition:0s;
+    transition:0s;
   }
   nav a:hover {
-      background-color: coral;
-    border-bottom: 5px solid red;
-      transition:0s;
+    background-color: rgb(202, 201, 200);
+    border-bottom: 5px solid rgba(38, 0, 255, 0.644);
+    transition:0s;
   }
 
   .hr-text 
@@ -66,7 +66,7 @@ nav {
 
   .google-btn
   {
-      color: white;
+    color: white;
   }
 
   a:hover {
