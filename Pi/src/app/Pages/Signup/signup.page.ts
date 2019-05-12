@@ -18,12 +18,22 @@ export class SignupPage {
   @ViewChild('confirm') confirmField
 
   loadingRef = null
+  manager = false;
 
   constructor(
     private userAuth: AngularFireAuth,
     private db: AngularFirestore,
     private loadingController: LoadingController,
-    private router: Router) { }
+    private router: Router,
+    private uAuth:AngularFireAuth) { }
+
+    ngOnInit(): void {
+      this.uAuth.user.subscribe(() => {
+        this.adminMode()  
+      })
+      
+
+    }
 
   createNewUser(): void {
     const email = this.emailField.value
@@ -65,6 +75,37 @@ export class SignupPage {
     }
   }
 
+
+
+  adminMode()
+  {
+    if(this.uAuth.auth.currentUser != null)
+    {
+
+    
+    this.db.collection('users').doc(this.uAuth.auth.currentUser.uid)
+    .get().subscribe(result => {
+     
+      // this.manager = result.data().manager
+      // this.fullName = result.data().nickName
+    
+    //alert(this.fullName +' is manager? ')
+    if(this.manager != undefined && this.manager )
+    {
+      document.getElementById('manager').style.visibility = 'visible'
+    }
+    else
+    {
+      document.getElementById('manager').style.visibility = 'hidden'
+    }
+    })
+  }
+  else
+  {
+    document.getElementById('manager').style.visibility = 'hidden'
+  }
+}
+
   async presentLoading() {
     this.loadingRef = await this.loadingController.create({ message: 'Please wait...', })
     await this.loadingRef.present()
@@ -72,6 +113,22 @@ export class SignupPage {
 
   dismissLoading() {
     this.loadingRef.dismiss()
+  }
+
+  login()
+  {
+    
+    if(document.getElementById('btnLogin').innerHTML=='Login')
+    { 
+      this.router.navigateByUrl('/login')
+    }
+    else
+    {
+      this.userAuth.auth.signOut().then((result)=> {
+        document.getElementById('btnLogin').innerHTML = 'Login'
+        this.router.navigateByUrl('/home').then(()=>{})
+      })
+    }
   }
 
 }

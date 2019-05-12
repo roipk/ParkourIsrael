@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "parkour-israel"
+    "default": "parkour-israel",
+    "staging": "parkour-israel"
   }
 }
