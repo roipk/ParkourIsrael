@@ -9,7 +9,8 @@
     <a routerLink='/news'> News </a>
     <a href="#"> Contact </a>
     <a href="#"> Help </a>
-   <a routerLink='/login'>Login</a>
+    <a id ='btnLogin'  (click)='login()'>Login</a>
+    <a id ="manager" href="#"> Manage </a>
 </nav>
 
 <ion-content #mainContent>
@@ -27,8 +28,8 @@
 
 <ion-footer>
   <ion-toolbar>
-    <h6 slot='start'>Message:</h6>
-    <ion-input (keyup)='onKeyUp($event)' #messageField></ion-input>
-    <ion-button [disabled]='isMessageInvalid()' slot='end' (click)='sendMessage()'>Send</ion-button>
+    <h6  id = 'manager' slot='start'>Message:</h6>
+    <ion-input  id = 'manager' (keyup)='onKeyUp($event)' #messageField></ion-input>
+    <ion-button  id = 'manager' [disabled]='isMessageInvalid()' slot='end' (click)='sendMessage()'>Send</ion-button>
   </ion-toolbar>
 </ion-footer>

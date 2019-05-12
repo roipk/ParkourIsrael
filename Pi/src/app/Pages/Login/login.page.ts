@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { auth } from 'firebase';
+import { AngularFirestore } from '@angular/fire/firestore';
+
 
 @Component({
   selector: 'app-login',
@@ -16,6 +18,7 @@ export class LoginPage {
   @ViewChild('email') emailField
   @ViewChild('password') passField
   loadingRef = null
+  manager = false;
   uid = this.afAuth.authState.pipe(
     map(authState =>{if(!authState)
       {
@@ -32,7 +35,19 @@ export class LoginPage {
     private afAuth: AngularFireAuth,
     private userAuth: AngularFireAuth,
     private loadingController: LoadingController,
-    private router: Router) { }
+    private router: Router,
+    private db: AngularFirestore,
+    private uAuth:AngularFireAuth) { }
+
+    ngOnInit(): void {
+      this.uAuth.user.subscribe(() => {
+        this.adminMode()  
+        
+      })
+     
+    }
+
+
 
   signInUser() {
     const email = this.emailField.value
@@ -48,7 +63,45 @@ export class LoginPage {
         this.dismissLoading()
         })
     }
+    else
+    {
+      alert('email or password not correct')
+    }
   }
+
+  adminMode()
+  {
+    
+    if(this.uAuth.auth.currentUser != null)
+    {
+     
+    
+    this.db.collection('users').doc(this.uAuth.auth.currentUser.uid)
+    .get().subscribe(result => {
+    this.manager = result.data().manager
+    if(this.manager != undefined && this.manager )
+    {
+      
+      document.getElementById('manager').style.visibility = 'visible'
+      document.getElementById('btnLogin').innerHTML='LogOut'
+    }
+    else
+    {
+      
+      document.getElementById('manager').style.visibility = 'hidden'
+      document.getElementById('btnLogin').innerHTML='LogOut'
+    }
+    })
+  }
+  else
+  {
+    
+    document.getElementById('manager').style.visibility = 'hidden'
+    document.getElementById('btnLogin').innerHTML='Login'
+  }
+
+}
+
 
   googlelogin(){
     this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then((result)=> {
@@ -66,6 +119,22 @@ export class LoginPage {
 
   dismissLoading() {
     this.loadingRef.dismiss()
+  }
+
+  login()
+  {
+    
+    if(document.getElementById('btnLogin').innerHTML=='Login')
+    { 
+      this.router.navigateByUrl('/login')
+    }
+    else
+    {
+      this.userAuth.auth.signOut().then((result)=> {
+        document.getElementById('btnLogin').innerHTML = 'Login'
+        this.router.navigateByUrl('/home').then(()=>{})
+      })
+    }
   }
 
 }
