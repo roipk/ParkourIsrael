@@ -29,7 +29,6 @@ export class SignupPage {
 
     ngOnInit(): void {
       this.uAuth.user.subscribe(() => {
-        this.adminMode()  
       })
       
 
@@ -43,6 +42,7 @@ export class SignupPage {
     const fullName = firstName + ' ' + lastName
     const nickName = this.nickNameField.value
     const confirm = this.confirmField.value 
+  
     
 
 
@@ -66,7 +66,7 @@ export class SignupPage {
       this.presentLoading()
       this.userAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        this.db.collection('users').doc(result.user.uid).set({ fullName: fullName, email: email, nickName: nickName })
+        this.db.collection('users').doc(result.user.uid).set({ fullName: fullName, email: email, nickName: nickName,manager:this.manager })
         .then(() => {
           this.dismissLoading()
           this.router.navigateByUrl('/news')
@@ -77,35 +77,6 @@ export class SignupPage {
 
 
 
-  adminMode()
-  {
-    if(this.uAuth.auth.currentUser != null)
-    {
-
-    
-    this.db.collection('users').doc(this.uAuth.auth.currentUser.uid)
-    .get().subscribe(result => {
-     
-      // this.manager = result.data().manager
-      // this.fullName = result.data().nickName
-    
-    //alert(this.fullName +' is manager? ')
-    if(this.manager != undefined && this.manager )
-    {
-      document.getElementById('manager').style.visibility = 'visible'
-    }
-    else
-    {
-      document.getElementById('manager').style.visibility = 'hidden'
-    }
-    })
-  }
-  else
-  {
-    document.getElementById('manager').style.visibility = 'hidden'
-  }
-}
-
   async presentLoading() {
     this.loadingRef = await this.loadingController.create({ message: 'Please wait...', })
     await this.loadingRef.present()
@@ -115,20 +86,5 @@ export class SignupPage {
     this.loadingRef.dismiss()
   }
 
-  login()
-  {
-    
-    if(document.getElementById('btnLogin').innerHTML=='Login')
-    { 
-      this.router.navigateByUrl('/login')
-    }
-    else
-    {
-      this.userAuth.auth.signOut().then((result)=> {
-        document.getElementById('btnLogin').innerHTML = 'Login'
-        this.router.navigateByUrl('/home').then(()=>{})
-      })
-    }
-  }
 
 }
