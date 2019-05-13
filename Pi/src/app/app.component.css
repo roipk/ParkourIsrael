@@ -21,6 +21,18 @@ nav a:hover {
     transition:0s;
     cursor:pointer;
 }
+.left
+{
+  float: left;
+  width: 50%;
+}
+.right
+{
+  float: right;
+  width:15%;
+  margin-left: 2%;
+  
+}
 
 h6 {
   padding: 0px;

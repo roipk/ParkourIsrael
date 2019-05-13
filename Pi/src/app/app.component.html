@@ -7,14 +7,26 @@
   </ion-header>
   
   
-  <nav>
-      <a href="#"> Home </a> 
-      <a routerLink='/news' routerLinkActive="active"> News </a>
-      <a href="#"> Contact </a>
-      <a href="#"> Help </a>
-      <a id ='btnLogin'  (click)='login()'>Login</a>
+  <nav table>
+    <div class = "left">
+      <a  routerLink = "/home"    routerLinkActive = "active"> Home </a> 
+      <a  routerLink = "/news"    routerLinkActive = "active"> News </a>
+      <!-- <a  routerLink = "/contact"  routerLinkActive = "active"> Contact </a> -->
+      <!-- <a  routerLink = "/help"    routerLinkActive = "active"> Help </a> -->
+      <a  routerLink = "/info"    routerLinkActive = "active"> Info </a>
       <a id ='manager' routerLink = "/manager" routerLinkActive="active"> Manage </a>
-  
+    </div>
+    <div class="right"> 
+        <table>
+            <tr>
+                    <td>
+                        <h5 id = 'loginNickName' >welcome </h5>
+                    </td>
+                    <td><a id ='btnLogin'  (click)='login()'><h6>Login</h6></a></td>
+                  </tr>
+        </table>
+    
+    </div>
   </nav>
 
   <div >

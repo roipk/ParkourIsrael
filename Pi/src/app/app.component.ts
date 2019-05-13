@@ -57,34 +57,27 @@ export class AppComponent {
     
     if(this.uAuth.auth.currentUser != null)
     {
-      // alert('in')
-    this.db.collection('users').doc(this.uAuth.auth.currentUser.uid)
-    .get().subscribe(result => {
-      // alert('in2')
-    this.manager = result.data().manager
-    // alert('in2.1')
-    if(this.manager != undefined && this.manager )
-    {
-      // alert('in3')
-      document.getElementById('manager').style.visibility = 'visible'
+      this.db.collection('users').doc(this.uAuth.auth.currentUser.uid)
+      .get().subscribe(result => {
+      this.manager = result.data().manager
+      if(this.manager != undefined && this.manager )
+      {
+        document.getElementById('manager').style.visibility = 'visible'
+      }
+      else
+      { 
+        document.getElementById('manager').style.visibility = 'hidden'
+      }
       document.getElementById('btnLogin').innerHTML='LogOut'
+      document.getElementById('loginNickName').innerHTML = 'welcome '+ result.data().nickName
+      })
     }
-    else
-    { 
-      //alert('in4')
-      
-      document.getElementById('manager').style.visibility = 'hidden'
-      document.getElementById('btnLogin').innerHTML='LogOut'
-    }
-    })
-  }
   else
   {
-    // alert('in5')
     document.getElementById('manager').style.visibility = 'hidden'
     document.getElementById('btnLogin').innerHTML='Login'
+    document.getElementById('loginNickName').innerHTML ='welcome'
   }
-  // alert('in6')
 }
 
   login()
