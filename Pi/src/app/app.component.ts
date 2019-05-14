@@ -26,17 +26,16 @@ export class AppComponent {
     private statusBar: StatusBar,
     public user: UserService,
     
-    private uAuth: AngularFireAuth,
+    // private uAuth: AngularFireAuth,
     private userAuth: AngularFireAuth, 
     private db: AngularFirestore,
     private router: Router
   ) {
     this.initializeApp();
-    
   }
 
   ngOnInit(): void {
-    this.uAuth.user.subscribe(() => {
+    this.userAuth.user.subscribe(() => {
      this.adminMode()
     })
   
@@ -55,9 +54,9 @@ export class AppComponent {
   adminMode()
   {
     
-    if(this.uAuth.auth.currentUser != null)
+    if(this.userAuth.auth.currentUser != null)
     {
-      this.db.collection('users').doc(this.uAuth.auth.currentUser.uid)
+      this.db.collection('users').doc(this.userAuth.auth.currentUser.uid)
       .get().subscribe(result => {
       this.manager = result.data().manager
       if(this.manager != undefined && this.manager )
@@ -69,7 +68,7 @@ export class AppComponent {
         document.getElementById('manager').style.visibility = 'hidden'
       }
       document.getElementById('btnLogin').innerHTML='LogOut'
-      document.getElementById('loginNickName').innerHTML = 'welcome '+ result.data().nickName
+      document.getElementById('loginNickName').innerHTML = 'welcome '+ result.data().userName
       })
     }
   else

@@ -3,6 +3,16 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import {AngularFireDatabase} from '@angular/fire/database'
+import { database } from 'firebase';
+
+
+
+
+
+
+
+
 
 @Component({
   selector: 'app-signup',
@@ -12,42 +22,76 @@ import { Router } from '@angular/router';
 export class SignupPage {
   @ViewChild('firstName') firstNameField
   @ViewChild('lastName') lastNameField
-  @ViewChild('nickName') nickNameField
+  @ViewChild('userName') userNameField
   @ViewChild('email') emailField
   @ViewChild('password') passField
   @ViewChild('confirm') confirmField
 
+
   loadingRef = null
-  manager = false;
+  login = true
+  users = []
 
   constructor(
     private userAuth: AngularFireAuth,
     private db: AngularFirestore,
     private loadingController: LoadingController,
     private router: Router,
-    private uAuth:AngularFireAuth) { }
-
-    ngOnInit(): void {
-      this.uAuth.user.subscribe(() => {
-      })
-      
+    private uAuth:AngularFireAuth,
+    ) { 
 
     }
 
+
+    ngOnInit(): void {
+      this.uAuth.user.subscribe(result => {
+        
+      })
+
+      
+    
+
+    }
+
+    
+    
   createNewUser(): void {
     const email = this.emailField.value
     const password = this.passField.value
     const firstName = this.firstNameField.value
     const lastName = this.lastNameField.value
     const fullName = firstName + ' ' + lastName
-    const nickName = this.nickNameField.value
+    const userName = this.userNameField.value
     const confirm = this.confirmField.value 
-  
+    // console.log(database)
+
+   
+    // console.log(database)
+    // var ref = database.ref('users')
+    // ref.on('value',this.gotData,this.ErrorData)
+    
+    
+    
+    //  this.db.collection('users').valueChanges().subscribe(
+    //   result => 
+    //   {
+    //     this.users = result
+    //     if(this.users.length >=0 )
+    //       alert(this.users[0]['email'] )
+    //     else{
+    //       alert('user empty')
+    //     }
+    //   })
     
 
 
 
-    if(fullName =='' || nickName =='' )
+   
+    // this.db.collection('users')
+
+
+
+    if(fullName =='' || userName =='' )
     {
       alert('one or more values empty' )
     }
@@ -62,19 +106,71 @@ export class SignupPage {
     {
       alert('no mach password')
     }
-    else{
-      this.presentLoading()
-      this.userAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        this.db.collection('users').doc(result.user.uid).set({ fullName: fullName, email: email, nickName: nickName,manager:this.manager })
-        .then(() => {
-          this.dismissLoading()
-          this.router.navigateByUrl('/news')
-        })
-      })
+    else
+    {
+     this.enter()
     }
+  
   }
 
+
+  gotData(data)
+    {
+      console.log(data)
+      alert('in2') 
+      this.users = data.value
+      // alert(this.users.length)
+      var key = Object.keys(this.users)
+      // alert(key.length)
+    }
+
+ErrorData(err)
+{
+  console.log(err)
+  alert('in error')
+}
+
+  // for (let index = 0; index < this.users.length; index++) 
+  // {
+   
+  //   if(this.users[index]['email'] == email)
+  //   {
+  //     alert('email exsist in index ' + index +' '+this.users[index]['email']  )
+  //     this.login = false
+  //     break
+  //   }
+  //   else if(this.users[index]['userName'] == userName)
+  //   {
+  //     alert('username exsist in index' + index +' '+this.users[index]['email']  )
+  //     this.login = false
+  //     break
+  //   } 
+  // }
+
+
+enter()
+{
+
+  const email = this.emailField.value
+    const password = this.passField.value
+    const firstName = this.firstNameField.value
+    const lastName = this.lastNameField.value
+    const fullName = firstName + ' ' + lastName
+    const userName = this.userNameField.value
+    const manager = false
+
+  this.presentLoading()
+          this.userAuth.auth.createUserWithEmailAndPassword(email, password)
+          .then((result) => 
+          {
+            this.db.collection('users').doc(result.user.uid).set({ fullName: fullName, email: email, userName: userName,manager:manager })
+            .then(() => 
+            {
+              this.dismissLoading()
+              this.router.navigateByUrl('/news')
+            })
+          })
+}
 
 
   async presentLoading() {
@@ -86,5 +182,12 @@ export class SignupPage {
     this.loadingRef.dismiss()
   }
 
+
+  onKeyUp(data) {
+    const ENTER_KET_CODE = 13
+    if (data.keyCode === ENTER_KET_CODE) {
+      this.createNewUser()
+    }
+  }
 
 }

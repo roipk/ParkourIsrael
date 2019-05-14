@@ -1,14 +1,17 @@
 ion-grid {
-    height: 100%;
+   // height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    // justify-content: center;
 }
 
+h6 {
+  font-size: 70%;
+}
   .hr-text 
 {
-    margin-top: 30px;
-    margin-bottom: 20px;
+    margin-top: 2%;
+    margin-bottom: 2%;
     line-height: 1em;
     max-width: 50%;
     position: relative;
@@ -24,7 +27,7 @@ ion-grid {
       background: linear-gradient(to right, transparent, #818078, transparent);
       position: absolute;
       left: 0;
-      top: 50%;
+      // top: 50%;
       width: 100%;
       height: 1px;
     }
@@ -35,7 +38,7 @@ ion-grid {
       display: inline-block;
       color: black;
   
-      padding: 0 .5em;
+      // padding: 0 .5em;
       line-height: 1.5em;
       color: #818078;
       background-color: #fcfcfa;
@@ -46,3 +49,8 @@ ion-grid {
   {
     color: white;
   }
+
+
+
+
+ 

@@ -39,7 +39,7 @@ export class NewsPage {
          this.messages = result
         // this.scrollToBottom()
        } else {
-        this.messages.push(result[result.length - 1])
+        this.messages.push(result[result.length-1])
        }
      })
   }

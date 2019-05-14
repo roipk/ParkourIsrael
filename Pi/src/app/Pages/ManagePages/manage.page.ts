@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 
 
 
@@ -14,6 +15,7 @@ export class ManagePage {
 
   constructor(
     private uAuth:AngularFireAuth,
+    private router: Router,
     private db: AngularFirestore
     ) { }
 
@@ -26,12 +28,12 @@ export class ManagePage {
           this.manager = result.data().manager  
           if(!this.manager)
           {
-            window.location.href = "#";
+            this.router.navigateByUrl('/home')
           } 
           })
       }
       else{
-        window.location.href = "#";
+        this.router.navigateByUrl('/home')
       } 
     
     })

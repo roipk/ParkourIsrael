@@ -46,17 +46,21 @@ export class LoginPage {
 
 
   signInUser() {
+    // alert('in')
+    // alert(this.userAuth.auth.currentUser.uid.match)
     const email = this.emailField.value
     const password = this.passField.value
     this.presentLoading()
     if(email && password)
     {
+     
         this.userAuth.auth.signInWithEmailAndPassword(email, password)
         .then((result)=> {
         this.dismissLoading()
         this.router.navigateByUrl('/news')
         }).catch(() => {
         this.dismissLoading()
+        alert('email or password not correct')
         })
     }
     else
