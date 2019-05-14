@@ -30,8 +30,9 @@ export class SignupPage {
 
   loadingRef = null
   login = true
+  once = true
   users = []
-
+  
   constructor(
     private userAuth: AngularFireAuth,
     private db: AngularFirestore,
@@ -47,10 +48,6 @@ export class SignupPage {
       this.uAuth.user.subscribe(result => {
         
       })
-
-      
-    
-
     }
 
     
@@ -63,31 +60,8 @@ export class SignupPage {
     const fullName = firstName + ' ' + lastName
     const userName = this.userNameField.value
     const confirm = this.confirmField.value 
-    // console.log(database)
-
    
-    // console.log(database)
-    // var ref = database.ref('users')
-    // ref.on('value',this.gotData,this.ErrorData)
-    
-    
-    
-    //  this.db.collection('users').valueChanges().subscribe(
-    //   result => 
-    //   {
-    //     this.users = result
-    //     if(this.users.length >=0 )
-    //       alert(this.users[0]['email'] )
-    //     else{
-    //       alert('user empty')
-    //     }
-    //   })
-    
 
-
-
-   
-    // this.db.collection('users')
 
 
 
@@ -104,73 +78,50 @@ export class SignupPage {
     }
     else if(confirm != password)
     {
-      alert('no mach password')
+      alert('no match password')
     }
     else
     {
-     this.enter()
-    }
-  
-  }
 
-
-  gotData(data)
-    {
-      console.log(data)
-      alert('in2') 
-      this.users = data.value
-      // alert(this.users.length)
-      var key = Object.keys(this.users)
-      // alert(key.length)
-    }
-
-ErrorData(err)
-{
-  console.log(err)
-  alert('in error')
-}
-
-  // for (let index = 0; index < this.users.length; index++) 
-  // {
-   
-  //   if(this.users[index]['email'] == email)
-  //   {
-  //     alert('email exsist in index ' + index +' '+this.users[index]['email']  )
-  //     this.login = false
-  //     break
-  //   }
-  //   else if(this.users[index]['userName'] == userName)
-  //   {
-  //     alert('username exsist in index' + index +' '+this.users[index]['email']  )
-  //     this.login = false
-  //     break
-  //   } 
-  // }
-
-
-enter()
-{
-
-  const email = this.emailField.value
-    const password = this.passField.value
-    const firstName = this.firstNameField.value
-    const lastName = this.lastNameField.value
-    const fullName = firstName + ' ' + lastName
-    const userName = this.userNameField.value
-    const manager = false
-
-  this.presentLoading()
+      this.db.collection('users').valueChanges().subscribe(
+        result => {
+          this.users = result
+          for (let index = 0; index < this.users.length; index++) {
+            if(this.users[index]['email'] === email){
+              this.login = false
+            break
+            }
+            else if(this.users[index]['userName'] === userName){
+            this.login = false
+            break
+            } 
+          }
+          if(this.login)
+         {
+           this.once = false
+          this.presentLoading()
           this.userAuth.auth.createUserWithEmailAndPassword(email, password)
           .then((result) => 
           {
-            this.db.collection('users').doc(result.user.uid).set({ fullName: fullName, email: email, userName: userName,manager:manager })
+            this.db.collection('users').doc(result.user.uid).set({ fullName: fullName, email: email, userName: userName,manager:false })
             .then(() => 
             {
               this.dismissLoading()
               this.router.navigateByUrl('/news')
             })
-          })
-}
+          }) 
+         }
+         else if(!this.login && this.once)
+        {
+          alert('A username or email is already in the systemr')
+          window.location.reload();
+        }
+   
+        })
+      }
+        
+  }
+
 
 
   async presentLoading() {
@@ -178,7 +129,8 @@ enter()
     await this.loadingRef.present()
   }
 
-  dismissLoading() {
+    dismissLoading() {
+      
     this.loadingRef.dismiss()
   }
 
