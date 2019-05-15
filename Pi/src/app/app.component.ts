@@ -81,7 +81,6 @@ export class AppComponent {
 
   login()
   {
-    
     if(document.getElementById('btnLogin').innerHTML=='Login')
     { 
       this.router.navigateByUrl('/login')

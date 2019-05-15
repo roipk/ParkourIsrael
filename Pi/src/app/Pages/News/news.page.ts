@@ -21,6 +21,7 @@ export class NewsPage {
     private db: AngularFirestore) { }
 
   ngOnInit(): void {
+    
     this.adminMode()
     this.uAuth.user.subscribe(() => {
       this.afterUserInside()
