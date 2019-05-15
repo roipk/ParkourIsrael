@@ -20,6 +20,7 @@ export class LoginPage {
   loadingRef = null
   userExsist = false
   emailExsist = false
+  email = ''
   uid = this.afAuth.authState.pipe(
     map(authState =>{if(!authState)
       {
@@ -53,13 +54,19 @@ export class LoginPage {
     // alert(this.userAuth.auth.currentUser.uid.match)
     const email = this.emailField.value
     const password = this.passField.value
+
+
+
+
+
+
     this.presentLoading()
     if(email && password)
     {
      
 
 
-        this.userAuth.auth.signInWithEmailAndPassword(email, password)
+        this.userAuth.auth.signInWithEmailAndPassword(this.email, password)
         .then((result)=> {
         this.dismissLoading()
         this.router.navigateByUrl('/news')
@@ -109,21 +116,6 @@ export class LoginPage {
     }
   }
 
-
-
-
-  CheckUsername()
-  {
-    this.db.collection('users', ref => ref.where('userName', '==', this.emailField.value)).get().subscribe(result => {
-     if(result.empty)
-     {
-     this.userExsist = true
-     }
-     else{
-      this.userExsist = false
-     }
-     })
-  }
   
   
 CheckEmail()
@@ -131,12 +123,28 @@ CheckEmail()
   this.db.collection('users', ref => ref.where('email', '==', this.emailField.value)).get().subscribe(result => {
    if(result.empty)
    {
-    this.emailExsist = true
-   }
-   else{
     this.emailExsist = false
    }
+   else{
+    this.emailExsist = true
+    this.email = this.emailField.value
+    return
+   }
    })
+
+   this.db.collection('users', ref => ref.where('userName', '==', this.emailField.value)).get().subscribe(result => {
+    if(result.empty)
+    {
+    this.userExsist = false
+    }
+    else{
+     this.userExsist = true
+     let id = result.docs[0].id
+    this.db.collection('users').doc(id).get().subscribe(result => {
+     this.email = result.data().email
+    })
+    }
+    })
 }
 
 
