@@ -21,6 +21,7 @@ export class LoginPage {
   userExsist = false
   emailExsist = false
   email = ''
+  SignIn = true
   uid = this.afAuth.authState.pipe(
     map(authState =>{if(!authState)
       {
@@ -60,12 +61,10 @@ export class LoginPage {
 
 
 
-    this.presentLoading()
-    if(email && password)
+    
+    if(email && password && this.SignIn)
     {
-     
-
-
+        this.presentLoading()
         this.userAuth.auth.signInWithEmailAndPassword(this.email, password)
         .then((result)=> {
         this.dismissLoading()
@@ -128,6 +127,7 @@ CheckEmail()
    else{
     this.emailExsist = true
     this.email = this.emailField.value
+    this.SignIn = true
     return
    }
    })
@@ -142,9 +142,12 @@ CheckEmail()
      let id = result.docs[0].id
     this.db.collection('users').doc(id).get().subscribe(result => {
      this.email = result.data().email
+     this.SignIn = true
+     return
     })
     }
     })
+    this.SignIn = false
 }
 
 
