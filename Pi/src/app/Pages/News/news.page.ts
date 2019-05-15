@@ -45,7 +45,7 @@ export class NewsPage {
   afterUserInside() {
     this.db.collection('users').doc(this.uAuth.auth.currentUser.uid)
     .get().subscribe(result => {
-      this.fullName = result.data().fullName
+      this.fullName = result.data().userName
     })
    
   }
