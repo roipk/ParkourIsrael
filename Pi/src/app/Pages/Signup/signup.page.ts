@@ -3,9 +3,6 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import {AngularFireDatabase} from '@angular/fire/database'
-import { database } from 'firebase';
-
 
 
 
@@ -29,19 +26,17 @@ export class SignupPage {
 
 
   loadingRef = null
-  login = true
-  once = true
   users = []
-  
+  userEmpty = true
+  emailEmpty = true
   constructor(
     private userAuth: AngularFireAuth,
     private db: AngularFirestore,
     private loadingController: LoadingController,
     private router: Router,
     private uAuth:AngularFireAuth,
-    ) { 
-
-    }
+    ) { }
+    
 
 
     ngOnInit(): void {
@@ -82,24 +77,10 @@ export class SignupPage {
     }
     else
     {
-
-      this.db.collection('users').valueChanges().subscribe(
-        result => {
-          this.users = result
-          for (let index = 0; index < this.users.length; index++) {
-            if(this.users[index]['email'] === email){
-              this.login = false
-            break
-            }
-            else if(this.users[index]['userName'] === userName){
-            this.login = false
-            break
-            } 
-          }
-          if(this.login)
-         {
-           this.once = false
-          this.presentLoading()
+   
+      if(this.emailEmpty && this.userEmpty)
+      {
+       this.presentLoading()
           this.userAuth.auth.createUserWithEmailAndPassword(email, password)
           .then((result) => 
           {
@@ -109,17 +90,14 @@ export class SignupPage {
               this.dismissLoading()
               this.router.navigateByUrl('/news')
             })
-          }) 
-         }
-         else if(!this.login && this.once)
-        {
-          alert('A username or email is already in the systemr')
-          window.location.reload();
-        }
-   
-        })
+          })
       }
-        
+         else
+         {
+          alert('A username or email is already in the system')
+         window.location.reload()
+        }
+      }
   }
 
 
@@ -141,5 +119,38 @@ export class SignupPage {
       this.createNewUser()
     }
   }
+
+
+  
+
+  
+CheckUsername()
+{
+  this.db.collection('users', ref => ref.where('userName', '==', this.userNameField.value)).get().subscribe(result => {
+   if(result.empty)
+   {
+   this.userEmpty = true
+   }
+   else{
+    this.userEmpty = false
+   alert( 'Username is busy Try another username')
+   }
+   })
+}
+
+CheckEmail()
+{
+  this.db.collection('users', ref => ref.where('email', '==', this.emailField.value)).get().subscribe(result => {
+   if(result.empty)
+   {
+    this.emailEmpty = true
+   }
+   else{
+    this.emailEmpty = false
+    alert(" This email is associated with an existing account  ")
+   }
+   })
+}
+
 
 }

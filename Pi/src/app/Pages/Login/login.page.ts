@@ -18,6 +18,8 @@ export class LoginPage {
   @ViewChild('email') emailField
   @ViewChild('password') passField
   loadingRef = null
+  userExsist = false
+  emailExsist = false
   uid = this.afAuth.authState.pipe(
     map(authState =>{if(!authState)
       {
@@ -35,6 +37,7 @@ export class LoginPage {
     private userAuth: AngularFireAuth,
     private loadingController: LoadingController,
     private router: Router,
+    private db: AngularFirestore,
     private uAuth:AngularFireAuth) { }
 
     ngOnInit(): void {
@@ -54,6 +57,8 @@ export class LoginPage {
     if(email && password)
     {
      
+
+
         this.userAuth.auth.signInWithEmailAndPassword(email, password)
         .then((result)=> {
         this.dismissLoading()
@@ -103,5 +108,36 @@ export class LoginPage {
       })
     }
   }
+
+
+
+
+  CheckUsername()
+  {
+    this.db.collection('users', ref => ref.where('userName', '==', this.emailField.value)).get().subscribe(result => {
+     if(result.empty)
+     {
+     this.userExsist = true
+     }
+     else{
+      this.userExsist = false
+     }
+     })
+  }
+  
+  
+CheckEmail()
+{
+  this.db.collection('users', ref => ref.where('email', '==', this.emailField.value)).get().subscribe(result => {
+   if(result.empty)
+   {
+    this.emailExsist = true
+   }
+   else{
+    this.emailExsist = false
+   }
+   })
+}
+
 
 }
