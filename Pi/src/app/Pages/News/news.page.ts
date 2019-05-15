@@ -21,14 +21,11 @@ export class NewsPage {
     private db: AngularFirestore) { }
 
   ngOnInit(): void {
+    this.adminMode()
     this.uAuth.user.subscribe(() => {
       this.afterUserInside()
+      this.adminMode()
     })  
-    var x = document.getElementById("manager");
-    if(this.uAuth.auth.currentUser == null )
-    {
-      document.getElementById("footerMassage").style.visibility = 'hidden' 
-    }
     this.db.collection('messages').valueChanges().subscribe(
      result => {
        result.sort((m1, m2) => {
@@ -40,6 +37,7 @@ export class NewsPage {
         // this.scrollToBottom()
        } else {
         this.messages.push(result[result.length-1])
+        window.location.reload()
        }
      })
   }
@@ -49,6 +47,7 @@ export class NewsPage {
     .get().subscribe(result => {
       this.fullName = result.data().fullName
     })
+   
   }
 
   sendMessage() {
@@ -79,5 +78,20 @@ export class NewsPage {
       this.sendMessage()
     }
   }
+
+  
+ 
+  adminMode()
+  {
+    if(this.uAuth.auth.currentUser != null)
+    {
+      document.getElementById('footerMassage').hidden = false;
+    }
+  else
+  {
+    document.getElementById('footerMassage').hidden = true;
+  }
+}
+
 
 }
