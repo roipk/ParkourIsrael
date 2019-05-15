@@ -14,7 +14,12 @@ ion-grid {
     bottom: 0;
     width: 100%;
     text-align: left;
-    border: 5px solid red;
-    border-radius: 10px;
-
+    border-top-width: thin;
+    border-top-style: solid;
  }
+
+ion-input{
+    border: 2px solid;
+    border-radius: 25px;
+}
+
