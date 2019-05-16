@@ -145,5 +145,17 @@ export class LoginPage {
     this.SignIn = false
   }
 
+passwordType: string = 'password';
+ passwordIcon: string = 'eye-off';
+
+ hideShowPassword() {
+     this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
+     this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
+ }
+
+isPasswordInEmpty(): boolean {
+  return this.passField == null || this.passField.value == null || this.passField.value.length <= 0
+}
+
 
 }
