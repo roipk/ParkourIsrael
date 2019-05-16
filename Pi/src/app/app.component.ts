@@ -75,7 +75,7 @@ export class AppComponent {
   {
     document.getElementById('manager').style.visibility = 'hidden'
     document.getElementById('btnLogin').innerHTML='Login'
-    document.getElementById('loginNickName').innerHTML ='welcome'
+    document.getElementById('loginNickName').innerHTML ='Welcome'
   }
 }
 
