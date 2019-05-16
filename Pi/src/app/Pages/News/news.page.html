@@ -10,8 +10,7 @@
   </ion-grid>
 </ion-content>
 
-
-<div class="footer" type='manager' id = "footerMassage" >
+<div *ngIf='uAuth.auth.currentUser != null' class="footer" type='manager' id = "footerMassage" >
     <ion-toolbar>
       <ion-input  (keyup)='onKeyUp($event)' #messageField placeholder="Message"></ion-input> 
       <ion-button  [disabled]='isMessageInvalid()' slot='end' (click)='sendMessage()' >Send</ion-button> 

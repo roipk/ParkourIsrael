@@ -84,7 +84,7 @@ export class SignupPage {
           this.userAuth.auth.createUserWithEmailAndPassword(email, password)
           .then((result) => 
           {
-            this.db.collection('users').doc(result.user.uid).set({ fullName: fullName, email: email, userName: userName,manager:false })
+            this.db.collection('users').doc(result.user.uid).set({ fullName: fullName, email: email, userName: userName })
             .then(() => 
             {
               this.dismissLoading()

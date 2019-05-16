@@ -23,16 +23,17 @@ export class LoginPage {
   email = ''
   SignIn = true
   uid = this.afAuth.authState.pipe(
-    map(authState =>{if(!authState)
-      {
+    map(authState => {
+      if (!authState) {
         return null;
       }
-      else{
+      else {
         return authState.uid;
       }
-       authState.uid})
-    );
-//  isAdmin = observableOf('true');
+      authState.uid
+    })
+  );
+  //  isAdmin = observableOf('true');
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -40,13 +41,13 @@ export class LoginPage {
     private loadingController: LoadingController,
     private router: Router,
     private db: AngularFirestore,
-    private uAuth:AngularFireAuth) { }
+    private uAuth: AngularFireAuth) { }
 
-    ngOnInit(): void {
-      this.uAuth.user.subscribe(() => {  
-      })
-     
-    }
+  ngOnInit(): void {
+    this.uAuth.user.subscribe(() => {
+    })
+
+  }
 
 
 
@@ -61,33 +62,31 @@ export class LoginPage {
 
 
 
-    
-    if(email && password && this.SignIn)
-    {
-        this.presentLoading()
-        this.userAuth.auth.signInWithEmailAndPassword(this.email, password)
-        .then((result)=> {
-        this.dismissLoading()
-        this.router.navigateByUrl('/news')
+
+    if (email && password && this.SignIn) {
+      this.presentLoading()
+      this.userAuth.auth.signInWithEmailAndPassword(this.email, password)
+        .then((result) => {
+          this.dismissLoading()
+          this.router.navigateByUrl('/news')
         }).catch(() => {
-        this.dismissLoading()
-        alert('email or password not correct')
+          this.dismissLoading()
+          alert('email or password not correct')
         })
     }
-    else
-    {
+    else {
       alert('email or password not correct')
     }
   }
 
-  
-  googlelogin(){
-    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then((result)=> {
+
+  googlelogin() {
+    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then((result) => {
       this.router.navigateByUrl('/news')
-      }).catch(() => {
+    }).catch(() => {
       this.dismissLoading()
-      })
-}
+    })
+  }
 
 
   async presentLoading() {
@@ -99,56 +98,52 @@ export class LoginPage {
     this.loadingRef.dismiss()
   }
 
-  login()
-  {
-    
-    if(document.getElementById('btnLogin').innerHTML=='Login')
-    { 
+  login() {
+
+    if (document.getElementById('btnLogin').innerHTML == 'Login') {
       this.router.navigateByUrl('/login')
     }
-    else
-    {
-      this.userAuth.auth.signOut().then((result)=> {
+    else {
+      this.userAuth.auth.signOut().then((result) => {
         document.getElementById('btnLogin').innerHTML = 'Login'
-        this.router.navigateByUrl('/home').then(()=>{})
+        this.router.navigateByUrl('/home').then(() => { })
       })
     }
   }
 
-  
-  
-CheckEmail()
-{
-  this.db.collection('users', ref => ref.where('email', '==', this.emailField.value)).get().subscribe(result => {
-   if(result.empty)
-   {
-    this.emailExsist = false
-   }
-   else{
-    this.emailExsist = true
-    this.email = this.emailField.value
-    this.SignIn = true
-    return
-   }
-   })
 
-   this.db.collection('users', ref => ref.where('userName', '==', this.emailField.value)).get().subscribe(result => {
-    if(result.empty)
-    {
-    this.userExsist = false
-    }
-    else{
-     this.userExsist = true
-     let id = result.docs[0].id
-    this.db.collection('users').doc(id).get().subscribe(result => {
-     this.email = result.data().email
-     this.SignIn = true
-     return
+
+  CheckEmail() {
+    this.db.collection('users', ref => ref.where('email', '==', this.emailField.value)).get().subscribe(result => {
+      if (result.empty) {
+        this.emailExsist = false
+      }
+      else {
+        this.emailExsist = true
+        this.email = this.emailField.value
+        this.SignIn = true
+        return
+      }
     })
-    }
+
+
+
+    this.db.collection('users', ref => ref.where('userName', '==', this.emailField.value)).get().subscribe(result => {
+      if (result.empty) {
+        this.userExsist = false
+      }
+      else {
+        this.userExsist = true
+        let id = result.docs[0].id
+        this.db.collection('users').doc(id).get().subscribe(result => {
+          this.email = result.data().email
+          this.SignIn = true
+          return
+        })
+      }
     })
     this.SignIn = false
-}
+  }
 
 
 }

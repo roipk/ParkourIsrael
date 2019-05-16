@@ -20,6 +20,15 @@ export class AppComponent {
   fullName = ''
   manager = false;
 
+  items = [
+    {url: '1', name:'test'},
+    {url: '1', name:'test2'},
+    {url: '1', name:'test3'},
+    {url: '1', name:'test4'},
+    {url: '1', name:'test5'},
+    {url: '1', name:'test6'}
+  ]
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,

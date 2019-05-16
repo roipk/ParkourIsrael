@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 
@@ -15,40 +15,43 @@ export class NewsPage {
   messages = []
   fullName = ''
   manager = false;
-  
+
   constructor(
     private uAuth: AngularFireAuth,
+    private ngZone: NgZone,
     private db: AngularFirestore) { }
 
   ngOnInit(): void {
-    
-    this.adminMode()
+
+    // this.adminMode()
     this.uAuth.user.subscribe(() => {
       this.afterUserInside()
-      this.adminMode()
-    })  
+      // this.adminMode()
+    })
     this.db.collection('messages').valueChanges().subscribe(
-     result => {
-       result.sort((m1, m2) => {
-          if(m1['timestamp'] < m2['timestamp']) return 1
+      result => {
+        result.sort((m1, m2) => {
+          if (m1['timestamp'] < m2['timestamp']) return 1
           else return -1
-       })
-       if(this.messages.length <= 0) {
-         this.messages = result
-        // this.scrollToBottom()
-       } else {
-        this.messages.push(result[result.length-1])
-        window.location.reload()
-       }
-     })
+        })
+        this.messages = [...result]
+        return
+        if (this.messages.length <= 0) {
+          this.messages = result
+          // this.scrollToBottom()
+        } else {
+          this.ngZone.run(() => { this.messages.push(result[result.length - 1]) })
+          window.location.reload()
+        }
+      })
   }
 
   afterUserInside() {
     this.db.collection('users').doc(this.uAuth.auth.currentUser.uid)
-    .get().subscribe(result => {
-      this.fullName = result.data().userName
-    })
-   
+      .get().subscribe(result => {
+        this.fullName = result.data().userName
+      })
+
   }
 
   sendMessage() {
@@ -64,13 +67,13 @@ export class NewsPage {
     ///this.scrollToBottom()
   }
 
-   isMessageInvalid(): boolean {
+  isMessageInvalid(): boolean {
     return this.messageField == null || this.messageField.value == null || this.messageField.value.length <= 0
   }
 
 
   scrollToBottom() {
-    setTimeout(() => {  this.mainContent.scrollToBottom(700) }, 120)
+    setTimeout(() => { this.mainContent.scrollToBottom(700) }, 120)
   }
 
   onKeyUp(data) {
@@ -79,20 +82,6 @@ export class NewsPage {
       this.sendMessage()
     }
   }
-
-  
- 
-  adminMode()
-  {
-    if(this.uAuth.auth.currentUser != null)
-    {
-      document.getElementById('footerMassage').hidden = false;
-    }
-  else
-  {
-    document.getElementById('footerMassage').hidden = true;
-  }
-}
 
 
 }

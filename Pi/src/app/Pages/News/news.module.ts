@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { NewsPage } from './news.page';
 import { PostBubbleComponent } from '../post-bubble/post-bubble.component';
-import { load } from '@angular/core/src/render3';
 
 
 @NgModule({
