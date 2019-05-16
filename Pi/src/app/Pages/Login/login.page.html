@@ -33,16 +33,8 @@
         <ion-item>
           <ion-label position="floating">Password</ion-label>
           <ion-input [type]="passwordType" clearOnEdit="false" #password></ion-input>
-<<<<<<< HEAD
-<<<<<<< d09ebec56f108d004e8537ead75b6283cb742622
-          <ion-icon [hidden]='isPasswordInEmpty()' slot='end' display="inline-block" item-end [name]="passwordIcon"
+          <ion-icon [hidden]='isPasswordInEmpty()' slot='end' [name]="passwordIcon"
             class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
-=======
-          <ion-icon [hidden]='isPasswordInEmpty()' slot='end' [name]="passwordIcon" (click)='hideShowPassword()'></ion-icon>
->>>>>>> Eye drop password icon 2
-=======
-          <ion-icon [hidden]='isPasswordInEmpty()' slot='end' [name]="passwordIcon" (click)='hideShowPassword()'></ion-icon>
->>>>>>> master
         </ion-item>
       </ion-col>
 
