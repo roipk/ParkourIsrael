@@ -32,21 +32,24 @@
       <ion-col size='3' offset='4.5'>
         <ion-item>
           <ion-label position="floating">Password</ion-label>
-          <ion-input type='password' #password></ion-input>
+          <ion-input [type]="passwordType" clearOnEdit="false" #password></ion-input>
+          <ion-icon [hidden]='isPasswordInEmpty()' slot='end' display="inline-block" item-end [name]="passwordIcon"
+            class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
         </ion-item>
       </ion-col>
+
     </ion-row>
 
     <ion-row>
       <ion-col size='3' offset='4.5'>
-          <ion-button expand="block" (click)='signInUser()'>Login</ion-button>
+        <ion-button expand="block" (click)='signInUser()'>Login</ion-button>
       </ion-col>
     </ion-row>
 
   </ion-grid>
 
-  <ion-text text-center>  
-    <h6> <a  routerLink='/signup'> Don't have an account? Register here.  </a></h6>
+  <ion-text text-center>
+    <h6> <a routerLink='/signup'> Don't have an account? Register here. </a></h6>
   </ion-text>
 
   <hr class="hr-text" data-content="OR">
@@ -60,12 +63,12 @@
     </ion-row>
 
     <ion-row>
-        <ion-col size='3' offset='4.5'>
-            <!-- <ion-button expand="block" (click)="b()">test</ion-button> -->
-         <ion-button class="google-btn" color="google" expand="block" (click)="googlelogin()">Login with Google </ion-button>
-        </ion-col>
-      </ion-row>
+      <ion-col size='3' offset='4.5'>
+        <!-- <ion-button expand="block" (click)="b()">test</ion-button> -->
+        <ion-button class="google-btn" color="google" expand="block" (click)="googlelogin()">Login with Google
+        </ion-button>
+      </ion-col>
+    </ion-row>
   </ion-grid>
 
 </ion-content>
-
