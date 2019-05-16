@@ -68,7 +68,7 @@ export class AppComponent {
         document.getElementById('manager').style.visibility = 'hidden'
       }
       document.getElementById('btnLogin').innerHTML='LogOut'
-      document.getElementById('loginNickName').innerHTML = 'welcome '+ result.data().userName
+      document.getElementById('loginNickName').innerHTML = 'Welcome '+ result.data().userName
       })
     }
   else
