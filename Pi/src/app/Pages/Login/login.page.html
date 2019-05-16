@@ -33,8 +33,7 @@
         <ion-item>
           <ion-label position="floating">Password</ion-label>
           <ion-input [type]="passwordType" clearOnEdit="false" #password></ion-input>
-          <ion-icon [hidden]='isPasswordInEmpty()' slot='end'  item-end [name]="passwordIcon"
-            class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+          <ion-icon [hidden]='isPasswordInEmpty()' slot='end' [name]="passwordIcon" (click)='hideShowPassword()'></ion-icon>
         </ion-item>
       </ion-col>
 
