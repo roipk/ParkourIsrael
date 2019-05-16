@@ -6,14 +6,20 @@
     </ion-toolbar>
   </ion-header>
   
-  
+<!--   
   <nav table>
+
+
     <div class = "left">
       <a  routerLink = "/home"    routerLinkActive = "active"> Home </a> 
-      <a  routerLink = "/news"    routerLinkActive = "active"> News </a>
+      <a  routerLink = "/news"    routerLinkActive = "active"> News </a> --> 
+
+
+
       <!-- <a  routerLink = "/contact"  routerLinkActive = "active"> Contact </a> -->
-      <!-- <a  routerLink = "/help"    routerLinkActive = "active"> Help </a> -->
-      <a  routerLink = "/info"    routerLinkActive = "active"> Info </a>
+      <!--  <a  routerLink = "/help"    routerLinkActive = "active"> Help </a> -->
+
+      <!-- <a  routerLink = "/info"    routerLinkActive = "active"> Info </a>
       <a id ='manager' routerLink = "/manager" routerLinkActive="active"> Manage </a>
     </div>
     <div class="right"> 
@@ -27,12 +33,38 @@
         </table>
     
     </div>
-  </nav>
+  </nav> -->
 
-  <div >
+
+
+      <ul>
+          <div class = "left" style="left: 0;">
+          <li> <a  routerLink = "/home"    routerLinkActive = "active"> Home </a> </li>
+          <li> <a  routerLink = "/news"    routerLinkActive = "active"> News </a></li>
+          <li class="dropdown">
+            <a  routerLink = "/contact"  routerLinkActive = "active" class="dropbtn">Contact</a>
+            <div class="dropdown-content">
+              <a routerLink = "/home"    routerLinkActive = "active">Link 1</a>
+              <a routerLink = "/news"    routerLinkActive = "active">Link 2</a>
+              <a routerLink = "/info"    routerLinkActive = "active">Link 3</a>
+            </div>
+          </li>
+          <li><a  routerLink = "/info"    routerLinkActive = "active">info</a></li>
+              <li><a  routerLink = "/news"    routerLinkActive = "active">test</a></li>
+            </div>
+           
+              <div class = "right">
+                <li><a id ='manager' routerLink = "/manager" routerLinkActive="active"> Manage </a></li>
+                <li id = 'loginNickName' style="text-align: center;padding-top: 2%;text-size-adjust: 1%"  ></li>
+                <li><a (click)="login()" id="btnLogin">Login</a></li>
+              </div>
+              
+        </ul>
+       
+
   <router-outlet> 
   </router-outlet>
-</div>
+
 
   <!-- <ion-footer>
       <ion-toolbar>
