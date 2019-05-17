@@ -38,7 +38,7 @@
 
 
       <ul>
-          <div class = "left" style="left: 0;">
+          <!-- <div class = "left"> -->
           <li> <a  routerLink = "/home"    routerLinkActive = "active"> Home </a> </li>
           <li> <a  routerLink = "/news"    routerLinkActive = "active"> News </a></li>
           <li class="dropdown">
@@ -49,12 +49,12 @@
           </li>
           <li><a  routerLink = "/info"    routerLinkActive = "active">info</a></li>
               <li><a  routerLink = "/news"    routerLinkActive = "active">test</a></li>
-            </div>
+            <!-- </div> -->
            
-              <div class = "right">
-                <li><a id ='manager' routerLink = "/manager" routerLinkActive="active"> Manage </a></li>
-                <li id = 'loginNickName' style="text-align: center;padding-top: 2%;text-size-adjust: 1%"  ></li>
-                <li><a (click)="login()" id="btnLogin">Login</a></li>
+            <div class = "right">
+                <div class = 'username' #loginNickName></div>
+                <li *ngIf="getManager()"><a routerLink = "/manager" routerLinkActive="active"> Manage </a></li>
+                <li><a #user  (click)="login()">Login</a></li>
               </div>
               
         </ul>

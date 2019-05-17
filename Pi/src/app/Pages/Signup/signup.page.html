@@ -1,15 +1,15 @@
 
 <ion-content>
   <ion-grid>
-    <ion-row>
-      <ion-col size='1.5' offset='4'>
+    <ion-row class='center-row'>
+      <ion-col size='12' size-md='2'>
         <ion-item>
           <ion-label id= "firstName" position="floating">First name</ion-label>
           <ion-input #firstName></ion-input>
         </ion-item>
       </ion-col>
 
-      <ion-col size='1.5' offset='1'>
+      <ion-col size='12' size-md='2'>
         <ion-item>
           <ion-label id= "lastName" position="floating">Last Name</ion-label>
           <ion-input #lastName></ion-input>
@@ -17,8 +17,8 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
-      <ion-col size='4' offset='4'>
+    <ion-row class='center-row'>
+        <ion-col size='12' size-md='4'>
         <ion-item>
           <ion-label id= "userName" position="floating">Username *</ion-label>
           <ion-input #userName (ionBlur)="CheckUsername()"></ion-input>
@@ -26,10 +26,10 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
-      <ion-col size='4' offset='4'>
+    <ion-row class='center-row'>
+        <ion-col size='12' size-md=4>
         <ion-item>
-          <ion-label id= "email" position="floating" >Username or Email *</ion-label>
+          <ion-label id= "email" position="floating" >Email *</ion-label>
           <ion-input  #email (ionBlur)="CheckEmail()"></ion-input>
         </ion-item>
       </ion-col>
@@ -42,10 +42,8 @@
           <ion-input type='password' #password></ion-input>
         </ion-item>
       </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col size='4' offset='4'>
+    
+        <ion-col size='12' size-md='2'>
         <ion-item>
           <ion-label id= "confirm" position="floating">Confirm</ion-label>
           <ion-input type='password' #confirm></ion-input>
@@ -53,7 +51,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <ion-row class='center-row'>
       <ion-col text-center>
         <ion-button (click)='createNewUser()'>Sign Up</ion-button>
         <h6>* Required </h6>
@@ -66,14 +64,14 @@
 
   <ion-grid>
 
-    <ion-row>
-      <ion-col size='2' offset='5'>
+    <ion-row class='center-row'>
+        <ion-col size='12' size-md='4'>
         <ion-button expand='block' color="facebook">Sign up with Facebook </ion-button>
       </ion-col>
     </ion-row>
 
-    <ion-row>
-        <ion-col size='2' offset='5'> 
+    <ion-row class='center-row'>
+        <ion-col size='12' size-md='4'>
             <!-- <ion-button expand="block" (click)="b()">test</ion-button> -->
          <ion-button expand='block' class="google-btn" color="google">Sign up with Google </ion-button>
         </ion-col>

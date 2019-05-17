@@ -41,7 +41,7 @@ export class SignupPage {
 
     ngOnInit(): void {
       this.uAuth.user.subscribe(result => {
-        
+        this.firstNameField.autofocus
       })
     }
 

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { IsManagerGuard } from './is-manager-guard/is-manager.guard';
 
 
 
@@ -10,7 +11,8 @@ const routes: Routes = [
   { path: 'news', loadChildren: './Pages/News/news.module#NewsPageModule' },
   { path: 'login', loadChildren: './Pages/Login/login.module#LoginPageModule' },
   { path: 'info', loadChildren: './Pages/Info/info.module#InfoPageModule' },
-  { path: 'manager', loadChildren: './Pages/ManagePages/manage.module#ManagePageModule' },
+  { path: 'manager', loadChildren: './Pages/ManagePages/manage.module#ManagePageModule', canActivate: [ IsManagerGuard ] },
+  { path: 'writPost', loadChildren: './Pages/post-editor/post-editor.module#PostEditorPageModule',  canActivate: [ IsManagerGuard ] },
 ];
 
 

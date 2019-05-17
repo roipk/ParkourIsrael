@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone,Input } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -40,16 +40,14 @@ export class LoginPage {
     private userAuth: AngularFireAuth,
     private loadingController: LoadingController,
     private router: Router,
+    private ngZone: NgZone,
     private db: AngularFirestore,
     private uAuth: AngularFireAuth) { }
 
   ngOnInit(): void {
     this.uAuth.user.subscribe(() => {
     })
-
   }
-
-
 
   signInUser() {
     // alert('in')
@@ -57,18 +55,13 @@ export class LoginPage {
     const email = this.emailField.value
     const password = this.passField.value
 
-
-
-
-
-
-
     if (email && password && this.SignIn) {
       this.presentLoading()
       this.userAuth.auth.signInWithEmailAndPassword(this.email, password)
         .then((result) => {
           this.dismissLoading()
-          this.router.navigateByUrl('/news')
+          this.ngZone.run(() => {  this.router.navigateByUrl('/news') })
+        
         }).catch(() => {
           this.dismissLoading()
           alert('email or password not correct')
@@ -98,18 +91,18 @@ export class LoginPage {
     this.loadingRef.dismiss()
   }
 
-  login() {
+  // login() {
 
-    if (document.getElementById('btnLogin').innerHTML == 'Login') {
-      this.router.navigateByUrl('/login')
-    }
-    else {
-      this.userAuth.auth.signOut().then((result) => {
-        document.getElementById('btnLogin').innerHTML = 'Login'
-        this.router.navigateByUrl('/home').then(() => { })
-      })
-    }
-  }
+  //   if (document.getElementById('btnLogin').innerHTML == 'Login') {
+  //     this.router.navigateByUrl('/login')
+  //   }
+  //   else {
+  //     this.userAuth.auth.signOut().then((result) => {
+  //       document.getElementById('btnLogin').innerHTML = 'Login'
+  //       this.router.navigateByUrl('/home').then(() => { })
+  //     })
+  //   }
+  // }
 
 
 
@@ -155,6 +148,16 @@ passwordType: string = 'password';
 
 isPasswordInEmpty(): boolean {
   return this.passField == null || this.passField.value == null || this.passField.value.length <= 0
+}
+
+
+
+onKeyUp(data) {
+  data.keyCode
+  const ENTER_KET_CODE = 13
+  if (data.keyCode === ENTER_KET_CODE) {
+    this.signInUser()
+  }
 }
 
 

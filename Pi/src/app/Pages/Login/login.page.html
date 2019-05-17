@@ -21,9 +21,9 @@
 
     <ion-row>
       <ion-col size='3' offset='4.5'>
-        <ion-item>
+        <ion-item autofocus>
           <ion-label position="floating">Email or Username</ion-label>
-          <ion-input #email (ionBlur)="CheckEmail()"></ion-input>
+          <ion-input  (keyup)='onKeyUp($event)' #email (ionBlur)="CheckEmail()"  ></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -32,8 +32,8 @@
       <ion-col size='3' offset='4.5'>
         <ion-item>
           <ion-label position="floating">Password</ion-label>
-          <ion-input [type]="passwordType" clearOnEdit="false" #password></ion-input>
-          <ion-icon [hidden]='isPasswordInEmpty()' slot='end' [name]="passwordIcon"
+          <ion-input (keyup)='onKeyUp($event)' [type]="passwordType" clearOnEdit="false" #password></ion-input>
+          <ion-icon  [hidden]='isPasswordInEmpty()' slot='end' [name]="passwordIcon"
             class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
         </ion-item>
       </ion-col>
