@@ -8,13 +8,12 @@ import { AppComponent } from '../app.component';
   providedIn: 'root'
 })
 export class IsManagerGuard implements CanActivate, CanActivateChild, CanLoad {
-private user: AppComponent
-
+public user = true
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       // alert( this.user.getManager())
-    return this.user.getManager()
+    return  this.user
   }
   canActivateChild(
     next: ActivatedRouteSnapshot,
@@ -26,5 +25,6 @@ private user: AppComponent
     segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
     return true;
   }
-
+ 
+  
 }

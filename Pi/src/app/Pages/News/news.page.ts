@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, NgZone,Input } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { IsManagerGuard } from 'src/app/is-manager-guard/is-manager.guard';
 
 
 @Component({
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class NewsPage {
   [x: string]: any;
+  
 
   // @ViewChild('messageField') messageField
   // @ViewChild('mainContent') mainContent
@@ -23,16 +25,15 @@ export class NewsPage {
     private uAuth: AngularFireAuth,
     // private ngZone: NgZone,
     private route: Router,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private guard:IsManagerGuard
     ) { }
 
   ngOnInit(): void {
 
     // this.adminMode()
-    // this.uAuth.user.subscribe(() => {
-    //   this.afterUserInside()
-    //   // this.adminMode()
-    // })
+    this.uAuth.user.subscribe(() => {
+    })
     this.db.collection('messages').valueChanges().subscribe(
       result => {
         result.sort((m1, m2) => {
@@ -67,7 +68,6 @@ export class NewsPage {
 
 write()
 {
-  // alert('in')
   this.route.navigateByUrl('/writPost')
 }
 

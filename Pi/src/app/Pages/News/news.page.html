@@ -1,17 +1,25 @@
 
 
 <!-- <p>text</p> -->
-<ion-content #mainContent>
+
+<ion-content class="temp"  #mainContent >
 <ion-button  *ngIf='uAuth.auth.currentUser != null'  (click) = 'write()'>new post</ion-button>
 
   <ion-grid>
     <ion-row *ngFor='let m of messages'>
-      <ion-col #x>
+      <ion-col>
         <app-post-bubble [fullName]='fullName' [data]='m'></app-post-bubble>
       </ion-col>
     </ion-row>
   </ion-grid>
-</ion-content>
+    <br><br><br><br><br><br><br>
+</ion-content >
+
+
+  
+
+
+
 <!-- 
 
 <div *ngIf='uAuth.auth.currentUser != null' class="footer" type='manager' id = "footerMassage" >

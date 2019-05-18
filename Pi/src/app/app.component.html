@@ -36,9 +36,10 @@
   </nav> -->
 
 
+  <!-- <div class = "left"> -->
+      <!-- </div> -->
 
-      <ul>
-          <!-- <div class = "left"> -->
+      <ul *ngIf="getMobile() === false">
           <li> <a  routerLink = "/home"    routerLinkActive = "active"> Home </a> </li>
           <li> <a  routerLink = "/news"    routerLinkActive = "active"> News </a></li>
           <li class="dropdown">
@@ -49,7 +50,6 @@
           </li>
           <li><a  routerLink = "/info"    routerLinkActive = "active">info</a></li>
               <li><a  routerLink = "/news"    routerLinkActive = "active">test</a></li>
-            <!-- </div> -->
            
             <div class = "right">
                 <div class = 'username' #loginNickName></div>
@@ -59,6 +59,37 @@
               
         </ul>
        
+        <!-- <ion-app>
+            <ion-split-pane>
+              <ion-menu>
+                <ion-header>
+                  <ion-toolbar>
+                    <ion-title>Menu</ion-title>
+                  </ion-toolbar>
+                </ion-header>
+                <ion-content>
+                  <ion-list>
+                    <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+                      <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+                        <ion-icon slot="start" [name]="p.icon"></ion-icon>
+                        <ion-label>
+                          {{p.title}}
+                        </ion-label>
+                      </ion-item>
+                    </ion-menu-toggle>
+                  </ion-list>
+                </ion-content>
+              </ion-menu>
+              <ion-router-outlet main></ion-router-outlet>
+            </ion-split-pane>
+          </ion-app> -->
+          
+
+
+
+
+
+
 
   <router-outlet> 
   </router-outlet>

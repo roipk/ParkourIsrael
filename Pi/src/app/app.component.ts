@@ -1,4 +1,4 @@
-import { Component, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit ,ViewChild, NgZone } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -7,6 +7,7 @@ import { UserService } from '../app/user.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { IsManagerGuard } from './is-manager-guard/is-manager.guard';
 
 
 
@@ -22,8 +23,24 @@ export class AppComponent {
   title = 'user-servic';
   fullName = ''
   manager = false;
+  isMobile = false;
 
-  items = [
+  
+  public appPages = [
+    {
+      title: 'Home',
+      url: '/home',
+      icon: 'home'
+    },
+    {
+      title: 'List',
+      url: '/list',
+      icon: 'list'
+    }
+  ];
+
+
+  public items = [
     { url: '1', name: 'test' },
     { url: '1', name: 'test2' },
     { url: '1', name: 'test3' },
@@ -31,6 +48,7 @@ export class AppComponent {
     { url: '1', name: 'test5' },
     { url: '1', name: 'test6' }
   ]
+  
 
   constructor(
     private platform: Platform,
@@ -38,31 +56,41 @@ export class AppComponent {
     private statusBar: StatusBar,
     public user: UserService,
 
-    // private uAuth: AngularFireAuth,
+    private uAuth: AngularFireAuth,
     private userAuth: AngularFireAuth,
     private db: AngularFirestore,
+    private guard: IsManagerGuard,
     // private ngZone: NgZone,
     private router: Router
-  ) {
+  ) 
+  {
     this.initializeApp();
+  }
 
+
+  getIsMobile() {
+    const w = document.documentElement.clientWidth;
+    const breakpoint = 768;
+    console.log(w);
+    if (w < breakpoint) {
+      this.isMobile = true
+    } else {
+      this.isMobile = false
+    }
   }
 
   ngOnInit(): void {
+    this.userMode()
     this.userAuth.user.subscribe(() => {
-
-      //this.manage.is_admin =this.is_admin() 
-
-      // alert(this.manage)
-      this.userMode()
+      this.userMode()   
+      this.guard.user = true
     })
+
     // this.is_admin()
     //this.manage.nativeElement.attributes[2].value = "myVar = false"
     //var x = this.manage.nativeElement.attributes[3].value
     //console.log(x)
     // debugger
-
-
 
   }
 
@@ -93,6 +121,9 @@ export class AppComponent {
   getManager() {
     return this.manager
   }
+  getMobile() {
+    return this.isMobile
+  }
 
   userMode() {
     if (this.userAuth.auth.currentUser != null) {
@@ -104,8 +135,10 @@ export class AppComponent {
         })
     }
     else {
-      this.userLogin.nativeElement.innerHTML = 'Login'
-      this.loginNickName.nativeElement.innerHTML = 'Welcome'
+      if (this.userLogin && this.loginNickName) {
+        this.userLogin.nativeElement.innerHTML = 'Login'
+        this.loginNickName.nativeElement.innerHTML = 'Welcome'
+      }
     }
   }
 
@@ -113,8 +146,8 @@ export class AppComponent {
 
 
   login() {
-    if ( this.userLogin.nativeElement.innerHTML == 'Login') {
-       this.router.navigateByUrl('/login')      
+    if (this.userLogin.nativeElement.innerHTML == 'Login') {
+      this.router.navigateByUrl('/login')
     }
     else {
       this.manager = false
