@@ -2,9 +2,9 @@ import { Component, OnInit, Input, ViewChild, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
-import * as firebase from 'firebase';
-import { takeLast } from 'rxjs/operators';
-import { QuerySnapshot } from '@google-cloud/firestore';
+// import * as firebase from 'firebase';
+// import { takeLast } from 'rxjs/operators';
+// import { QuerySnapshot } from '@google-cloud/firestore';
 
 
 @Component({
