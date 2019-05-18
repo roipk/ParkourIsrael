@@ -6,15 +6,20 @@
     From: {{data.from}}
   </ion-card-content>
 </ion-card> -->
+<ion-content >
+<ion-grid>
 
 <ion-card class="welcome-card">
   <ion-title>edit post </ion-title>
+  <ion-img #img></ion-img>
   <ion-card>
-    <progress class = "uploader" value="0" max="100" #uploader>0%</progress>
+    <!-- <progress class = "uploader" value="0" max="100" #uploader>0%</progress> -->
     <!-- <ion-label type='file' value='upload' #fileButton>no file choose</ion-label> -->
     
     <ion-input  (change)="fileChangeEvent($event)" type="file" accept = "image/*" #fileButton ></ion-input>
-    <ion-button (click)="uploadFile()">upload file</ion-button>
+    <!-- <ion-button (click)="uploadFile()">upload file</ion-button> -->
+    <ion-button (click)="removeViewFile()">remove file</ion-button>
+    
   </ion-card>
   <ion-card-header>
     <ion-card-title>
@@ -24,15 +29,15 @@
       <ion-textarea #messageContentField placeholder="text post" #input></ion-textarea>
     </ion-card-subtitle>
   </ion-card-header>
-  <ion-card-content [ngStyle]='{"color": getContentColor(from)}'>
+  <!-- <ion-card-content [ngStyle]='{"color": getContentColor(from)}'>
     From:
-    <!-- From: {{data.from}} -->
-  </ion-card-content>
+    From: {{data.from}}
+  </ion-card-content> -->
   <ion-button [disabled]='isMessageInvalid()' slot='end' (click)='sendMessage()'>Send</ion-button>
 </ion-card>
-
-
-
+<br><br><br><br><br><br><br>
+</ion-grid>
+</ion-content >
 
 
 

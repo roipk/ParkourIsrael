@@ -12,7 +12,7 @@
 
 <!-- <ion-content> -->
     <ion-card class="welcome-card">
-      <ion-img src="/assets/shapes.svg"></ion-img>
+      <ion-img *ngIf="isImage()" #image></ion-img>
       <ion-card-header>
         <ion-card-title>{{data.title}}</ion-card-title>
         <ion-card-subtitle>{{data.content}}</ion-card-subtitle>

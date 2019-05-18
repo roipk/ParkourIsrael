@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { IsManagerGuard } from 'src/app/is-manager-guard/is-manager.guard';
+import * as firebase from 'firebase';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class NewsPage {
 
   // @ViewChild('messageField') messageField
   // @ViewChild('mainContent') mainContent
-  @ViewChild('x') exit
+  // @ViewChild('x') exit
   messages = []
   fullName = ''
   // manager = false;
@@ -33,7 +34,9 @@ export class NewsPage {
 
     // this.adminMode()
     this.uAuth.user.subscribe(() => {
+     
     })
+   
     this.db.collection('messages').valueChanges().subscribe(
       result => {
         result.sort((m1, m2) => {

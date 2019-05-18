@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'info', loadChildren: './Pages/Info/info.module#InfoPageModule' },
   { path: 'manager', loadChildren: './Pages/ManagePages/manage.module#ManagePageModule', canActivate: [ IsManagerGuard ] },
   { path: 'writPost', loadChildren: './Pages/post-editor/post-editor.module#PostEditorPageModule',  canActivate: [ IsManagerGuard ] },
+ 
 ];
 
 

@@ -4,7 +4,7 @@ import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators'
-import { auth } from 'firebase';
+import { auth } from 'firebase'
 import { AngularFirestore } from '@angular/fire/firestore';
 
 
