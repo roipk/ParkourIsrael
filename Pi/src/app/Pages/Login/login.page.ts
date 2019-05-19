@@ -165,69 +165,49 @@ async alertPassword() {
     inputs: [
       {
         name: 'email',
-        placeholder: 'Please enter email or username'
-
+        placeholder: 'Please enter your email'
       }],
-      buttons: [
-        {
-            text: 'Send',
-            handler: async data => {
-              this.CheckUser(data.email)
-                //this.email = data.email
-                console.log('Mail: '+this.email);
-                await this.passwordReset(this.email);
-                console.log('Sent: '+this.emailSent);
-                console.log(this.email);
-                let msg = ''
-                if(this.emailSent) {
-                    msg = 'Email sent successfully'
-                }
-                else {
-                  msg = 'Email is not valid'
-                }
-                const alert2 = await this.alertController.create({
-                  message: msg
-                });
-            }
+    buttons: [
+      {
+        text: 'Send',
+        handler: async data => {
+          await this.passwordReset(data.email);
+          let msg = ''
+          if (this.emailSent) {
+            msg = 'Email sent successfully'
+          }
+          else {
+            msg = 'Email is not valid'
+          }
+          const alert2 = await this.alertController.create({
+            message: msg,
+            buttons: [
+              {
+                text: 'OK'
+              }] 
+          });
+          await alert2.present();
         }
-]
+      }
+    ]
   });
   await alert.present();
 }
+
+async passwordReset(email: string) {
+  await this.userAuth.auth.sendPasswordResetEmail(email).then( ()=>{
+    this.emailSent = true
+  }).catch(() => {
+    this.emailSent = false
+  });   
+  }
+
 onKeyUp(data) {
   data.keyCode
   const ENTER_KET_CODE = 13
   if (data.keyCode === ENTER_KET_CODE) {
     this.signInUser()
   }
-}
-
-passwordReset(email: string) {
-this.userAuth.auth.sendPasswordResetEmail(email).then(function() {
-    this.emailSent = true
-    console.log('Yes')
-  }).catch(() => {
-    this.emailSent = false
-    console.log('error')
-  });
-  /*
-  return new Promise((resolve, reject) => {
-    return this.userAuth.auth.sendPasswordResetEmail(email).then((result) => {
-      var res2 = {
-        emailSent: true
-    }
-    resolve(res2);
-    console.log(true);
-    }).catch(() => {
-      //alert('False');
-      var res2 = {
-        emailSent: false
-    }
-      reject(res2);
-      console.log(false);
-    });
-});
-*/
 }
 
 }
