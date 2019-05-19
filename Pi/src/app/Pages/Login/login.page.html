@@ -23,7 +23,7 @@
       <ion-col size='3' offset='4.5'>
         <ion-item autofocus>
           <ion-label position="floating">Email or Username</ion-label>
-          <ion-input  (keyup)='onKeyUp($event)' #email (ionBlur)="CheckEmail()"  ></ion-input>
+          <ion-input  (keyup)='onKeyUp($event)' #email (ionBlur)="CheckUser(email.value)"  ></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>

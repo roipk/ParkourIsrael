@@ -113,8 +113,9 @@ export class LoginPage {
 
 
 
-  CheckEmail() {
-    this.db.collection('users', ref => ref.where('email', '==', this.emailField.value)).get().subscribe(result => {
+  CheckUser(user) {
+    // debugger
+    this.db.collection('users', ref => ref.where('email', '==', user)).get().subscribe(result => {
       if (result.empty) {
         this.emailExsist = false
       }
@@ -128,7 +129,7 @@ export class LoginPage {
 
 
 
-    this.db.collection('users', ref => ref.where('userName', '==', this.emailField.value)).get().subscribe(result => {
+    this.db.collection('users', ref => ref.where('userName', '==', user)).get().subscribe(result => {
       if (result.empty) {
         this.userExsist = false
       }
@@ -164,17 +165,19 @@ async alertPassword() {
     inputs: [
       {
         name: 'email',
-        placeholder: 'Please enter your email'
+        placeholder: 'Please enter email or username'
+
       }],
       buttons: [
         {
             text: 'Send',
             handler: async data => {
+              this.CheckUser(data.email)
                 //this.email = data.email
-                console.log('Mail: '+data.email);
-                await this.passwordReset(data.email);
+                console.log('Mail: '+this.email);
+                await this.passwordReset(this.email);
                 console.log('Sent: '+this.emailSent);
-                console.log(data.email);
+                console.log(this.email);
                 let msg = ''
                 if(this.emailSent) {
                     msg = 'Email sent successfully'
