@@ -19,8 +19,8 @@
 
   <ion-grid>
 
-    <ion-row>
-      <ion-col size='3' offset='4.5'>
+    <ion-row class='center-row'>
+      <ion-col size='12' size-md=4>
         <ion-item autofocus>
           <ion-label position="floating">Email or Username</ion-label>
           <ion-input  (keyup)='onKeyUp($event)' #email (ionBlur)="CheckUser(email.value)"  ></ion-input>
@@ -28,8 +28,8 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
-      <ion-col size='3' offset='4.5'>
+    <ion-row class='center-row'>
+      <ion-col size='12' size-md=4>
         <ion-item>
           <ion-label position="floating">Password</ion-label>
           <ion-input (keyup)='onKeyUp($event)' [type]="passwordType" clearOnEdit="false" #password></ion-input>
@@ -40,8 +40,8 @@
 
     </ion-row>
 
-    <ion-row>
-      <ion-col size='3' offset='4.5'>
+    <ion-row class='center-row'>
+      <ion-col size='12' size-md=4>
         <ion-button expand="block" (click)='signInUser()'>Login</ion-button>
       </ion-col>
     </ion-row>
@@ -57,8 +57,8 @@
 
   <ion-grid>
 
-    <ion-row>
-      <ion-col size='3' offset='4.5'>
+    <ion-row class='center-row'>
+      <ion-col size='12' size-md=4>
         <ion-button color="facebook" expand="block" (click)="loginAction();">
             <ion-icon name="logo-facebook"></ion-icon>
           Login with Facebook
@@ -66,8 +66,8 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
-      <ion-col size='3' offset='4.5'>
+    <ion-row class='center-row'>
+      <ion-col size='12' size-md=4>
         <!-- <ion-button expand="block" (click)="b()">test</ion-button> -->
         <ion-button class="google-btn" color="google" expand="block" (click)="googlelogin()">
             <ion-icon name="logo-google"></ion-icon>
