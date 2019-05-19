@@ -12,6 +12,9 @@ import { Router } from '@angular/router';
 })
 export class ManagePage {
   manager = false;
+  pages = false;
+  posts = false;
+  users = false;
 
   constructor(
     private uAuth:AngularFireAuth,
@@ -37,6 +40,21 @@ export class ManagePage {
       } 
     
     })
+  }
+
+  openPagesList()
+  {
+    this.pages = !this.pages;
+  }
+
+  openPostsList()
+  {
+    this.posts = !this.posts;
+  }
+
+  openUsersList()
+  {
+    this.users = !this.users;
   }
 }
   
