@@ -11,8 +11,25 @@
 
 
 <!-- <ion-content> -->
-    <ion-card class="welcome-card">
+    <ion-card class="welcome-card" #post>
+        <ion-button class="close">&#9776;</ion-button>
+          <!-- <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>dialpad</mat-icon>
+                <span>Redial</span>
+              </button>
+              <button mat-menu-item disabled>
+                <mat-icon>voicemail</mat-icon>
+                <span>Check voicemail</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>notifications_off</mat-icon>
+                <span>Disable alerts</span>
+              </button>
+            </mat-menu> -->
+      <!-- <span class="close" (click) = 'openMenu()' >&#9776;</span> -->
       <ion-img *ngIf="isImage()" #image></ion-img>
+      <p *ngIf="!isImage()"></p>
       <ion-card-header>
         <ion-card-title>{{data.title}}</ion-card-title>
         <ion-card-subtitle>{{data.content}}</ion-card-subtitle>

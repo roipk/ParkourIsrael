@@ -8,20 +8,14 @@
   <ion-grid>
     <ion-row *ngFor='let m of messages'>
       <ion-col>
-        <app-post-bubble [fullName]='fullName' [data]='m'></app-post-bubble>
+        <app-post-bubble  [fullName]='fullName' [data]='m' ></app-post-bubble>
       </ion-col>
     </ion-row>
   </ion-grid>
     <br><br><br><br><br><br><br>
 </ion-content >
 
-
-  
-
-
-
 <!-- 
-
 <div *ngIf='uAuth.auth.currentUser != null' class="footer" type='manager' id = "footerMassage" >
   <ion-footer>
     <ion-toolbar>
