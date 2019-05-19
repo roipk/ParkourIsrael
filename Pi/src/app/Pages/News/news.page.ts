@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild, NgZone,Input } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+import { IsManagerGuard } from 'src/app/is-manager-guard/is-manager.guard';
+import * as firebase from 'firebase';
 
 
 @Component({
@@ -9,25 +12,31 @@ import { AngularFireAuth } from '@angular/fire/auth';
   styleUrls: ['./news.page.scss'],
 })
 export class NewsPage {
+  [x: string]: any;
+  
 
-  @ViewChild('messageField') messageField
-  @ViewChild('mainContent') mainContent
+  // @ViewChild('messageField') messageField
+  // @ViewChild('mainContent') mainContent
+  // @ViewChild('x') exit
   messages = []
   fullName = ''
-  manager = false;
+  // manager = false;
 
   constructor(
     private uAuth: AngularFireAuth,
-    private ngZone: NgZone,
-    private db: AngularFirestore) { }
+    // private ngZone: NgZone,
+    private route: Router,
+    private db: AngularFirestore,
+    private guard:IsManagerGuard
+    ) { }
 
   ngOnInit(): void {
 
     // this.adminMode()
     this.uAuth.user.subscribe(() => {
-      this.afterUserInside()
-      // this.adminMode()
+     
     })
+   
     this.db.collection('messages').valueChanges().subscribe(
       result => {
         result.sort((m1, m2) => {
@@ -36,52 +45,41 @@ export class NewsPage {
         })
         this.messages = [...result]
         return
-        if (this.messages.length <= 0) {
-          this.messages = result
-          // this.scrollToBottom()
-        } else {
-          this.ngZone.run(() => { this.messages.push(result[result.length - 1]) })
-          window.location.reload()
-        }
+        // if (this.messages.length <= 0) {
+        //   this.messages = result
+        //   // this.scrollToBottom()
+        // } else {
+        //   this.ngZone.run(() => { this.messages.push(result[result.length - 1]) })
+        //   window.location.reload()
+        // }
       })
   }
 
-  afterUserInside() {
-    this.db.collection('users').doc(this.uAuth.auth.currentUser.uid)
-      .get().subscribe(result => {
-        this.fullName = result.data().userName
-      })
-
+  createExit()
+  {
+    let cross = this.exit.createElement('div') 
+    cross.textContent = 'x'
   }
 
-  sendMessage() {
-    if (this.isMessageInvalid()) {
-      return
-    }
-    this.db.collection('messages').add({
-      from: this.fullName,
-      content: this.messageField.value,
-      timestamp: new Date().getTime()
-    })
-    this.messageField.value = ''
-    ///this.scrollToBottom()
-  }
+  // afterUserInside() {
+  //   this.db.collection('users').doc(this.uAuth.auth.currentUser.uid)
+  //     .get().subscribe(result => {
+  //       this.fullName = result.data().userName
+  //     })
 
-  isMessageInvalid(): boolean {
-    return this.messageField == null || this.messageField.value == null || this.messageField.value.length <= 0
-  }
+  // }
+
+write()
+{
+  this.route.navigateByUrl('/writPost')
+}
 
 
-  scrollToBottom() {
-    setTimeout(() => { this.mainContent.scrollToBottom(700) }, 120)
+getContentColor(m) {
+  if(this.fullName != null && m != null && this.fullName === m.from) {
+    return 'red'
   }
-
-  onKeyUp(data) {
-    const ENTER_KET_CODE = 13
-    if (data.keyCode === ENTER_KET_CODE) {
-      this.sendMessage()
-    }
-  }
+}
 
 
 }

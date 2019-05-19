@@ -1,3 +1,5 @@
+
+
 h6 {
     padding: 0px;
     margin: 0px;
@@ -12,7 +14,9 @@ ion-grid {
     position: fixed;
     left: 0;
     bottom: 0;
+    height: 4%;
     width: 100%;
+    color: black;
     text-align: left;
     border-top-width: thin;
     border-top-style: solid;
@@ -21,5 +25,8 @@ ion-grid {
 ion-input{
     border: 2px solid;
     border-radius: 25px;
+}
+.temp{
+    margin-top:1000px;
 }
 

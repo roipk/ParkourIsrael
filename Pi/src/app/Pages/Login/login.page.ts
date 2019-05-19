@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone,Input } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LoadingController, AlertController, ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators'
-import { auth } from 'firebase';
+import { auth } from 'firebase'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { setTNodeAndViewData } from '@angular/core/src/render3/state';
 import { promise } from 'protractor';
@@ -44,6 +44,7 @@ export class LoginPage {
     private userAuth: AngularFireAuth,
     private loadingController: LoadingController,
     private router: Router,
+    private ngZone: NgZone,
     private db: AngularFirestore,
     private uAuth: AngularFireAuth,
     private alertController: AlertController,
@@ -52,7 +53,6 @@ export class LoginPage {
   ngOnInit(): void {
     this.uAuth.user.subscribe(() => {
     })
-
   }
 
   signInUser() {
@@ -67,7 +67,8 @@ export class LoginPage {
       this.userAuth.auth.signInWithEmailAndPassword(this.email, password)
         .then((result) => {
           this.dismissLoading()
-          this.router.navigateByUrl('/news')
+          this.ngZone.run(() => {  this.router.navigateByUrl('/news') })
+        
         }).catch(() => {
           this.dismissLoading()
           alert('email or password not correct')
@@ -97,18 +98,18 @@ export class LoginPage {
     this.loadingRef.dismiss()
   }
 
-  login() {
+  // login() {
 
-    if (document.getElementById('btnLogin').innerHTML == 'Login') {
-      this.router.navigateByUrl('/login')
-    }
-    else {
-      this.userAuth.auth.signOut().then((result) => {
-        document.getElementById('btnLogin').innerHTML = 'Login'
-        this.router.navigateByUrl('/home').then(() => { })
-      })
-    }
-  }
+  //   if (document.getElementById('btnLogin').innerHTML == 'Login') {
+  //     this.router.navigateByUrl('/login')
+  //   }
+  //   else {
+  //     this.userAuth.auth.signOut().then((result) => {
+  //       document.getElementById('btnLogin').innerHTML = 'Login'
+  //       this.router.navigateByUrl('/home').then(() => { })
+  //     })
+  //   }
+  // }
 
 
 
@@ -189,6 +190,13 @@ async alertPassword() {
 ]
   });
   await alert.present();
+
+onKeyUp(data) {
+  data.keyCode
+  const ENTER_KET_CODE = 13
+  if (data.keyCode === ENTER_KET_CODE) {
+    this.signInUser()
+  }
 }
 
 passwordReset(email: string) {
@@ -218,5 +226,8 @@ this.userAuth.auth.sendPasswordResetEmail(email).then(function() {
 });
 */
 }
+
+}
+
 
 }
