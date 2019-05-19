@@ -190,7 +190,7 @@ async alertPassword() {
 ]
   });
   await alert.present();
-
+}
 onKeyUp(data) {
   data.keyCode
   const ENTER_KET_CODE = 13
@@ -226,8 +226,5 @@ this.userAuth.auth.sendPasswordResetEmail(email).then(function() {
 });
 */
 }
-
-}
-
 
 }
