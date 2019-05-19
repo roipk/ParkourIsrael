@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild, NgZone,Input } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, AlertController, ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { auth } from 'firebase'
 import { AngularFirestore } from '@angular/fire/firestore';
+import { setTNodeAndViewData } from '@angular/core/src/render3/state';
+import { promise } from 'protractor';
 
 
 @Component({
@@ -13,6 +15,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
+
 export class LoginPage {
 
   @ViewChild('email') emailField
@@ -20,6 +23,7 @@ export class LoginPage {
   loadingRef = null
   userExsist = false
   emailExsist = false
+  emailSent = false
   email = ''
   SignIn = true
   uid = this.afAuth.authState.pipe(
@@ -42,7 +46,9 @@ export class LoginPage {
     private router: Router,
     private ngZone: NgZone,
     private db: AngularFirestore,
-    private uAuth: AngularFireAuth) { }
+    private uAuth: AngularFireAuth,
+    private alertController: AlertController,
+) { }
 
   ngOnInit(): void {
     this.uAuth.user.subscribe(() => {
@@ -54,6 +60,7 @@ export class LoginPage {
     // alert(this.userAuth.auth.currentUser.uid.match)
     const email = this.emailField.value
     const password = this.passField.value
+
 
     if (email && password && this.SignIn) {
       this.presentLoading()
@@ -151,7 +158,39 @@ isPasswordInEmpty(): boolean {
 }
 
 
-
+async alertPassword() {
+  const alert = await this.alertController.create({
+    header: 'Reset your password',
+    inputs: [
+      {
+        name: 'email',
+        placeholder: 'Please enter your email'
+      }],
+      buttons: [
+        {
+            text: 'Send',
+            handler: async data => {
+                //this.email = data.email
+                console.log('Mail: '+data.email);
+                await this.passwordReset(data.email);
+                console.log('Sent: '+this.emailSent);
+                console.log(data.email);
+                let msg = ''
+                if(this.emailSent) {
+                    msg = 'Email sent successfully'
+                }
+                else {
+                  msg = 'Email is not valid'
+                }
+                const alert2 = await this.alertController.create({
+                  message: msg
+                });
+            }
+        }
+]
+  });
+  await alert.present();
+}
 onKeyUp(data) {
   data.keyCode
   const ENTER_KET_CODE = 13
@@ -160,5 +199,32 @@ onKeyUp(data) {
   }
 }
 
+passwordReset(email: string) {
+this.userAuth.auth.sendPasswordResetEmail(email).then(function() {
+    this.emailSent = true
+    console.log('Yes')
+  }).catch(() => {
+    this.emailSent = false
+    console.log('error')
+  });
+  /*
+  return new Promise((resolve, reject) => {
+    return this.userAuth.auth.sendPasswordResetEmail(email).then((result) => {
+      var res2 = {
+        emailSent: true
+    }
+    resolve(res2);
+    console.log(true);
+    }).catch(() => {
+      //alert('False');
+      var res2 = {
+        emailSent: false
+    }
+      reject(res2);
+      console.log(false);
+    });
+});
+*/
+}
 
 }
