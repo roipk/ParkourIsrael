@@ -1,9 +1,46 @@
 <ion-content>
-    <p>test website manager</p>
-</ion-content>
-
-
-
-
-
-
+        <ion-list-header>
+            <button ion-button icon-only clear>
+                <ion-icon (click)="openPagesList()" name="add" *ngIf="!pages"></ion-icon>
+                <ion-icon (click)="openPagesList()" name="remove" *ngIf="pages"></ion-icon>
+            </button>
+            <ion-label>Pages</ion-label>
+        </ion-list-header>
+        <ion-list [hidden]="!pages">
+            <ion-item>Item 1</ion-item>
+            <ion-item>Item 2</ion-item>
+            <ion-item>Item 3</ion-item>
+            <ion-item>Item 4</ion-item>
+            <ion-item>Item 5</ion-item>
+        </ion-list>
+    
+        <ion-list-header>
+                <button ion-button icon-only clear>
+                    <ion-icon (click)="openPostsList()" name="add" *ngIf="!posts"></ion-icon>
+                    <ion-icon (click)="openPostsList()" name="remove" *ngIf="posts"></ion-icon>
+                </button>
+                <ion-label>Posts</ion-label>
+        </ion-list-header>
+        <ion-list [hidden]="!posts">
+            <ion-item>Item 1</ion-item>
+            <ion-item>Item 2</ion-item>
+            <ion-item>Item 3</ion-item>
+            <ion-item>Item 4</ion-item>
+            <ion-item>Item 5</ion-item>
+        </ion-list>
+    
+        <ion-list-header>
+                <button ion-button icon-only clear>
+                    <ion-icon (click)="openUsersList()" name="add" *ngIf="!users"></ion-icon>
+                    <ion-icon (click)="openUsersList()" name="remove" *ngIf="users"></ion-icon>
+                </button>
+                <ion-label>Pages</ion-label>
+        </ion-list-header>
+        <ion-list [hidden]="!users">
+            <ion-item>Item 1</ion-item>
+            <ion-item>Item 2</ion-item>
+            <ion-item>Item 3</ion-item>
+            <ion-item>Item 4</ion-item>
+            <ion-item>Item 5</ion-item>
+        </ion-list>
+    </ion-content>
