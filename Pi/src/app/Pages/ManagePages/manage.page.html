@@ -1,8 +1,8 @@
 <ion-content>
-        <ion-list-header>
+        <ion-list-header (click)="openPagesList()">
             <button ion-button icon-only clear>
-                <ion-icon (click)="openPagesList()" name="add" *ngIf="!pages"></ion-icon>
-                <ion-icon (click)="openPagesList()" name="remove" *ngIf="pages"></ion-icon>
+                <ion-icon  name="add" *ngIf="!pages"></ion-icon>
+                <ion-icon  name="remove" *ngIf="pages"></ion-icon>
             </button>
             <ion-label>Pages</ion-label>
         </ion-list-header>
@@ -14,10 +14,10 @@
             <ion-item>Item 5</ion-item>
         </ion-list>
     
-        <ion-list-header>
+        <ion-list-header (click)="openPostsList()">
                 <button ion-button icon-only clear>
-                    <ion-icon (click)="openPostsList()" name="add" *ngIf="!posts"></ion-icon>
-                    <ion-icon (click)="openPostsList()" name="remove" *ngIf="posts"></ion-icon>
+                    <ion-icon  name="add" *ngIf="!posts"></ion-icon>
+                    <ion-icon  name="remove" *ngIf="posts"></ion-icon>
                 </button>
                 <ion-label>Posts</ion-label>
         </ion-list-header>
@@ -29,10 +29,10 @@
             <ion-item>Item 5</ion-item>
         </ion-list>
     
-        <ion-list-header>
+        <ion-list-header (click)="openUsersList()">
                 <button ion-button icon-only clear>
-                    <ion-icon (click)="openUsersList()" name="add" *ngIf="!users"></ion-icon>
-                    <ion-icon (click)="openUsersList()" name="remove" *ngIf="users"></ion-icon>
+                    <ion-icon  name="add" *ngIf="!users"></ion-icon>
+                    <ion-icon  name="remove" *ngIf="users"></ion-icon>
                 </button>
                 <ion-label>Pages</ion-label>
         </ion-list-header>
