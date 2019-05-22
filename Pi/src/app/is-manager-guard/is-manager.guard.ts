@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, CanActivateChild, CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AppComponent } from '../app.component';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 
 @Injectable({
@@ -26,5 +27,6 @@ public user = true
     return true;
   }
  
-  
+ 
+
 }

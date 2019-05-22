@@ -4,9 +4,8 @@ import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
 import { LoadingController } from '@ionic/angular';
-// import * as firebase from 'firebase';
-// import { takeLast } from 'rxjs/operators';
-// import { QuerySnapshot } from '@google-cloud/firestore';
+
+
 
 
 @Component({
@@ -14,23 +13,30 @@ import { LoadingController } from '@ionic/angular';
   templateUrl: './post-editor.page.html',
   styleUrls: ['./post-editor.page.scss'],
 })
+
+
+
 export class PostEditorPage implements OnInit {
-  // this is message
-  @ViewChild('messageContentField') messageField
+  
+  
   @ViewChild('messageTitleField') MessageTitleField
-
-  @ViewChild('uploader') uploader
+  @ViewChild('messageContentField') messageField
   @ViewChild('fileButton') fileButton
-
+  @ViewChild('uploader') uploader
   @ViewChild('img') img
-  // @ViewChild('mainContent') mainContent
-  messages = []
-  fullName = ''
-  manager = false
-  a = ''
-  file = File
-  nameFile = ''
+  
+
   loadingRef = null
+  
+  manager = false
+  
+  nameFile = ''
+  fullName = ''
+  
+  file = File
+  messages = []
+
+
 
   constructor(
     private uAuth: AngularFireAuth,
@@ -39,7 +45,9 @@ export class PostEditorPage implements OnInit {
     private loadingController: LoadingController,
     private db: AngularFirestore) { }
 
-  ngOnInit() {
+
+
+    ngOnInit() {
     this.uAuth.user.subscribe(() => {
       this.afterUserInside()
     })
@@ -110,14 +118,6 @@ export class PostEditorPage implements OnInit {
 
   removeViewFile() {
     this.img.src = ""
-  }
-
-
-
-  isUrl() {
-    if (this.a != '')
-      return true
-    return false
   }
 
 

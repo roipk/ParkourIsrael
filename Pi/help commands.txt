@@ -1,0 +1,7 @@
+
+//========== help commands =========
+
+
+* this.ngZone.run(() => { /*do something*/ }) //Do something and reload the page 
+
+* router.navigateByUrl('/page') //load page in router link application

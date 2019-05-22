@@ -2,12 +2,12 @@ import { Component, OnInit, ViewChild, NgZone,Input } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LoadingController, AlertController, ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { auth } from 'firebase'
 import { AngularFirestore } from '@angular/fire/firestore';
-import { setTNodeAndViewData } from '@angular/core/src/render3/state';
-import { promise } from 'protractor';
+
+
+
 
 
 @Component({
@@ -15,6 +15,9 @@ import { promise } from 'protractor';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
+
+
+
 
 export class LoginPage {
 
@@ -37,7 +40,7 @@ export class LoginPage {
       authState.uid
     })
   );
-  //  isAdmin = observableOf('true');
+  
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -56,13 +59,9 @@ export class LoginPage {
   }
 
   signInUser() {
-    // alert('in')
-    // alert(this.userAuth.auth.currentUser.uid.match)
-    const email = this.emailField.value
+    
     const password = this.passField.value
-
-
-    if (email && password && this.SignIn) {
+    if (this.email && password && this.SignIn) {
       this.presentLoading()
       this.userAuth.auth.signInWithEmailAndPassword(this.email, password)
         .then((result) => {
@@ -94,27 +93,14 @@ export class LoginPage {
     await this.loadingRef.present()
   }
 
+  
   dismissLoading() {
     this.loadingRef.dismiss()
   }
 
-  // login() {
-
-  //   if (document.getElementById('btnLogin').innerHTML == 'Login') {
-  //     this.router.navigateByUrl('/login')
-  //   }
-  //   else {
-  //     this.userAuth.auth.signOut().then((result) => {
-  //       document.getElementById('btnLogin').innerHTML = 'Login'
-  //       this.router.navigateByUrl('/home').then(() => { })
-  //     })
-  //   }
-  // }
-
-
 
   CheckUser(user) {
-    // debugger
+    
     this.db.collection('users', ref => ref.where('email', '==', user)).get().subscribe(result => {
       if (result.empty) {
         this.emailExsist = false

@@ -1,103 +1,74 @@
-<ion-header>
-    <ion-toolbar>
-      <ion-title>
-        Parkour Israel WebSite
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-<!--   
-  <nav table>
-
-
-    <div class = "left">
-      <a  routerLink = "/home"    routerLinkActive = "active"> Home </a> 
-      <a  routerLink = "/news"    routerLinkActive = "active"> News </a> --> 
-
-
-
-      <!-- <a  routerLink = "/contact"  routerLinkActive = "active"> Contact </a> -->
-      <!--  <a  routerLink = "/help"    routerLinkActive = "active"> Help </a> -->
-
-      <!-- <a  routerLink = "/info"    routerLinkActive = "active"> Info </a>
-      <a id ='manager' routerLink = "/manager" routerLinkActive="active"> Manage </a>
-    </div>
-    <div class="right"> 
-        <table>
-            <tr>
-                    <td>
-                        <h5 id = 'loginNickName' >Welcome </h5>
-                    </td>
-                    <td><a id ='btnLogin'  (click)='login()'><h6>Login</h6></a></td>
-                  </tr>
-        </table>
-    
-    </div>
-  </nav> -->
-
-
-  <!-- <div class = "left"> -->
-      <!-- </div> -->
-
-      <ul *ngIf="getMobile() === false">
-          <li> <a  routerLink = "/home"    routerLinkActive = "active"> Home </a> </li>
-          <li> <a  routerLink = "/news"    routerLinkActive = "active"> News </a></li>
+<!-- website on Descktop -->
+<ion-content *ngIf="!isMobile()">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ul>
+          <li> <a routerLink="/home" routerLinkActive="active"> Home </a> </li>
+          <li> <a routerLink="/news" routerLinkActive="active"> News </a></li>
           <li class="dropdown">
-            <a  routerLink = "/contact"  routerLinkActive = "active" class="dropbtn">Contact</a>
+            <a routerLink="/contact" routerLinkActive="active" class="dropbtn">Contact</a>
             <div class="dropdown-content">
-              <a *ngFor='let item of items' [routerLink] = "item.url"    routerLinkActive = "active">{{item.name}}</a>
+              <a *ngFor='let item of items' [routerLink]="item.url" routerLinkActive="active">{{item.name}}</a>
             </div>
           </li>
-          <li><a  routerLink = "/info"    routerLinkActive = "active">info</a></li>
-              <li><a  routerLink = "/news"    routerLinkActive = "active">test</a></li>
-           
-            <div class = "right">
-                <div class = 'username' #loginNickName></div>
-                <li *ngIf="getManager()"><a routerLink = "/manager" routerLinkActive="active"> Manage </a></li>
-                <li><a #user  (click)="login()">Login</a></li>
-              </div>
-              
+          <li><a routerLink="/info" routerLinkActive="active">info</a></li>
+          <li><a routerLink="/news" routerLinkActive="active">test</a></li>
+
+          <div class="right">
+            <div class='username' #loginNickName></div>
+            <li *ngIf="getManager()"><a routerLink="/manager" routerLinkActive="active"> Manage </a></li>
+            <li><a #user (click)="login()">Login</a></li>
+          </div>
         </ul>
-       
-        <!-- <ion-app>
-            <ion-split-pane>
-              <ion-menu>
-                <ion-header>
-                  <ion-toolbar>
-                    <ion-title>Menu</ion-title>
-                  </ion-toolbar>
-                </ion-header>
-                <ion-content>
-                  <ion-list>
-                    <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-                      <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-                        <ion-icon slot="start" [name]="p.icon"></ion-icon>
-                        <ion-label>
-                          {{p.title}}
-                        </ion-label>
-                      </ion-item>
-                    </ion-menu-toggle>
-                  </ion-list>
-                </ion-content>
-              </ion-menu>
-              <ion-router-outlet main></ion-router-outlet>
-            </ion-split-pane>
-          </ion-app> -->
-          
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <router-outlet></router-outlet>
+</ion-content>
 
 
 
 
 
 
-          <router-outlet>
-            </router-outlet>
 
-
-  <!-- <ion-footer>
+<!-- website on mobile -->
+<!-- side menu -->
+<ion-app *ngIf="isMobile()">
+  <ion-content>
+    <ion-header>
       <ion-toolbar>
-        <h6  slot='start'>Message:</h6>
-        <input  (keyup)='onKeyUp($event)' #messageField></input> 
-        <ion-button  [disabled]='isMessageInvalid()' slot='end' (click)='sendMessage()' >Send</ion-button> 
-       </ion-toolbar>
-    </ion-footer> -->
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+          Home
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-split-pane>
+      <ion-menu>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Menu</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content>
+          <ion-list>
+            <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+              <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+                <ion-icon slot="start" [name]="p.icon"></ion-icon>
+                <ion-label>
+                  {{p.title}}
+                </ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </ion-list>
+        </ion-content>
+        <ion-router-outlet main></ion-router-outlet>
+      </ion-menu>
+    </ion-split-pane>
+    <router-outlet></router-outlet>
+  </ion-content>
+</ion-app>

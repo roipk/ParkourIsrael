@@ -10,8 +10,8 @@
             <ion-col size='12' size-md='7'>
                 <ion-list-header (click)="openPagesList()">
                     <button ion-button icon-only clear>
-                        <ion-icon  name="add" *ngIf="!showPages"></ion-icon>
-                        <ion-icon  name="remove" *ngIf="showPages"></ion-icon>
+                        <ion-icon name="add" *ngIf="!showPages"></ion-icon>
+                        <ion-icon name="remove" *ngIf="showPages"></ion-icon>
                     </button>
                     <ion-label>Pages</ion-label>
                 </ion-list-header>
@@ -24,42 +24,43 @@
                 </ion-list>
             </ion-col>
         </ion-row>
-            
+
         <ion-row class="center-row">
             <ion-col size='12' size-md='7'>
                 <ion-list-header (click)="openPostsList()">
                     <button ion-button icon-only clear>
-                        <ion-icon  name="add" *ngIf="!showPosts"></ion-icon>
-                        <ion-icon  name="remove" *ngIf="showPosts"></ion-icon>
+                        <ion-icon name="add" *ngIf="!showPosts"></ion-icon>
+                        <ion-icon name="remove" *ngIf="showPosts"></ion-icon>
                     </button>
-                    <ion-label>Posts  ({{posts.length}})</ion-label>
+                    <ion-label>Posts ({{posts.length}})</ion-label>
                 </ion-list-header>
                 <ion-list [hidden]="!showPosts">
-                        <ion-item >
-                            <ion-label>serch by title</ion-label>
-                            <ion-input #title (ionBlur)="serch(posts,title.value)"></ion-input> 
-                            <ion-label>serch by date</ion-label>
-                            <ion-input #date type='date' (ionBlur)="serch(posts,da.value)"></ion-input>    
-                        </ion-item>
-                        <ion-item *ngFor='let post of posts'>Title: {{post.title}}</ion-item>
+                    <ion-item>
+                        <ion-label>serch by title</ion-label>
+                        <ion-input #title (ionBlur)="serch(posts,title.value)"></ion-input>
+                        <ion-label>serch by date</ion-label>
+                        <ion-input #date type='date' (ionBlur)="serch(posts,da.value)"></ion-input>
+                    </ion-item>
+                    <ion-item *ngFor='let post of posts'>Title: {{post.title}}</ion-item>
                 </ion-list>
             </ion-col>
         </ion-row>
-            
+
         <ion-row class="center-row">
             <ion-col size='12' size-md='7'>
                 <ion-list-header (click)="openUsersList()">
                     <button ion-button icon-only clear>
-                        <ion-icon  name="add" *ngIf="!showUsers"></ion-icon>
-                        <ion-icon  name="remove" *ngIf="showUsers"></ion-icon>
+                        <ion-icon name="add" *ngIf="!showUsers"></ion-icon>
+                        <ion-icon name="remove" *ngIf="showUsers"></ion-icon>
                     </button>
                     <ion-label>Users ({{users.length}})</ion-label>
                 </ion-list-header>
                 <ion-list [hidden]="!showUsers">
-                    <ion-item *ngFor='let user of users'>UserName: {{user.userName}} <br> Email: {{user.email}}</ion-item>
+                    <ion-item *ngFor='let user of users'>UserName: {{user.userName}} <br> Email: {{user.email}}
+                    </ion-item>
                 </ion-list>
             </ion-col>
         </ion-row>
-    </ion-grid>     
-    <br><br><br><br><br><br><br>   
+    </ion-grid>
+    <br><br><br><br><br><br><br>
 </ion-content>

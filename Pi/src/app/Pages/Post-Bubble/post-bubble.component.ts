@@ -8,14 +8,17 @@ import * as firebase from 'firebase';
 })
 export class PostBubbleComponent implements OnInit {
 
-  @Input() data
-  @Input() fullName
-
   @ViewChild('image') image
   @ViewChild('post') post
+  @Input() fullName
+  @Input() data
 
   _isimage = true
+
+
   constructor() { }
+
+
 
   ngOnInit() { 
     if(this.data.file_name !='')
@@ -35,11 +38,6 @@ export class PostBubbleComponent implements OnInit {
     return this._isimage
   }
 
-  openMenu()
-  {
-    alert('in')
-    // this.post.display = 'none';
-  }
   getContentColor(m) {
     if(this.fullName != null && m != null && this.fullName === m.from) {
       return 'red'

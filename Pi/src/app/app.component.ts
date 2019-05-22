@@ -1,6 +1,6 @@
-import { Component, OnInit ,ViewChild, NgZone } from '@angular/core';
-
-import { Platform } from '@ionic/angular';
+// ============================= imports ===================================//
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
+import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { UserService } from '../app/user.service';
@@ -8,7 +8,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { IsManagerGuard } from './is-manager-guard/is-manager.guard';
-
+// ==========================================================================//
 
 
 @Component({
@@ -16,16 +16,32 @@ import { IsManagerGuard } from './is-manager-guard/is-manager.guard';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
 })
+
+
+
+
 export class AppComponent {
+
+  // ============================= all id from object in html ===================================//
   @ViewChild('user') userLogin
   @ViewChild('loginNickName') loginNickName
+  // ============================================================================================//
 
-  title = 'user-servic';
-  fullName = ''
+
+
+
+  // ========= variables ===========//
+  showFiller = true;
+  mobile = false;
   manager = false;
-  isMobile = false;
+  fullName = ''
+  title = 'user-servic';
+  // ===============================//
 
-  
+
+
+
+  // ========= all pages ===========//
   public appPages = [
     {
       title: 'Home',
@@ -33,13 +49,21 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
-    }
+      title: 'News',
+      url: '/news',
+      // icon: 'news'
+    },
   ];
+  // ================================//
 
 
+
+
+
+
+
+
+  // ============ example for item ===============//
   public items = [
     { url: '1', name: 'test' },
     { url: '1', name: 'test2' },
@@ -48,8 +72,14 @@ export class AppComponent {
     { url: '1', name: 'test5' },
     { url: '1', name: 'test6' }
   ]
-  
+  // =============================================//
 
+
+
+
+
+
+  // ================== constructor ========================//
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -61,38 +91,27 @@ export class AppComponent {
     private db: AngularFirestore,
     private guard: IsManagerGuard,
     // private ngZone: NgZone,
-    private router: Router
-  ) 
-  {
+    private router: Router,
+    private menu: MenuController
+  ) {
     this.initializeApp();
   }
+  // ========================================================//
 
 
-  getIsMobile() {
-    const w = document.documentElement.clientWidth;
-    const breakpoint = 768;
-    console.log(w);
-    if (w < breakpoint) {
-      this.isMobile = true
-    } else {
-      this.isMobile = false
-    }
-  }
 
+
+
+  // ======== page initialization =============//
   ngOnInit(): void {
     this.userMode()
     this.userAuth.user.subscribe(() => {
-      this.userMode()   
+      this.userMode()
       this.guard.user = true
     })
-
-    // this.is_admin()
-    //this.manage.nativeElement.attributes[2].value = "myVar = false"
-    //var x = this.manage.nativeElement.attributes[3].value
-    //console.log(x)
-    // debugger
-
+    this.isMobile()
   }
+
 
   initializeApp() {
     this.platform.ready().then(() => {
@@ -101,37 +120,36 @@ export class AppComponent {
     });
   }
 
-  // is_admin() {
-  //   if (this.userAuth.auth.currentUser != null) {
-  //     this.db.collection('users').doc(this.userAuth.auth.currentUser.uid)
-  //       .get().subscribe(result => {
-  //         alert('manager is ' + result.data().manager)
-  //         this.ngZone.run(() => { this.manager = result.data().manager })
-  //         alert(this.manager)
-  //       })
-  //   }
-  //   else {
-  //     alert('in3')
-  //     this.ngZone.run(() => { this.manager = false })
-  //   }
+  // ==========================================//
 
 
-  // }
 
-  getManager() {
-    return this.manager
-  }
-  getMobile() {
-    return this.isMobile
+  
+  //====================================================== functions ==========================================//
+  
+  isMobile() {
+    const w = document.documentElement.clientWidth;
+    const breakpoint = 768;
+    if (w < breakpoint) {
+      this.mobile = true
+      return true
+    } else {
+      this.mobile = false
+      return false
+    }
   }
 
+
+  
   userMode() {
     if (this.userAuth.auth.currentUser != null) {
       this.db.collection('users').doc(this.userAuth.auth.currentUser.uid)
         .get().subscribe(result => {
           this.manager = result.data().manager
-          this.userLogin.nativeElement.innerHTML = 'LogOut'
-          this.loginNickName.nativeElement.innerHTML = 'Welcome ' + result.data().userName
+          if (!this.isMobile()) {
+            this.userLogin.nativeElement.innerHTML = 'LogOut'
+            this.loginNickName.nativeElement.innerHTML = 'Welcome ' + result.data().userName
+          }
         })
     }
     else {
@@ -159,6 +177,12 @@ export class AppComponent {
   }
 
 
+  getManager() {
+    this.isMobile()
+    return this.manager
+  }
 
+//===========================================================================================================//
 
-}
+}//end  class
+

@@ -1,83 +1,22 @@
-<!-- <ion-card>
-  <ion-card-header>
-    <ion-card-title>{{data.content}}</ion-card-title>
-  </ion-card-header>
-  <ion-card-content [ngStyle]='{"color": getContentColor(from)}'>
-    From: {{data.from}}
-  </ion-card-content>
-</ion-card> -->
-<ion-content >
-<ion-grid>
-
-<ion-card class="welcome-card">
-  <ion-title>edit post </ion-title>
-  <ion-img #img></ion-img>
-  <ion-card>
-    <!-- <progress class = "uploader" value="0" max="100" #uploader>0%</progress> -->
-    <!-- <ion-label type='file' value='upload' #fileButton>no file choose</ion-label> -->
-    
-    <ion-input  (change)="fileChangeEvent($event)" type="file" accept = "image/*" #fileButton ></ion-input>
-    <!-- <ion-button (click)="uploadFile()">upload file</ion-button> -->
-    <ion-button (click)="removeViewFile()">remove file</ion-button>
-    
-  </ion-card>
-  <ion-card-header>
-    <ion-card-title>
-      <ion-textarea #messageTitleField placeholder="Title" #input></ion-textarea>
-    </ion-card-title>
-    <ion-card-subtitle>
-      <ion-textarea #messageContentField placeholder="text post" #input></ion-textarea>
-    </ion-card-subtitle>
-  </ion-card-header>
-  <!-- <ion-card-content [ngStyle]='{"color": getContentColor(from)}'>
-    From:
-    From: {{data.from}}
-  </ion-card-content> -->
-  <ion-button [disabled]='isMessageInvalid()' slot='end' (click)='sendMessage()'>Send</ion-button>
-</ion-card>
-<br><br><br><br><br><br><br>
-</ion-grid>
-</ion-content >
-
-
-
-<!-- <ion-card>
-
-    <ion-card-header>
-    <ion-input  #messageTitleField placeholder="Title" #input></ion-input> 
-    </ion-card-header>
-    <ion-card-content>
-        <ion-input  #messageContentField placeholder="text post" #input></ion-input> 
-    </ion-card-content>
-    <ion-button  [disabled]='isMessageInvalid()' slot='end' (click)='sendMessage()' >Send</ion-button> 
-</ion-card> -->
-
-
-
-<!-- 
-
-<div class="_md md-open-menu-container md-whiteframe-z2 md-gmp-blue-theme md-active md-clickable"
-  id="menu_container_200" style="top: 204px; left: 358px; transform-origin: right top;" aria-hidden="false">
-  <md-menu-content width="1" role="menu" class="md-gmp-blue-theme">
-    <md-menu-item fb-permissions="storage.buckets.delete" fb-permissions-not-all="remove"> <button
-        class="md-button md-gmp-blue-theme" type="button" ng-transclude="" ng-disabled="controller.isDefaultBucket()"
-        ng-click="controller.showDeleteBucketDialog()" role="menuitem" disabled="disabled">
-        <div class="s5e-button-main"> Delete bucket </div>
-        
-        <div class="s5e-button-subtext" ng-if="controller.isDefaultBucket()"> Cannot delete default bucket </div>
-        
-      </button> </md-menu-item>
-    <md-menu-divider role="separator"
-      fb-permissions="storage.buckets.delete,storage.buckets.list, firebase.billingPlans.get"
-      fb-permissions-not-all="remove"></md-menu-divider>
-    <md-menu-item fb-permissions="storage.buckets.create,firebase.billingPlans.get" fb-permissions-not-all="remove">
-      <button class="s5e-button md-button md-gmp-blue-theme" type="button" ng-transclude=""
-        ng-click="controller.createBucket()" role="menuitem">
-        <div class="s5e-button-main"> Add bucket </div>
-        
-        <div class="s5e-button-subtext" ng-if="controller.requiresUpgrade"> Available with an upgrade to the Blaze plan
-        </div>
-        
-      </button> </md-menu-item>
-  </md-menu-content>
-</div> -->
+<ion-content>
+  <ion-grid>
+    <ion-card class="welcome-card">
+      <ion-title>edit post </ion-title>
+      <ion-img #img></ion-img>
+      <ion-card>
+        <ion-input (change)="fileChangeEvent($event)" type="file" accept="image/*" #fileButton></ion-input>
+        <ion-button (click)="removeViewFile()">remove file</ion-button>
+      </ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-textarea #messageTitleField placeholder="Title" #input></ion-textarea>
+        </ion-card-title>
+        <ion-card-subtitle>
+          <ion-textarea #messageContentField placeholder="text post" #input></ion-textarea>
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-button [disabled]='isMessageInvalid()' slot='end' (click)='sendMessage()'>Send</ion-button>
+    </ion-card>
+    <br><br><br><br><br><br><br>
+  </ion-grid>
+</ion-content>

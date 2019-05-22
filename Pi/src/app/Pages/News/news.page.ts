@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, NgZone,Input } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone, Input } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
@@ -11,32 +11,30 @@ import * as firebase from 'firebase';
   templateUrl: './news.page.html',
   styleUrls: ['./news.page.scss'],
 })
-export class NewsPage {
-  [x: string]: any;
-  
 
-  // @ViewChild('messageField') messageField
-  // @ViewChild('mainContent') mainContent
-  // @ViewChild('x') exit
-  messages = []
+
+
+export class NewsPage {
+
+  [x: string]: any;
   fullName = ''
-  // manager = false;
+  messages = []
+
+
 
   constructor(
     private uAuth: AngularFireAuth,
     // private ngZone: NgZone,
     private route: Router,
     private db: AngularFirestore,
-    private guard:IsManagerGuard
-    ) { }
+    private guard: IsManagerGuard
+  ) { }
+
+
 
   ngOnInit(): void {
-
-    // this.adminMode()
     this.uAuth.user.subscribe(() => {
-     
     })
-   
     this.db.collection('messages').valueChanges().subscribe(
       result => {
         result.sort((m1, m2) => {
@@ -45,41 +43,24 @@ export class NewsPage {
         })
         this.messages = [...result]
         return
-        // if (this.messages.length <= 0) {
-        //   this.messages = result
-        //   // this.scrollToBottom()
-        // } else {
-        //   this.ngZone.run(() => { this.messages.push(result[result.length - 1]) })
-        //   window.location.reload()
-        // }
       })
   }
 
-  createExit()
-  {
-    let cross = this.exit.createElement('div') 
+  createExit() {
+    let cross = this.exit.createElement('div')
     cross.textContent = 'x'
   }
 
-  // afterUserInside() {
-  //   this.db.collection('users').doc(this.uAuth.auth.currentUser.uid)
-  //     .get().subscribe(result => {
-  //       this.fullName = result.data().userName
-  //     })
-
-  // }
-
-write()
-{
-  this.route.navigateByUrl('/writPost')
-}
-
-
-getContentColor(m) {
-  if(this.fullName != null && m != null && this.fullName === m.from) {
-    return 'red'
+  write() {
+    this.route.navigateByUrl('/writPost')
   }
-}
+
+
+  getContentColor(m) {
+    if (this.fullName != null && m != null && this.fullName === m.from) {
+      return 'red'
+    }
+  }
 
 
 }

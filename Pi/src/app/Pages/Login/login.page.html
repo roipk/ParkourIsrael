@@ -1,22 +1,5 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Login
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<nav>
-  <a href="#"> Home </a> 
-  <a routerLink='/news'> News </a>
-  <a href="#"> Contact </a>
-  <a href="#"> Help </a>
-  <a id ='btnLogin'  (click)='login()'>Login</a>
-  <a id ='manager'  routerLink = "/manager"> Manage </a>
-</nav> -->
 
 <ion-content>
-
   <ion-grid>
 
     <ion-row class='center-row'>
@@ -37,7 +20,6 @@
             class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
         </ion-item>
       </ion-col>
-
     </ion-row>
 
     <ion-row class='center-row'>
@@ -48,13 +30,14 @@
 
   </ion-grid>
 
+
+
   <ion-text text-center size-font=3.5px>
     <h6> <a routerLink='/signup'> Don't have an account? Register here. </a></h6>
     <h6> <a style ="cursor: pointer;" (click)='alertPassword()'> Forgot password? </a></h6>
   </ion-text>
 
   <hr class="hr-text" data-content="OR">
-
   <ion-grid>
 
     <ion-row class='center-row'>
@@ -65,16 +48,15 @@
         </ion-button>
       </ion-col>
     </ion-row>
-
+    
     <ion-row class='center-row'>
       <ion-col size='12' size-md=4>
-        <!-- <ion-button expand="block" (click)="b()">test</ion-button> -->
         <ion-button class="google-btn" color="google" expand="block" (click)="googlelogin()">
             <ion-icon name="logo-google"></ion-icon>
           Login with Google
         </ion-button>
       </ion-col>
     </ion-row>
-  </ion-grid>
 
+  </ion-grid>
 </ion-content>

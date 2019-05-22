@@ -21,6 +21,7 @@ export class ManagePage {
   showPages = false;
   showPosts = false;
   showUsers = false;
+
   public pages = []
   public posts = []
   public users = []
@@ -34,6 +35,7 @@ export class ManagePage {
     private router: Router,
     private db: AngularFirestore
   ) { }
+
 
   ngOnInit(): void {
     this.db.collection('users').valueChanges().subscribe(
@@ -54,6 +56,9 @@ export class ManagePage {
         this.posts = [...result]
       })
   }
+
+
+
 
   serch(list, find) {
     if (list == this.posts) {
@@ -95,6 +100,8 @@ export class ManagePage {
     }
   }
 
+
+  
   openPagesList() {
     this.showPages = !this.showPages;
   }
