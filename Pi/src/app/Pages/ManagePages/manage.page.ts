@@ -60,7 +60,7 @@ export class ManagePage {
 
 
 
-  serch(list, find) {
+  search(list, find) {
     if (list == this.posts) {
       if(find=='')
       {

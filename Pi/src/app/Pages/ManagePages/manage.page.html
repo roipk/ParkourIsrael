@@ -36,10 +36,10 @@
                 </ion-list-header>
                 <ion-list [hidden]="!showPosts">
                     <ion-item>
-                        <ion-label>serch by title</ion-label>
-                        <ion-input #title (ionBlur)="serch(posts,title.value)"></ion-input>
+                        <ion-label>search by title</ion-label>
+                        <ion-input #title (ionBlur)="search(posts,title.value)"></ion-input>
                         <ion-label>serch by date</ion-label>
-                        <ion-input #date type='date' (ionBlur)="serch(posts,da.value)"></ion-input>
+                        <ion-input #date type='date' (ionBlur)="search(posts,da.value)"></ion-input>
                     </ion-item>
                     <ion-item *ngFor='let post of posts'>Title: {{post.title}}</ion-item>
                 </ion-list>

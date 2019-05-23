@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators'
 import { auth } from 'firebase'
 import { AngularFirestore } from '@angular/fire/firestore';
+import { disableBindings } from '@angular/core/src/render3';
+import { DISABLED } from '@angular/forms/src/model';
 
 
 
@@ -66,16 +68,22 @@ export class LoginPage {
       this.userAuth.auth.signInWithEmailAndPassword(this.email, password)
         .then((result) => {
           this.dismissLoading()
-          this.ngZone.run(() => {  this.router.navigateByUrl('/news') })
+          // don't need this line
+          //this.ngZone.run(() => {  this.router.navigateByUrl('/news') })
+          this.router.navigateByUrl('/news')
         
         }).catch(() => {
           this.dismissLoading()
-          alert('email or password not correct')
+          //alert('Email or password not are correct')
+          this.simpleAlert('Email or password are not correct')
         })
     }
+    /*
     else {
-      alert('email or password not correct')
+      //alert('Email or password are not correct')
+      this.simpleAlert('Email or password are not correct')
     }
+    */
   }
 
 
@@ -113,8 +121,6 @@ export class LoginPage {
       }
     })
 
-
-
     this.db.collection('users', ref => ref.where('userName', '==', user)).get().subscribe(result => {
       if (result.empty) {
         this.userExsist = false
@@ -133,17 +139,32 @@ export class LoginPage {
   }
 
 passwordType: string = 'password';
- passwordIcon: string = 'eye-off';
+passwordIcon: string = 'eye-off';
 
  hideShowPassword() {
      this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
      this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
  }
 
+
 isPasswordInEmpty(): boolean {
   return this.passField == null || this.passField.value == null || this.passField.value.length <= 0
 }
 
+isResetMailInEmpty(strMail: string): boolean {
+  return strMail.length <= 0
+}
+
+async simpleAlert(msg: string) {
+  const alert = await this.alertController.create({
+    message: msg,
+    buttons: [
+      {
+        text: 'OK'
+      }]
+    });
+    await alert.present();
+}
 
 async alertPassword() {
   const alert = await this.alertController.create({
@@ -152,32 +173,43 @@ async alertPassword() {
       {
         name: 'email',
         placeholder: 'Please enter your email'
+         
       }],
     buttons: [
       {
         text: 'Send',
         handler: async data => {
-          await this.passwordReset(data.email);
           let msg = ''
-          if (this.emailSent) {
-            msg = 'Email sent successfully'
+          if(this.isResetMailInEmpty(data.email)) {
+            msg = 'Email field is empty'
           }
           else {
-            msg = 'Email is not valid'
+            await this.passwordReset(data.email);
+            if (this.emailSent) {
+              msg = 'Email sent successfully'
+            }
+            else {
+              msg = 'Email is not valid'
+            }
           }
           const alert2 = await this.alertController.create({
             message: msg,
             buttons: [
               {
-                text: 'OK'
-              }] 
+                text: 'OK',
+              }]
           });
           await alert2.present();
         }
       }
     ]
   });
-  await alert.present();
+  await alert.present().then(() => {
+    const firstInput: any = document.querySelector('ion-alert input');
+    firstInput.focus();
+    KeyboardEvent
+    return;
+  });
 }
 
 async passwordReset(email: string) {
@@ -190,8 +222,8 @@ async passwordReset(email: string) {
 
 onKeyUp(data) {
   data.keyCode
-  const ENTER_KET_CODE = 13
-  if (data.keyCode === ENTER_KET_CODE) {
+  const ENTER_KEY_CODE = 13
+  if (data.keyCode === ENTER_KEY_CODE) {
     this.signInUser()
   }
 }
