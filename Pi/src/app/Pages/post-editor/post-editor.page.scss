@@ -25,3 +25,11 @@ ion-grid {
     flex-direction: column;
     justify-content: flex-end;
 }
+
+.image{
+    max-width:300px;
+    max-height: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
