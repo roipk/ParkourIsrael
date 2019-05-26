@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
 import { LoadingController } from '@ionic/angular';
+import { AppComponent} from '../../app.component'
 
 
 
@@ -45,7 +46,8 @@ export class PostEditorPage implements OnInit {
     private ngZone: NgZone,
     private route: Router,
     private loadingController: LoadingController,
-    private db: AngularFirestore) { }
+    private db: AngularFirestore,
+    private admin : AppComponent) { }
 
 
 
@@ -111,8 +113,8 @@ export class PostEditorPage implements OnInit {
     if (e.target.value == 'userName') {
       this.nameToShow = 'userName'
     }
-    else if(e.target.value == 'fullName') {
-      this.nameToShow = 'fullName'
+    else if(e.target.value == 'manager') {
+      this.nameToShow = 'צוות פארקור ישראל'
     }
   }
 
@@ -147,4 +149,7 @@ export class PostEditorPage implements OnInit {
     this.loadingRef.dismiss()
   }
 
+  getManager(){
+return this.admin.getManager()
+  }
 }

@@ -15,12 +15,21 @@
           <ion-textarea #messageContentField placeholder="text post" #input></ion-textarea>
         </ion-card-subtitle>
 
-        <ion-radio-group (ionChange)="radioButtonEvent($event)">
+        <!--<ion-radio-group (ionChange)="radioButtonEvent($event)">
           Post with:
           <ion-label>User Name </ion-label>
           <ion-radio  value="userName" checked></ion-radio>
           <ion-label> Full Name </ion-label>
           <ion-radio value="fullName"></ion-radio>
+        </ion-radio-group>-->
+
+        
+        <ion-radio-group (ionChange)="radioButtonEvent($event)" *ngIf="getManager()">
+          Post with:
+          <ion-label>User Name </ion-label>
+          <ion-radio  value="userName" checked></ion-radio>
+          <ion-label> צוות פארקור ישראל </ion-label>
+          <ion-radio value="manager"></ion-radio>
         </ion-radio-group>
 
 
