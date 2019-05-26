@@ -70,15 +70,20 @@ export class PostEditorPage implements OnInit {
     if (this.isMessageInvalid()) {
       return
     }
-    if(this.nameToShow == 'userName') {
-      this.nameToShow = this.userName
+    if (this.nameToShow != this.userName){
+      this.db.collection('messages').add({
+        title: this.MessageTitleField.value,
+        from: this.nameToShow,
+        from_manager: this.userName,
+        content: this.messageField.value,
+        timestamp: new Date().getTime(),
+        file_name: this.nameFile
+      })
     }
-    else if(this.nameToShow == 'fullName') {
-      this.nameToShow = this.fullName
-    }
+
     this.db.collection('messages').add({
       title: this.MessageTitleField.value,
-      from: this.nameToShow,              //before it was this.userName
+      from: this.nameToShow,
       content: this.messageField.value,
       timestamp: new Date().getTime(),
       file_name: this.nameFile

@@ -25,11 +25,18 @@
 
         
         <ion-radio-group (ionChange)="radioButtonEvent($event)" *ngIf="getManager()">
-          Post with:
-          <ion-label>User Name </ion-label>
-          <ion-radio  value="userName" checked></ion-radio>
-          <ion-label> צוות פארקור ישראל </ion-label>
-          <ion-radio value="manager"></ion-radio>
+          <ion-list-header>
+              Post with:
+            </ion-list-header>
+          <ion-item>
+              <ion-label>UserName</ion-label>
+              <ion-radio value="userName" checked></ion-radio>
+            </ion-item>
+            <ion-item>
+                <ion-label>צוות פארקור ישראל</ion-label>
+                <ion-radio value="manager"></ion-radio>
+              </ion-item>
+            
         </ion-radio-group>
 
 
