@@ -1,8 +1,8 @@
 <ion-content class="temp" #mainContent>
   <ion-button *ngIf='uAuth.auth.currentUser != null' (click)='write()'>new post</ion-button>
   <ion-grid>
-    <ion-row *ngFor='let m of messages'>
-      <ion-col>
+    <ion-row class="center-row" *ngFor='let m of messages'>
+      <ion-col size='12' size-md=7>
         <app-post-bubble [fullName]='fullName' [data]='m'></app-post-bubble>
       </ion-col>
     </ion-row>
