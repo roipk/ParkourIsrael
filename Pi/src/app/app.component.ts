@@ -7,7 +7,7 @@ import { UserService } from '../app/user.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { IsManagerGuard } from './is-manager-guard/is-manager.guard';
+// import { IsManagerGuard } from './is-manager-guard/is-manager.guard';
 // ==========================================================================//
 
 
@@ -25,6 +25,7 @@ export class AppComponent {
   // ============================= all id from object in html ===================================//
   @ViewChild('user') userLogin
   @ViewChild('loginNickName') loginNickName
+  // @ViewChild('titlePage') titlePage
   // ============================================================================================//
 
 
@@ -34,8 +35,9 @@ export class AppComponent {
   showFiller = true;
   mobile = false;
   manager = false;
-  fullName = ''
+  fullName = '';
   title = 'user-servic';
+  
   // ===============================//
 
 
@@ -89,10 +91,10 @@ export class AppComponent {
     private uAuth: AngularFireAuth,
     private userAuth: AngularFireAuth,
     private db: AngularFirestore,
-    private guard: IsManagerGuard,
+    // private guard: IsManagerGuard,
     // private ngZone: NgZone,
     private router: Router,
-    private menu: MenuController
+    private menu: MenuController,
   ) {
     this.initializeApp();
   }
@@ -104,12 +106,14 @@ export class AppComponent {
 
   // ======== page initialization =============//
   ngOnInit(): void {
+
     this.userMode()
     this.userAuth.user.subscribe(() => {
       this.userMode()
-      this.guard.user = true
+      // this.guard.ucleaser = true
     })
     this.isMobile()
+    
   }
 
 
@@ -148,7 +152,7 @@ export class AppComponent {
           this.manager = result.data().manager
           if (!this.isMobile()) {
             this.userLogin.nativeElement.innerHTML = 'LogOut'
-            this.loginNickName.nativeElement.innerHTML = 'Welcome ' + result.data().userName
+            this.loginNickName.nativeElement.innerHTML = this.loginNickName.nativeElement.innerHTML+" "+ result.data().userName+" "
           }
         })
     }
@@ -181,6 +185,12 @@ export class AppComponent {
     this.isMobile()
     return this.manager
   }
+
+  // setPage(page)
+  // {
+  //   page.titlePage.nativeElement.innerHTML  = page
+  // }
+
 
 //===========================================================================================================//
 
