@@ -70,24 +70,29 @@ export class PostEditorPage implements OnInit {
     if (this.isMessageInvalid()) {
       return
     }
-    if (this.nameToShow != this.userName){
+    
+    if (this.nameToShow == "צוות פארקור ישראל"){
       this.db.collection('messages').add({
         title: this.MessageTitleField.value,
         from: this.nameToShow,
         from_manager: this.userName,
         content: this.messageField.value,
         timestamp: new Date().getTime(),
-        file_name: this.nameFile
+        file_name: this.nameFile,
+        date : this.postDate()
       })
     }
 
+    else{
     this.db.collection('messages').add({
       title: this.MessageTitleField.value,
-      from: this.nameToShow,
+      from: this.userName,
       content: this.messageField.value,
       timestamp: new Date().getTime(),
-      file_name: this.nameFile
+      file_name: this.nameFile,
+      date : this.postDate()
     })
+  }
     if (this.nameFile != '')
       this.uploadFile()
     else {
@@ -116,7 +121,7 @@ export class PostEditorPage implements OnInit {
 
   radioButtonEvent(e) {
     if (e.target.value == 'userName') {
-      this.nameToShow = 'userName'
+      this.nameToShow = this.userName
     }
     else if(e.target.value == 'manager') {
       this.nameToShow = 'צוות פארקור ישראל'
@@ -156,5 +161,32 @@ export class PostEditorPage implements OnInit {
 
   getManager(){
 return this.admin.getManager()
+  }
+
+  postDate(){
+    var d = new Date();
+    
+    var months = new Array(12);
+    months[0] = "January"
+    months[1] = "February"
+    months[2] = "March"
+    months[3] = "April"
+    months[4] = "May"
+    months[5] = "June"
+    months[6] = "July"
+    months[7] = "August"
+    months[8] = "September"
+    months[9] = "October"
+    months[10] = "November"
+    months[11] = "December"
+
+    
+    if (d.getMinutes()<10)
+    var min = "0"+d.getMinutes()
+    else 
+    var min = d.getMinutes().toString()
+    
+    var date = months[d.getMonth()]+" "+d.getDate()+" "+d.getFullYear()+" at "+d.getHours()+":"+min
+    return date
   }
 }
