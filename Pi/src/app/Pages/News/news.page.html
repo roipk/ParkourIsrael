@@ -2,12 +2,15 @@
   <ion-content class="temp" #mainContent>
     <ion-button *ngIf='uAuth.auth.currentUser != null' (click)='write()'>new post</ion-button>
   <ion-grid>
-    <ion-row class="center-row" *ngFor='let m of messages'>
+    <ion-row class="center-row" *ngFor='let m of messages; let i=index'>
       <ion-col size='12' size-md=7>
-        <app-post-bubble [fullName]='fullName' [data]='m'></app-post-bubble>
+        <app-post-bubble [fullName]='fullName' [data]='m'  *ngIf="i<2"></app-post-bubble>
       </ion-col>
     </ion-row>
   </ion-grid>
+
+    <ion-icon name = "arrow-down"></ion-icon>
+ 
   <br><br><br><br><br><br><br>
 </ion-content>
 

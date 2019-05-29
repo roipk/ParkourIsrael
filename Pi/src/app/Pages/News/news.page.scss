@@ -35,3 +35,18 @@ ion-input{
     justify-content: center;
   }
 
+  html {
+    overflow: scroll;
+    overflow-x: hidden;
+    }
+    ::-webkit-scrollbar {
+    width: 0px; /* remove scrollbar space */
+    background: transparent; /* optional: just make scrollbar invisible */
+    }
+
+    ion-icon{
+        font-size: 40px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }

@@ -1,5 +1,5 @@
 <!-- website on Descktop -->
-<ion-content *ngIf="!isMobile()">
+<ion-content *ngIf="!isMobile()" >
   <ion-grid>
     <ion-row>
      
@@ -25,6 +25,7 @@
                   <a #loginNickName routerLink="/contact" routerLinkActive="active" class="dropbtn">Welcome</a>
                   <div class="dropdown-content">
                       <a #user (click)="login()">Login</a>
+                      <a #user routerLink="/manager" routerLinkActive="active" *ngIf="getManager()">Manager</a>
                     <a *ngFor='let item of items' [routerLink]="item.url" routerLinkActive="active">{{item.name}}</a>
                   </div>
                 </li>

@@ -1,6 +1,6 @@
 // ============================= imports ===================================//
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
-import { Platform, MenuController } from '@ionic/angular';
+import { Platform, MenuController} from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { UserService } from '../app/user.service';
@@ -94,9 +94,10 @@ export class AppComponent {
     // private guard: IsManagerGuard,
     // private ngZone: NgZone,
     private router: Router,
-    private menu: MenuController,
-  ) {
+    private menu: MenuController
+    ) {
     this.initializeApp();
+    
   }
   // ========================================================//
 
