@@ -26,7 +26,9 @@ export class ManagePage {
   public posts = []
   public users = []
 
-  
+
+
+
 
 
   //{ url: '1', name: 'test' }
@@ -62,8 +64,7 @@ export class ManagePage {
 
   search(list, find) {
     if (list == this.posts) {
-      if(find=='')
-      {
+      if (find == '') {
         this.db.collection('messages').valueChanges().subscribe(
           result => {
             result.sort((m1, m2) => {
@@ -72,18 +73,16 @@ export class ManagePage {
             })
             this.posts = [...result]
           })
-          return
+        return
       }
       this.posts = [...list.filter(obj => {
         return obj.title === find
       })]
     }
 
-    if(list == this.users)
-    {
+    if (list == this.users) {
 
-      if(find=='')
-      {
+      if (find == '') {
         this.db.collection('users').valueChanges().subscribe(
           result => {
             result.sort((m1, m2) => {
@@ -92,7 +91,7 @@ export class ManagePage {
             })
             this.users = [...result]
           })
-          return
+        return
       }
       this.users = [...list.filter(obj => {
         return obj.userName === find
@@ -100,8 +99,12 @@ export class ManagePage {
     }
   }
 
+  async deletePost(docId: string) {
+    await this.db.collection("messages").doc(docId).delete().catch(() => {
+      alert('An error occured')
+    });
+  }
 
-  
   openPagesList() {
     this.showPages = !this.showPages;
   }

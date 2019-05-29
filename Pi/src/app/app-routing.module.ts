@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: './Pages/Login/login.module#LoginPageModule'},
   { path: 'info', loadChildren: './Pages/Info/info.module#InfoPageModule' },
   { path: 'manager', loadChildren: './Pages/ManagePages/manage.module#ManagePageModule', canActivate: [ IsManagerGuard ] },
-  { path: 'writPost', loadChildren: './Pages/post-editor/post-editor.module#PostEditorPageModule',  canActivate: [ IsManagerGuard ] },
+  { path: 'writePost', loadChildren: './Pages/post-editor/post-editor.module#PostEditorPageModule',  canActivate: [ IsManagerGuard ] },
   { path: 'contact', loadChildren: './Pages/contact/contact.module#ContactPageModule' },
   { path: '**', loadChildren: './Pages/not-found/not-found.module#NotFoundPageModule' }, 
 ];

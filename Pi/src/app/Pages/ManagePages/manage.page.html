@@ -41,7 +41,9 @@
                         <ion-label>serch by date</ion-label>
                         <ion-input #date type='date' (ionBlur)="search(posts,da.value)"></ion-input>
                     </ion-item>
-                    <ion-item *ngFor='let post of posts'>Title: {{post.title}}</ion-item>
+                    <ion-item *ngFor='let post of posts'>Title: {{post.title}}
+                        <ion-icon class='trash' name='trash' (click)="deletePost(post.docId)" slot='end'></ion-icon>
+                    </ion-item>
                 </ion-list>
             </ion-col>
         </ion-row>

@@ -17,4 +17,8 @@ ion-icon
 .center-row {
     display: flex;
     justify-content: center;
-  }
+}
+
+.trash:hover {
+    color: red
+}

@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
 import { LoadingController } from '@ionic/angular';
 import { AppComponent} from '../../app.component'
+import { defineBase } from '@angular/core/src/render3';
 
 
 
@@ -80,6 +81,10 @@ export class PostEditorPage implements OnInit {
         timestamp: new Date().getTime(),
         file_name: this.nameFile,
         date : this.postDate()
+      }).then( result => {
+        result.update({docId: result.id});
+      }).catch(e => {
+        alert('Failed to update the firebase')
       })
     }
 
@@ -91,6 +96,10 @@ export class PostEditorPage implements OnInit {
       timestamp: new Date().getTime(),
       file_name: this.nameFile,
       date : this.postDate()
+    }).then( result => {
+      result.update({docId: result.id});
+    }).catch(e => {
+      alert('Failed to update the firebase')
     })
   }
     if (this.nameFile != '')

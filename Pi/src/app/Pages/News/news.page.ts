@@ -52,7 +52,7 @@ export class NewsPage {
   }
 
   write() {
-    this.route.navigateByUrl('/writPost')
+    this.route.navigateByUrl('/writePost')
   }
 
 
