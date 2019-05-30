@@ -1,14 +1,54 @@
+<ion-content class="temp" #mainContent>
+  <!--
+      <div *ngIf='uAuth.auth.currentUser != null'>
+    <ion-button (click)='write()'>new post</ion-button>
+    <ion-item>
+      <ion-label>All posts</ion-label>
+      <ion-radio value="allPosts" checked></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>My posts</ion-label>
+      <ion-radio value="myPosts"></ion-radio>
+    </ion-item>
+  </div>
+  -->
 
-  <ion-content class="temp" #mainContent>
-    <ion-button *ngIf='uAuth.auth.currentUser != null' (click)='write()'>new post</ion-button>
+
   <ion-grid>
-    <ion-row class="center-row" *ngFor='let m of messages'>
-      <ion-col size='12' size-md=7>
-        <app-post-bubble [fullName]='fullName' [data]='m'></app-post-bubble>
+    <ion-row>
+      <ion-col size='3' *ngIf='uAuth.auth.currentUser != null'>
+        <ion-card>
+          <ion-col (ionChange)="radioButtonEvent($event)">
+            <div class="btn-wrapper">
+              <ion-button (click)='write()'>new post</ion-button>
+            </div>
+            <hr>
+            <ion-radio-group>
+              <ion-list>
+                <ion-item>
+                  <ion-label>All posts</ion-label>
+                  <ion-radio value="allPosts" checked></ion-radio>
+                </ion-item>
+                <ion-item>
+                  <ion-label>My posts</ion-label>
+                  <ion-radio value="myPosts"></ion-radio>
+                </ion-item>
+              </ion-list>
+            </ion-radio-group>
+          </ion-col>
+        </ion-card>
+      </ion-col>
+
+      <ion-col>
+        <ion-row *ngFor='let m of messages'>
+          <!-- <ion-col size='12' size-md=7> -->
+          <ion-col>
+            <app-post-bubble [fullName]='fullName' [data]='m'></app-post-bubble>
+          </ion-col>
+        </ion-row>
       </ion-col>
     </ion-row>
   </ion-grid>
-   
+
   <br><br><br><br><br><br><br>
 </ion-content>
-
