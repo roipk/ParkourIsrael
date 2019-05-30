@@ -36,6 +36,7 @@ export class PostEditorPage implements OnInit {
   userName = ''
   fullName = ''
   nameToShow = ''
+  email = ''
 
   file = File
   messages = []
@@ -63,6 +64,7 @@ export class PostEditorPage implements OnInit {
       .get().subscribe(result => {
         this.userName = result.data().userName
         this.fullName = result.data().fullName
+        this.email = result.data().email
       })
   }
 
@@ -75,6 +77,7 @@ export class PostEditorPage implements OnInit {
     if (this.nameToShow == "צוות פארקור ישראל"){
       this.db.collection('messages').add({
         title: this.MessageTitleField.value,
+        email: this.email,
         from: this.nameToShow,
         from_manager: this.userName,
         content: this.messageField.value,
@@ -91,6 +94,7 @@ export class PostEditorPage implements OnInit {
     else{
     this.db.collection('messages').add({
       title: this.MessageTitleField.value,
+      email: this.email,
       from: this.userName,
       content: this.messageField.value,
       timestamp: new Date().getTime(),

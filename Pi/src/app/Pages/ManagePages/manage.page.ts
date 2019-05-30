@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { post } from 'selenium-webdriver/http';
+import * as firebase from 'firebase';
 
 
 
@@ -17,6 +18,8 @@ export class ManagePage {
   @ViewChild('date') dateField
 
 
+  file_name = ''
+
   manager = false;
   showPages = false;
   showPosts = false;
@@ -25,7 +28,7 @@ export class ManagePage {
   public pages = []
   public posts = []
   public users = []
-
+  loadingController: any;
 
 
 
@@ -99,10 +102,23 @@ export class ManagePage {
     }
   }
 
-  async deletePost(docId: string) {
+  async deletePost(docId: string, file_name: string) {
+    this.file_name = file_name
+    if (this.file_name != '') {
+      this.removeFile()
+    }
+
     await this.db.collection("messages").doc(docId).delete().catch(() => {
-      alert('An error occured')
+      alert('error while removing message')
     });
+  }
+
+  removeFile() {
+    var storageRef = firebase.storage().ref()
+    storageRef.child('images/' + this.file_name).delete().then(() => {
+    }).catch(() => {
+      alert('error while removing file')
+    })
   }
 
   openPagesList() {
