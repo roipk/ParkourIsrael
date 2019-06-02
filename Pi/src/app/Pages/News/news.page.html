@@ -16,7 +16,7 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col size='3' *ngIf='uAuth.auth.currentUser != null'>
+      <ion-col size='12' size-md=3 *ngIf='uAuth.auth.currentUser != null'>
         <ion-card>
           <ion-col (ionChange)="radioButtonEvent($event)">
             <div class="btn-wrapper">
@@ -38,7 +38,8 @@
           </ion-col>
         </ion-card>
       </ion-col>
-
+    </ion-row>
+    <ion-row>
       <ion-col>
         <ion-row *ngFor='let m of messages'>
           <!-- <ion-col size='12' size-md=7> -->
