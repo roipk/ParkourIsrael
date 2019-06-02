@@ -1,45 +1,34 @@
-<!-- website on Descktop -->
+<!-- website on Desktop -->
 <ion-content *ngIf="!isMobile()" >
-  <ion-grid>
-    <ion-row>
-     
-      <ion-col size="8">
-        <ul>
-          <li> <a routerLink="/home" routerLinkActive="active"> Home </a> </li>
-          <li> <a routerLink="/news" routerLinkActive="active"> News </a></li>
-          <li class="dropdown">
-            <a routerLink="/contact" routerLinkActive="active" class="dropbtn">Contact</a>
+  <nav class="nav">
+    <ul>
+      <div class="nav-left">
+        <li> <a routerLink="/home" routerLinkActive="active"> Home </a> </li>
+        <li> <a routerLink="/news" routerLinkActive="active"> News </a></li>
+        <li class="dropdown">
+          <a routerLink="/contact" routerLinkActive="active" class="dropbtn">Contact</a>
             <div class="dropdown-content">
               <a *ngFor='let item of items' [routerLink]="item.url" routerLinkActive="active">{{item.name}}</a>
             </div>
-          </li>
-          <li><a routerLink="/info" routerLinkActive="active">info</a></li>
-          <li><a routerLink="/news" routerLinkActive="active">test</a></li>
-          </ul>
-        </ion-col>
-
-          <ion-col size="4">
-            <ul>
-            <div class="right">
-              <li class="dropdown">
-                  <a #loginNickName routerLink="/contact" routerLinkActive="active" class="dropbtn">Welcome</a>
-                  <div class="dropdown-content">
-                      <a #user (click)="login()">Login</a>
-                      <a #user routerLink="/manager" routerLinkActive="active" *ngIf="getManager()">Manager</a>
-                    <a *ngFor='let item of items' [routerLink]="item.url" routerLinkActive="active">{{item.name}}</a>
-                  </div>
-                </li>
-
-
-            <div class='username' #loginNickName></div>
-            <li *ngIf="getManager()"><a routerLink="/manager" routerLinkActive="active"> Manage </a></li>
-            <li><a #user (click)="login()">Login</a></li>
-          </div> 
-        </ul>
-      </ion-col>
-  
-    </ion-row>
-  </ion-grid>
+        </li>
+        <li><a routerLink="/info" routerLinkActive="active">info</a></li>
+        <li><a routerLink="/news" routerLinkActive="active">test</a></li>
+      </div>
+      <div class="nav-right">
+        <li class="dropdown">
+          <a #loginNickName routerLink="/contact" routerLinkActive="active" class="dropbtn">Welcome</a>
+            <div class="dropdown-content">
+              <a #user (click)="login()">Login</a>
+              <a #user routerLink="/manager" routerLinkActive="active" *ngIf="getManager()">Manager</a>
+              <a *ngFor='let item of items' [routerLink]="item.url" routerLinkActive="active">{{item.name}}</a>
+            </div>
+        </li>
+        <div class='username' #loginNickName></div>
+          <li *ngIf="getManager()"><a routerLink="/manager" routerLinkActive="active"> Manage </a></li>
+          <li><a #user (click)="login()">Login</a></li>
+      </div>
+    </ul>      
+  </nav>
   <router-outlet></router-outlet>
 </ion-content>
 

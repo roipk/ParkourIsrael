@@ -171,3 +171,20 @@ mat-sidenav {
   width: 200px;
 }
 
+.nav{
+  width: 100%;
+  margin-left: 0%;
+}
+
+.nav-right li{
+  float: right;
+}
+
+.nav-left li{
+  float: left;
+}
+
+ul{
+  margin: 0px;
+  padding: 0px;
+}
