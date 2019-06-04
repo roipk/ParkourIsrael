@@ -1,82 +1,106 @@
 import * as tslib_1 from "tslib";
-import { Component, ViewChild, NgZone } from '@angular/core';
+import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+import { IsManagerGuard } from 'src/app/is-manager-guard/is-manager.guard';
 var NewsPage = /** @class */ (function () {
-    function NewsPage(uAuth, ngZone, db) {
+    function NewsPage(uAuth, 
+    // private ngZone: NgZone,
+    route, db, guard) {
         this.uAuth = uAuth;
-        this.ngZone = ngZone;
+        this.route = route;
         this.db = db;
-        this.messages = [];
+        this.guard = guard;
         this.fullName = '';
-        this.manager = false;
+        this.email = '';
+        this.messages = [];
     }
     NewsPage.prototype.ngOnInit = function () {
         var _this = this;
-        // this.adminMode()
         this.uAuth.user.subscribe(function () {
-            _this.afterUserInside();
-            // this.adminMode()
-        });
-        this.db.collection('messages').valueChanges().subscribe(function (result) {
-            result.sort(function (m1, m2) {
-                if (m1['timestamp'] < m2['timestamp'])
-                    return 1;
-                else
-                    return -1;
-            });
-            _this.messages = result.slice();
-            return;
-            if (_this.messages.length <= 0) {
-                _this.messages = result;
-                // this.scrollToBottom()
-            }
-            else {
-                _this.ngZone.run(function () { _this.messages.push(result[result.length - 1]); });
-                window.location.reload();
+            _this.getPostsFromDb('allPosts');
+            if (_this.uAuth.auth.currentUser != null) {
+                _this.afterUserInside();
             }
         });
     };
     NewsPage.prototype.afterUserInside = function () {
-        var _this = this;
-        this.db.collection('users').doc(this.uAuth.auth.currentUser.uid)
-            .get().subscribe(function (result) {
-            _this.fullName = result.data().userName;
+        return tslib_1.__awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return tslib_1.__generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.db.collection('users').doc(this.uAuth.auth.currentUser.uid)
+                            .get().subscribe(function (result) {
+                            _this.email = result.data().email;
+                        })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
         });
     };
-    NewsPage.prototype.sendMessage = function () {
-        if (this.isMessageInvalid()) {
-            return;
-        }
-        this.db.collection('messages').add({
-            from: this.fullName,
-            content: this.messageField.value,
-            timestamp: new Date().getTime()
-        });
-        this.messageField.value = '';
-        ///this.scrollToBottom()
-    };
-    NewsPage.prototype.isMessageInvalid = function () {
-        return this.messageField == null || this.messageField.value == null || this.messageField.value.length <= 0;
-    };
-    NewsPage.prototype.scrollToBottom = function () {
+    /*
+    ngOnInit(): void {
+      this.uAuth.user.subscribe(() => {
+      })
+      this.db.collection('messages').valueChanges().subscribe(
+        result => {
+          result.sort((m1, m2) => {
+            if (m1['timestamp'] < m2['timestamp']) return 1
+            else return -1
+          })
+          this.messages = [...result]
+          return
+        })
+    }
+    */
+    NewsPage.prototype.getPostsFromDb = function (param) {
         var _this = this;
-        setTimeout(function () { _this.mainContent.scrollToBottom(700); }, 120);
-    };
-    NewsPage.prototype.onKeyUp = function (data) {
-        var ENTER_KET_CODE = 13;
-        if (data.keyCode === ENTER_KET_CODE) {
-            this.sendMessage();
+        if (param == 'allPosts') {
+            this.db.collection('messages').valueChanges().subscribe(function (result) {
+                result.sort(function (m1, m2) {
+                    if (m1['timestamp'] < m2['timestamp'])
+                        return 1;
+                    else
+                        return -1;
+                });
+                _this.messages = result.slice();
+            });
+        }
+        else if (param == 'myPosts') {
+            this.db.collection('messages', function (ref) { return ref.where('email', '==', _this.email); }).valueChanges().subscribe(function (result) {
+                result.sort(function (m1, m2) {
+                    if (m1['timestamp'] < m2['timestamp'])
+                        return 1;
+                    else
+                        return -1;
+                });
+                _this.messages = result.slice();
+            });
         }
     };
-    tslib_1.__decorate([
-        ViewChild('messageField'),
-        tslib_1.__metadata("design:type", Object)
-    ], NewsPage.prototype, "messageField", void 0);
-    tslib_1.__decorate([
-        ViewChild('mainContent'),
-        tslib_1.__metadata("design:type", Object)
-    ], NewsPage.prototype, "mainContent", void 0);
+    NewsPage.prototype.createExit = function () {
+        var cross = this.exit.createElement('div');
+        cross.textContent = 'x';
+    };
+    NewsPage.prototype.write = function () {
+        this.route.navigateByUrl('/writePost');
+    };
+    NewsPage.prototype.getContentColor = function (m) {
+        if (this.fullName != null && m != null && this.fullName === m.from) {
+            return 'red';
+        }
+    };
+    NewsPage.prototype.radioButtonEvent = function (e) {
+        if (e.target.value == 'allPosts') {
+            this.getPostsFromDb('allPosts');
+        }
+        else if (e.target.value == 'myPosts') {
+            this.getPostsFromDb('myPosts');
+        }
+    };
     NewsPage = tslib_1.__decorate([
         Component({
             selector: 'app-news',
@@ -84,8 +108,9 @@ var NewsPage = /** @class */ (function () {
             styleUrls: ['./news.page.scss'],
         }),
         tslib_1.__metadata("design:paramtypes", [AngularFireAuth,
-            NgZone,
-            AngularFirestore])
+            Router,
+            AngularFirestore,
+            IsManagerGuard])
     ], NewsPage);
     return NewsPage;
 }());

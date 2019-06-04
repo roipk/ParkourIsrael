@@ -83,7 +83,7 @@ export class SignupPage {
         this.userAuth.auth.createUserWithEmailAndPassword(email, password)
 
           .then((result) => {
-            this.db.collection('users').doc(result.user.uid).set({ fullName: fullName, email: email, userName: userName })
+            this.db.collection('users').doc(result.user.uid).set({ fullName: fullName, email: email, userName: userName, firstName : firstName,  lastName : lastName})
               .then(() => {
                 this.dismissLoading()
                 this.router.navigateByUrl('/news')
@@ -101,6 +101,7 @@ export class SignupPage {
   
   
   CheckUsername() {
+    alert("in user")
     this.db.collection('users', ref => ref.where('userName', '==', this.userNameField.value)).get().subscribe(result => {
       if (result.empty) {
         this.userEmpty = true
@@ -113,6 +114,7 @@ export class SignupPage {
   }
   
   CheckEmail() {
+    
     this.db.collection('users', ref => ref.where('email', '==', this.emailField.value)).get().subscribe(result => {
       if (result.empty) {
         this.emailEmpty = true

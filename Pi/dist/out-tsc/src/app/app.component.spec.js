@@ -5,6 +5,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 describe('AppComponent', function () {
     var statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy;
@@ -21,13 +22,18 @@ describe('AppComponent', function () {
                 { provide: SplashScreen, useValue: splashScreenSpy },
                 { provide: Platform, useValue: platformSpy },
             ],
+            imports: [RouterTestingModule.withRoutes([])],
         }).compileComponents();
     }));
-    it('should create the app', function () {
-        var fixture = TestBed.createComponent(AppComponent);
-        var app = fixture.debugElement.componentInstance;
-        expect(app).toBeTruthy();
-    });
+    it('should create the app', function () { return tslib_1.__awaiter(_this, void 0, void 0, function () {
+        var fixture, app;
+        return tslib_1.__generator(this, function (_a) {
+            fixture = TestBed.createComponent(AppComponent);
+            app = fixture.debugElement.componentInstance;
+            expect(app).toBeTruthy();
+            return [2 /*return*/];
+        });
+    }); });
     it('should initialize the app', function () { return tslib_1.__awaiter(_this, void 0, void 0, function () {
         return tslib_1.__generator(this, function (_a) {
             switch (_a.label) {
@@ -43,6 +49,43 @@ describe('AppComponent', function () {
             }
         });
     }); });
-    // TODO: add more tests!
+    it('should have menu labels', function () { return tslib_1.__awaiter(_this, void 0, void 0, function () {
+        var fixture, app, menuItems;
+        return tslib_1.__generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, TestBed.createComponent(AppComponent)];
+                case 1:
+                    fixture = _a.sent();
+                    return [4 /*yield*/, fixture.detectChanges()];
+                case 2:
+                    _a.sent();
+                    app = fixture.nativeElement;
+                    menuItems = app.querySelectorAll('ion-label');
+                    expect(menuItems.length).toEqual(2);
+                    expect(menuItems[0].textContent).toContain('Home');
+                    expect(menuItems[1].textContent).toContain('List');
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('should have urls', function () { return tslib_1.__awaiter(_this, void 0, void 0, function () {
+        var fixture, app, menuItems;
+        return tslib_1.__generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, TestBed.createComponent(AppComponent)];
+                case 1:
+                    fixture = _a.sent();
+                    return [4 /*yield*/, fixture.detectChanges()];
+                case 2:
+                    _a.sent();
+                    app = fixture.nativeElement;
+                    menuItems = app.querySelectorAll('ion-item');
+                    expect(menuItems.length).toEqual(2);
+                    expect(menuItems[0].getAttribute('ng-reflect-router-link')).toEqual('/home');
+                    expect(menuItems[1].getAttribute('ng-reflect-router-link')).toEqual('/list');
+                    return [2 /*return*/];
+            }
+        });
+    }); });
 });
 //# sourceMappingURL=app.component.spec.js.map
