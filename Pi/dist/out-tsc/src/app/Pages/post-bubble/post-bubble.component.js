@@ -1,9 +1,22 @@
 import * as tslib_1 from "tslib";
-import { Component, Input } from '@angular/core';
+import { Component, ViewChild, Input } from '@angular/core';
+import * as firebase from 'firebase';
 var PostBubbleComponent = /** @class */ (function () {
     function PostBubbleComponent() {
+        this._isimage = true;
     }
     PostBubbleComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        if (this.data.file_name != '')
+            firebase.storage().ref().child('/images/' + this.data.file_name).getDownloadURL().then(function (result) {
+                _this.image.src = result;
+            });
+        else {
+            this._isimage = false;
+        }
+    };
+    PostBubbleComponent.prototype.isImage = function () {
+        return this._isimage;
     };
     PostBubbleComponent.prototype.getContentColor = function (m) {
         if (this.fullName != null && m != null && this.fullName === m.from) {
@@ -11,13 +24,21 @@ var PostBubbleComponent = /** @class */ (function () {
         }
     };
     tslib_1.__decorate([
-        Input(),
+        ViewChild('image'),
         tslib_1.__metadata("design:type", Object)
-    ], PostBubbleComponent.prototype, "data", void 0);
+    ], PostBubbleComponent.prototype, "image", void 0);
+    tslib_1.__decorate([
+        ViewChild('post'),
+        tslib_1.__metadata("design:type", Object)
+    ], PostBubbleComponent.prototype, "post", void 0);
     tslib_1.__decorate([
         Input(),
         tslib_1.__metadata("design:type", Object)
     ], PostBubbleComponent.prototype, "fullName", void 0);
+    tslib_1.__decorate([
+        Input(),
+        tslib_1.__metadata("design:type", Object)
+    ], PostBubbleComponent.prototype, "data", void 0);
     PostBubbleComponent = tslib_1.__decorate([
         Component({
             selector: 'app-post-bubble',

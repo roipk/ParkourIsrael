@@ -14,7 +14,9 @@ const routes: Routes = [
   { path: 'manager', loadChildren: './Pages/ManagePages/manage.module#ManagePageModule', canActivate: [ IsManagerGuard ] },
   { path: 'writePost', loadChildren: './Pages/post-editor/post-editor.module#PostEditorPageModule',  canActivate: [ IsManagerGuard ] },
   { path: 'contact', loadChildren: './Pages/contact/contact.module#ContactPageModule' },
-  { path: '**', loadChildren: './Pages/not-found/not-found.module#NotFoundPageModule' }, 
+  { path: 'edit-informations', loadChildren: './Pages/edit-informations/edit-informations.module#EditInformationsPageModule' },
+  { path: '**', loadChildren: './Pages/not-found/not-found.module#NotFoundPageModule' },   { path: 'edit-informations', loadChildren: './Pages/edit-informations/edit-informations.module#EditInformationsPageModule' },
+
 ];
 
 

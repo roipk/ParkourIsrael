@@ -12,14 +12,18 @@ var SignupPage = /** @class */ (function () {
         this.router = router;
         this.uAuth = uAuth;
         this.loadingRef = null;
-        this.users = [];
         this.userEmpty = true;
         this.emailEmpty = true;
+        this.users = [];
     }
     SignupPage.prototype.ngOnInit = function () {
+        var _this = this;
         this.uAuth.user.subscribe(function (result) {
+            _this.firstNameField.autofocus;
         });
     };
+    //=============================== create new user===========================================//
+    //==========================================================================================//
     SignupPage.prototype.createNewUser = function () {
         var _this = this;
         var email = this.emailField.value;
@@ -47,7 +51,7 @@ var SignupPage = /** @class */ (function () {
                 this.presentLoading();
                 this.userAuth.auth.createUserWithEmailAndPassword(email, password)
                     .then(function (result) {
-                    _this.db.collection('users').doc(result.user.uid).set({ fullName: fullName, email: email, userName: userName })
+                    _this.db.collection('users').doc(result.user.uid).set({ fullName: fullName, email: email, userName: userName, firstName: firstName, lastName: lastName })
                         .then(function () {
                         _this.dismissLoading();
                         _this.router.navigateByUrl('/news');
@@ -60,33 +64,7 @@ var SignupPage = /** @class */ (function () {
             }
         }
     };
-    SignupPage.prototype.presentLoading = function () {
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
-            var _a;
-            return tslib_1.__generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, this.loadingController.create({ message: 'Please wait...', })];
-                    case 1:
-                        _a.loadingRef = _b.sent();
-                        return [4 /*yield*/, this.loadingRef.present()];
-                    case 2:
-                        _b.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    SignupPage.prototype.dismissLoading = function () {
-        this.loadingRef.dismiss();
-    };
-    SignupPage.prototype.onKeyUp = function (data) {
-        var ENTER_KET_CODE = 13;
-        if (data.keyCode === ENTER_KET_CODE) {
-            this.createNewUser();
-        }
-    };
+    //==========================================================================================//
     SignupPage.prototype.CheckUsername = function () {
         var _this = this;
         this.db.collection('users', function (ref) { return ref.where('userName', '==', _this.userNameField.value); }).get().subscribe(function (result) {
@@ -110,6 +88,33 @@ var SignupPage = /** @class */ (function () {
                 alert(" This email is associated with an existing account  ");
             }
         });
+    };
+    SignupPage.prototype.onKeyUp = function (data) {
+        var ENTER_KET_CODE = 13;
+        if (data.keyCode === ENTER_KET_CODE) {
+            this.createNewUser();
+        }
+    };
+    SignupPage.prototype.presentLoading = function () {
+        return tslib_1.__awaiter(this, void 0, void 0, function () {
+            var _a;
+            return tslib_1.__generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this;
+                        return [4 /*yield*/, this.loadingController.create({ message: 'Please wait...', })];
+                    case 1:
+                        _a.loadingRef = _b.sent();
+                        return [4 /*yield*/, this.loadingRef.present()];
+                    case 2:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    SignupPage.prototype.dismissLoading = function () {
+        this.loadingRef.dismiss();
     };
     tslib_1.__decorate([
         ViewChild('firstName'),

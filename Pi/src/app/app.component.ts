@@ -166,6 +166,12 @@ export class AppComponent {
   }
 
 
+  isUser(){
+    if (this.userAuth.auth.currentUser != null)
+    return true
+    else
+    return false
+  }
 
 
   login() {

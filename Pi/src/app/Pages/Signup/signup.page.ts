@@ -83,7 +83,7 @@ export class SignupPage {
         this.userAuth.auth.createUserWithEmailAndPassword(email, password)
 
           .then((result) => {
-            this.db.collection('users').doc(result.user.uid).set({ fullName: fullName, email: email, userName: userName })
+            this.db.collection('users').doc(result.user.uid).set({ fullName: fullName, email: email, userName: userName, firstName : firstName,  lastName : lastName})
               .then(() => {
                 this.dismissLoading()
                 this.router.navigateByUrl('/news')

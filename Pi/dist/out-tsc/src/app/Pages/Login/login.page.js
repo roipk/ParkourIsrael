@@ -1,5 +1,5 @@
 import * as tslib_1 from "tslib";
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -7,18 +7,19 @@ import { map } from 'rxjs/operators';
 import { auth } from 'firebase';
 import { AngularFirestore } from '@angular/fire/firestore';
 var LoginPage = /** @class */ (function () {
-    //  isAdmin = observableOf('true');
-    function LoginPage(afAuth, userAuth, loadingController, router, db, uAuth, alertController) {
+    function LoginPage(afAuth, userAuth, loadingController, router, ngZone, db, uAuth, alertController) {
         this.afAuth = afAuth;
         this.userAuth = userAuth;
         this.loadingController = loadingController;
         this.router = router;
+        this.ngZone = ngZone;
         this.db = db;
         this.uAuth = uAuth;
         this.alertController = alertController;
         this.loadingRef = null;
         this.userExsist = false;
         this.emailExsist = false;
+        this.emailSent = false;
         this.email = '';
         this.SignIn = true;
         this.uid = this.afAuth.authState.pipe(map(function (authState) {
@@ -39,24 +40,27 @@ var LoginPage = /** @class */ (function () {
     };
     LoginPage.prototype.signInUser = function () {
         var _this = this;
-        // alert('in')
-        // alert(this.userAuth.auth.currentUser.uid.match)
-        var email = this.emailField.value;
         var password = this.passField.value;
-        if (email && password && this.SignIn) {
+        if (this.email && password && this.SignIn) {
             this.presentLoading();
             this.userAuth.auth.signInWithEmailAndPassword(this.email, password)
                 .then(function (result) {
                 _this.dismissLoading();
+                // don't need this line
+                //this.ngZone.run(() => {  this.router.navigateByUrl('/news') })
                 _this.router.navigateByUrl('/news');
             }).catch(function () {
                 _this.dismissLoading();
-                alert('email or password not correct');
+                //alert('Email or password not are correct')
+                _this.simpleAlert('Email or password are not correct');
             });
         }
+        /*
         else {
-            alert('email or password not correct');
+          //alert('Email or password are not correct')
+          this.simpleAlert('Email or password are not correct')
         }
+        */
     };
     LoginPage.prototype.googlelogin = function () {
         var _this = this;
@@ -87,21 +91,9 @@ var LoginPage = /** @class */ (function () {
     LoginPage.prototype.dismissLoading = function () {
         this.loadingRef.dismiss();
     };
-    LoginPage.prototype.login = function () {
+    LoginPage.prototype.CheckUser = function (user) {
         var _this = this;
-        if (document.getElementById('btnLogin').innerHTML == 'Login') {
-            this.router.navigateByUrl('/login');
-        }
-        else {
-            this.userAuth.auth.signOut().then(function (result) {
-                document.getElementById('btnLogin').innerHTML = 'Login';
-                _this.router.navigateByUrl('/home').then(function () { });
-            });
-        }
-    };
-    LoginPage.prototype.CheckEmail = function () {
-        var _this = this;
-        this.db.collection('users', function (ref) { return ref.where('email', '==', _this.emailField.value); }).get().subscribe(function (result) {
+        this.db.collection('users', function (ref) { return ref.where('email', '==', user); }).get().subscribe(function (result) {
             if (result.empty) {
                 _this.emailExsist = false;
             }
@@ -112,7 +104,7 @@ var LoginPage = /** @class */ (function () {
                 return;
             }
         });
-        this.db.collection('users', function (ref) { return ref.where('userName', '==', _this.emailField.value); }).get().subscribe(function (result) {
+        this.db.collection('users', function (ref) { return ref.where('userName', '==', user); }).get().subscribe(function (result) {
             if (result.empty) {
                 _this.userExsist = false;
             }
@@ -135,40 +127,21 @@ var LoginPage = /** @class */ (function () {
     LoginPage.prototype.isPasswordInEmpty = function () {
         return this.passField == null || this.passField.value == null || this.passField.value.length <= 0;
     };
-    LoginPage.prototype.resetPassword = function () {
-        /*
-        this.userAuth.auth.sendPasswordResetEmail(this.emailField.value)
-        .then((result) => {
-          this.dismissLoading()
-          this.router.navigateByUrl('/Login')
-        }).catch(() => {
-          this.dismissLoading()
-          alert('email or password not correct')
-        })
-        */
-        alert('Test');
-        this.presentAlert();
-        try {
-            //alert('Test');
-            //alert please enter your mail
-            this.presentAlert();
-            //this.userAuth.auth.sendPasswordResetEmail(this.emailField.value);
-            //alert the password send to your mail
-        }
-        catch (e) {
-            alert('Email is not valid');
-        }
+    LoginPage.prototype.isResetMailInEmpty = function (strMail) {
+        return strMail.length <= 0;
     };
-    LoginPage.prototype.presentAlert = function () {
+    LoginPage.prototype.simpleAlert = function (msg) {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
             var alert;
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.alertController.create({
-                            header: 'Alert',
-                            subHeader: 'Subtitle',
-                            message: 'This is an alert message.',
-                            buttons: ['OK']
+                            message: msg,
+                            buttons: [
+                                {
+                                    text: 'OK'
+                                }
+                            ]
                         })];
                     case 1:
                         alert = _a.sent();
@@ -179,6 +152,101 @@ var LoginPage = /** @class */ (function () {
                 }
             });
         });
+    };
+    LoginPage.prototype.alertPassword = function () {
+        return tslib_1.__awaiter(this, void 0, void 0, function () {
+            var alert;
+            var _this = this;
+            return tslib_1.__generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.alertController.create({
+                            header: 'Reset your password',
+                            inputs: [
+                                {
+                                    name: 'email',
+                                    placeholder: 'Please enter your email'
+                                }
+                            ],
+                            buttons: [
+                                {
+                                    text: 'Send',
+                                    handler: function (data) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
+                                        var msg, alert2;
+                                        return tslib_1.__generator(this, function (_a) {
+                                            switch (_a.label) {
+                                                case 0:
+                                                    msg = '';
+                                                    if (!this.isResetMailInEmpty(data.email)) return [3 /*break*/, 1];
+                                                    msg = 'Email field is empty';
+                                                    return [3 /*break*/, 3];
+                                                case 1: return [4 /*yield*/, this.passwordReset(data.email)];
+                                                case 2:
+                                                    _a.sent();
+                                                    if (this.emailSent) {
+                                                        msg = 'Email sent successfully';
+                                                    }
+                                                    else {
+                                                        msg = 'Email is not valid';
+                                                    }
+                                                    _a.label = 3;
+                                                case 3: return [4 /*yield*/, this.alertController.create({
+                                                        message: msg,
+                                                        buttons: [
+                                                            {
+                                                                text: 'OK',
+                                                            }
+                                                        ]
+                                                    })];
+                                                case 4:
+                                                    alert2 = _a.sent();
+                                                    return [4 /*yield*/, alert2.present()];
+                                                case 5:
+                                                    _a.sent();
+                                                    return [2 /*return*/];
+                                            }
+                                        });
+                                    }); }
+                                }
+                            ]
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present().then(function () {
+                                var firstInput = document.querySelector('ion-alert input');
+                                firstInput.focus();
+                                KeyboardEvent;
+                                return;
+                            })];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    LoginPage.prototype.passwordReset = function (email) {
+        return tslib_1.__awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return tslib_1.__generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.userAuth.auth.sendPasswordResetEmail(email).then(function () {
+                            _this.emailSent = true;
+                        }).catch(function () {
+                            _this.emailSent = false;
+                        })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    LoginPage.prototype.onKeyUp = function (data) {
+        data.keyCode;
+        var ENTER_KEY_CODE = 13;
+        if (data.keyCode === ENTER_KEY_CODE) {
+            this.signInUser();
+        }
     };
     tslib_1.__decorate([
         ViewChild('email'),
@@ -198,6 +266,7 @@ var LoginPage = /** @class */ (function () {
             AngularFireAuth,
             LoadingController,
             Router,
+            NgZone,
             AngularFirestore,
             AngularFireAuth,
             AlertController])

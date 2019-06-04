@@ -19,8 +19,6 @@ import { DISABLED } from '@angular/forms/src/model';
 })
 
 
-
-
 export class LoginPage {
 
   @ViewChild('email') emailField

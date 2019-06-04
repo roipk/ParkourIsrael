@@ -66,6 +66,7 @@ export class PostEditorPage implements OnInit {
         this.fullName = result.data().fullName
         this.email = result.data().email
       })
+      
   }
 
 
@@ -83,7 +84,8 @@ export class PostEditorPage implements OnInit {
         content: this.messageField.value,
         timestamp: new Date().getTime(),
         file_name: this.nameFile,
-        date : this.postDate()
+        date : this.postDate()[1],
+        show_date : this.postDate()[0]
       }).then( result => {
         result.update({docId: result.id});
       }).catch(e => {
@@ -99,7 +101,8 @@ export class PostEditorPage implements OnInit {
       content: this.messageField.value,
       timestamp: new Date().getTime(),
       file_name: this.nameFile,
-      date : this.postDate()
+      date : this.postDate()[1],
+      show_date : this.postDate()[0]
     }).then( result => {
       result.update({docId: result.id});
     }).catch(e => {
@@ -178,28 +181,17 @@ return this.admin.getManager()
 
   postDate(){
     var d = new Date();
-    
-    var months = new Array(12);
-    months[0] = "January"
-    months[1] = "February"
-    months[2] = "March"
-    months[3] = "April"
-    months[4] = "May"
-    months[5] = "June"
-    months[6] = "July"
-    months[7] = "August"
-    months[8] = "September"
-    months[9] = "October"
-    months[10] = "November"
-    months[11] = "December"
 
-    
     if (d.getMinutes()<10)
     var min = "0"+d.getMinutes()
     else 
     var min = d.getMinutes().toString()
     
-    var date = months[d.getMonth()]+" "+d.getDate()+" "+d.getFullYear()+" at "+d.getHours()+":"+min
+    var showDate = +d.getDate()+"."+(d.getMonth()+1)+"."+d.getFullYear()+" at "+d.getHours()+":"+min
+    
+    var dbDate = d.getFullYear()+"/"+(d.getMonth()+1)+"/"+d.getDate()+" at "+d.getHours()+":"+min
+
+    var date = [showDate, dbDate]
     return date
   }
 }

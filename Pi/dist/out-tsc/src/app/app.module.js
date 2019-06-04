@@ -19,6 +19,7 @@ var AppModule = /** @class */ (function () {
             declarations: [AppComponent],
             entryComponents: [],
             imports: [
+                // IonicModule,
                 BrowserModule,
                 IonicModule.forRoot(),
                 AppRoutingModule,
