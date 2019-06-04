@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
-import { AppComponent} from '../../app.component'
+import { AppComponent } from '../../app.component'
 
 
 @Component({
@@ -32,14 +32,14 @@ export class EditInformationsPage {
     userID: ""
   }
 
-  old_email = ""
+  old_userName = ""
 
   userEmpty = false
   emailEmpty = false
   showPassword = false
   newPassword = ""
   userNameChange = false
-  
+
 
 
 
@@ -50,7 +50,7 @@ export class EditInformationsPage {
     private loadingController: LoadingController,
     private router: Router,
     private uAuth: AngularFireAuth,
-    private appComponent: AppComponent 
+    private appComponent: AppComponent
   ) { }
 
 
@@ -69,11 +69,10 @@ export class EditInformationsPage {
       this.db.collection('users').doc(user.uid)
         .get().subscribe(result => {
           this.info.userName = result.data().userName
+          this.old_userName = this.info.userName
           this.userNameField.value = this.info.userName
           this.info.fullName = result.data().fullName
           this.info.email = result.data().email
-          this.old_email = this.info.email
-          this.emailField.value = this.info.email
           this.info.firstName = result.data().firstName
           this.firstNameField.value = this.info.firstName
           this.info.lastName = result.data().lastName
@@ -89,36 +88,32 @@ export class EditInformationsPage {
     if (this.checkChanges()) {
 
       let updates = {
-        email: this.info.email,
         firstName: this.info.firstName,
         fullName: this.info.fullName,
         lastName: this.info.lastName,
         userName: this.info.userName
 
       }
+      if (this.old_userName != this.info.userName)
+        this.db.collection('messages', ref => ref.where('email', '==', this.info.email)).get().subscribe(
+          result => {
+            result.forEach(element => {
+              this.db.collection('messages').doc(element.id).update({ from: this.info.userName })
+            });
+          }
+        )
 
-      this.db.collection('messages', ref => ref.where('email', '==', this.old_email)).get().subscribe(
-        result => {
-          this.db.collection('messages').doc(result.docs[0].id).get().subscribe(result => {
-            result.data().update({from: this.info.userName})
-            
-          })
-        
-         }
-          )
 
-          /*this.db.collection('messages', ref => ref.where('email', '==', this.old_email)).update({email: this.info.email, from : this.info.userName})*/
-          
-          
-        
-      
+
       firebase.auth().onAuthStateChanged((user) => {
         this.db.collection('users').doc(user.uid).update(updates)
         if (this.userNameChange)
-        this.appComponent.userMode()
+          this.appComponent.userMode()
         this.router.navigateByUrl('/news')
 
       })
+
+
     }
   }
 
@@ -127,13 +122,6 @@ export class EditInformationsPage {
       alert('username empty')
       return false
     }
-    if (this.info.email != this.emailField.value){
-      if (!this.CheckEmail())
-       return false
-     this.info.email = this.emailField.value
-     return true
-   }
-
     if (this.info.firstName != this.firstNameField.value)
       this.info.firstName = this.firstNameField.value
 
@@ -146,16 +134,14 @@ export class EditInformationsPage {
       this.info.fullName = fullName
 
     if (this.info.userName != this.userNameField.value) {
-       if (!this.CheckUsername())
-        return false
       this.info.userName = this.userNameField.value
       this.userNameChange = true
       return true
     }
 
-    if(this.showPassword && this.passField.value != "")
-    if (!this.CheckPassword())
-    return false
+    if (this.showPassword && this.passField.value != "")
+      if (!this.CheckPassword())
+        return false
     firebase.auth().onAuthStateChanged((user) => {
       user.updatePassword(this.newPassword)
     })
@@ -169,66 +155,51 @@ export class EditInformationsPage {
     this.db.collection('users', ref => ref.where('userName', '==', this.userNameField.value)).get().subscribe(result => {
       if (result.empty) {
         this.userEmpty = true
-      }
-      else
-      this.userEmpty = false
-    })
-    if (this.userEmpty == false)
-     {
-      if (this.userNameField.value == this.info.userName) {
-        return true
-      }
-      else
-        alert('Username is busy. Try another one')
-      return false
-    }
-    return true
-  }
-
-  CheckEmail(){
-    this.db.collection('users', ref => ref.where('email', '==', this.emailField.value)).get().subscribe(result => {
-      if (result.empty) {
-        this.emailEmpty = true
+        return
       }
       else {
-        this.emailEmpty = false
-        alert(" This email is associated with an existing account  ")
+        if (this.userNameField.value == this.info.userName) {
+          this.userEmpty = true
+          return
+        }
+
+        alert('Username is busy. Try another one')
+        this.userEmpty = false
+        return
       }
+
     })
-    if (this.emailEmpty == false)
-    {
-     if (this.emailField.value == this.info.email) {
-       return true
-     }
-     else
-     alert(" This email is associated with an existing account  ")
-     return false
-   }
-   return true
- }
-
- changeShowPassword(){
-   this.showPassword = !this.showPassword
- }
-
- CheckPassword(){
-  const password = this.passField.value
-  const confirm = this.confirmField.value
-  if (password.length < 8) {
-    alert('the password need to be 8 characters:\n' +
-      '*One or more big letter (A-Z)\n' +
-      '*One or more small letter (a-z)\n' +
-      '*One or more sign (@!%)\n' +
-      '*One or more number (0-9)\n')
-      return false
   }
-  else if (confirm != password) {
-    alert('no match password')
-    return false
- }
- this.newPassword = this.passField.value
- return true
-}
+
+
+
+  changeShowPassword() {
+    this.showPassword = !this.showPassword
+    
+    if (!this.showPassword)
+      this.changeButton.el.innerHTML = 'Change Password'
+    else
+      this.changeButton.el.innerHTML = 'Hide Password'
+  }
+
+  CheckPassword() {
+    const password = this.passField.value
+    const confirm = this.confirmField.value
+    if (password.length < 8) {
+      alert('the password need to be 8 characters:\n' +
+        '*One or more big letter (A-Z)\n' +
+        '*One or more small letter (a-z)\n' +
+        '*One or more sign (@!%)\n' +
+        '*One or more number (0-9)\n')
+      return false
+    }
+    else if (confirm != password) {
+      alert('no match password')
+      return false
+    }
+    this.newPassword = this.passField.value
+    return true
+  }
 
 
 

@@ -19,21 +19,11 @@
     <ion-row class='center-row'>
         <ion-col size='12' size-md='4'>
         <ion-item>
-          <ion-label id= "userName" position="floating">Username </ion-label>
-          <ion-input #userName></ion-input>
+          <ion-label  position="floating">Username </ion-label>
+          <ion-input #userName (ionBlur)="CheckUsername()"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
-
-    <ion-row class='center-row'>
-        <ion-col size='12' size-md=4>
-        <ion-item>
-          <ion-label id= "email" position="floating" >Email </ion-label>
-          <ion-input  #email></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
 
     <ion-button (click) = "changeShowPassword()" #changeButton>
       Change Password
