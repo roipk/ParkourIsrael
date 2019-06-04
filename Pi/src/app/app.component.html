@@ -1,33 +1,69 @@
 <!-- website on Desktop -->
-<ion-content *ngIf="!isMobile()" >
+<ion-content *ngIf="!isMobile()">
   <nav class="nav">
     <ul>
-      <div class="nav-left">
+<!-- english mode -->
+      <div *ngIf='lang()' class="nav-left">
         <li> <a routerLink="/home" routerLinkActive="active"> Home </a> </li>
         <li> <a routerLink="/news" routerLinkActive="active"> News </a></li>
         <li class="dropdown">
-          <a routerLink="/contact" routerLinkActive="active" class="dropbtn">Contact</a>
-            <div class="dropdown-content">
-              <a *ngFor='let item of items' [routerLink]="item.url" routerLinkActive="active">{{item.name}}</a>
-            </div>
+          <a routerLink="/contact" routerLinkActive="active" class="dropbtn">Contact &darr;</a>
+          <div class="dropdown-content">
+            <a *ngFor='let item of items' [routerLink]="item.url" routerLinkActive="active">{{item.nameEn}}</a>
+          </div>
         </li>
         <li><a routerLink="/info" routerLinkActive="active">info</a></li>
         <li><a routerLink="/news" routerLinkActive="active">test</a></li>
+        <li class="dropdown">
+            <a class="dropbtn">Language &darr;</a>
+            <div class="dropdown-content">
+                <a *ngFor='let lan of languages' (click)='language(lan)' >{{lan.name}}</a>
+            </div>
+          </li>
       </div>
-      <div class="nav-right">
+<!-- hebrew mode -->
+      <div *ngIf='!lang()' class="nav-right">
+        <li> <a routerLink="/home" routerLinkActive="active"> ראשי </a> </li>
+        <li> <a routerLink="/news" routerLinkActive="active"> חדשות ועדכונים </a></li>
+        <li class="dropdown">
+          <a routerLink="/contact" routerLinkActive="active" class="dropbtn"> &darr; צור קשר</a>
+          <div class="dropdown-content">
+            <a *ngFor='let item of items' [routerLink]="item.url" routerLinkActive="active">{{item.nameHeb}}</a>
+          </div>
+
+        </li>
+        <li><a routerLink="/info" routerLinkActive="active">מידע</a></li>
+        <li><a routerLink="/news" routerLinkActive="active">test</a></li>
+        <li class="dropdown">
+            <a class="dropbtn">&darr; שפה</a>
+            <div class="dropdown-content">
+              <a *ngFor='let lan of languages' (click)='language(lan)' >{{lan.name}}</a>
+            </div>
+          </li>
+      </div>
+<!-- english mode -->
+      <div *ngIf='lang()' class="nav-right">
         <li class="dropdown">
           <a #loginNickName routerLink="/contact" routerLinkActive="active" class="dropbtn">Welcome</a>
-            <div class="dropdown-content">
-              <a #user (click)="login()">Login</a>
-              <a #user routerLink="/manager" routerLinkActive="active" *ngIf="getManager()">Manager</a>
-              <a *ngFor='let item of items' [routerLink]="item.url" routerLinkActive="active">{{item.name}}</a>
-            </div>
-        </li>
-        <div class='username' #loginNickName></div>
-          <li *ngIf="getManager()"><a routerLink="/manager" routerLinkActive="active"> Manage </a></li>
-          <li><a #user (click)="login()">Login</a></li>
+          <div class="dropdown-content">
+            <a #username>username</a>
+            <a #user routerLink="/manager" routerLinkActive="active" *ngIf="getManager()">Manager</a>
+            <a #user (click)="login()">Login</a>
+          </div>
+          </li>
       </div>
-    </ul>      
+<!-- hebrew mode -->
+      <div *ngIf='!lang()' class="nav-left">
+        <li class="dropdown">
+          <a #loginNickName routerLink="/contact" routerLinkActive="active" class="dropbtn">ברוך הבא</a>
+          <div class="dropdown-content">
+            <a #username>איזור אישי</a>
+            <a #user routerLink="/manager" routerLinkActive="active" *ngIf="getManager()">מנהל</a>
+            <a #user (click)="login()">כניסה</a>
+          </div>
+        </li>
+      </div>
+    </ul>
   </nav>
   <router-outlet></router-outlet>
 </ion-content>
@@ -110,32 +146,30 @@
     </ion-header>
 
     <!-- <ion-split-pane size="12"> -->
-      <ion-menu>
-        <ion-header>
-          <ion-toolbar>
-            <ion-title float="left">Menu</ion-title>
-              <ion-buttons slot="end" float="left" >
-                  <ion-menu-button auto-hide ></ion-menu-button>
-                </ion-buttons>
-          </ion-toolbar>
-        </ion-header>
-        <ion-content>
-          <ion-list>
-            <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-              <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-                <ion-icon slot="start" [name]="p.icon"></ion-icon>
-                <ion-label>
-                  {{p.title}}
-                </ion-label>
-              </ion-item>
-            </ion-menu-toggle>
-          </ion-list>
-        </ion-content>
-        <ion-router-outlet main></ion-router-outlet>
-      </ion-menu>
-      <router-outlet></router-outlet>
+    <ion-menu>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title float="left">Menu</ion-title>
+          <ion-buttons slot="end" float="left">
+            <ion-menu-button auto-hide></ion-menu-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-label>
+                {{p.title}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+      <ion-router-outlet main></ion-router-outlet>
+    </ion-menu>
+    <router-outlet></router-outlet>
     <!-- </ion-split-pane> -->
   </ion-content>
 </ion-app>
-
-

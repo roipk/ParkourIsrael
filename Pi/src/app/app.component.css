@@ -71,7 +71,9 @@ div {
 
 }
 
-
+a{
+  text-align:center ;
+}
 .username{
   float: left;
   /* font-size: 70%; */

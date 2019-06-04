@@ -127,6 +127,7 @@ export class PostEditorPage implements OnInit {
 
 
   fileChangeEvent(e) {
+    
     this.img.src = URL.createObjectURL(e.target.files[0])
     this.file = e.target.files[0]
     this.nameFile = "pi_" + Date.now() + "_" + this.file.name

@@ -25,9 +25,30 @@ export class ManagePage {
   showPosts = false;
   showUsers = false;
 
-  public pages = []
   public posts = []
   public users = []
+  public pages = [
+    {
+      title: 'Home',
+      url: '/home',
+      icon: 'home'
+    },
+    {
+      title: 'Contact',
+      url: '/contact',
+     // icon: 'home'
+    },
+    {
+      title: 'News',
+      url: '/news',
+      // icon: 'home'
+    },
+    {
+      title: 'Signup',
+      url: '/signup',
+      // icon: 'home'
+    },
+  ]
   loadingController: any;
 
 

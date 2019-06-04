@@ -1,6 +1,6 @@
 // ============================= imports ===================================//
-import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
-import { Platform, MenuController} from '@ionic/angular';
+import { Component, OnInit, ViewChild, NgZone, ElementRef } from '@angular/core';
+import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { UserService } from '../app/user.service';
@@ -21,10 +21,12 @@ import { Router } from '@angular/router';
 
 
 export class AppComponent {
+  [x: string]: any;
 
   // ============================= all id from object in html ===================================//
   @ViewChild('user') userLogin
   @ViewChild('loginNickName') loginNickName
+
   // @ViewChild('titlePage') titlePage
   // ============================================================================================//
 
@@ -37,7 +39,8 @@ export class AppComponent {
   manager = false;
   fullName = '';
   title = 'user-servic';
-  
+  lan = 'English'
+
   // ===============================//
 
 
@@ -46,12 +49,14 @@ export class AppComponent {
   // ========= all pages ===========//
   public appPages = [
     {
-      title: 'Home',
+      titleEn: 'Home',
+      titleHeb: 'ראשי',
       url: '/home',
       icon: 'home'
     },
     {
-      title: 'News',
+      titleEn: 'News',
+      titleHeb: 'ראשי',
       url: '/news',
       // icon: 'news'
     },
@@ -67,17 +72,21 @@ export class AppComponent {
 
   // ============ example for item ===============//
   public items = [
-    { url: '1', name: 'test' },
-    { url: '1', name: 'test2' },
-    { url: '1', name: 'test3' },
-    { url: '1', name: 'test4' },
-    { url: '1', name: 'test5' },
-    { url: '1', name: 'test6' }
+    { url: '1', nameEn: 'test', nameHeb: 'בדיקה' },
+    { url: '1', nameEn: 'test2', nameHeb: 'בדיקה' },
+    { url: '1', nameEn: 'test3', nameHeb: 'בדיקה' },
+    { url: '1', nameEn: 'test4', nameHeb: 'בדיקה' },
+    { url: '1', nameEn: 'test5', nameHeb: 'בדיקה' },
+    { url: '1', nameEn: 'test6', nameHeb: 'בדיקה' }
   ]
   // =============================================//
 
 
 
+  public languages = [
+    { name: 'English' },
+    { name: 'עברית' },
+  ]
 
 
 
@@ -95,9 +104,9 @@ export class AppComponent {
     // private ngZone: NgZone,
     private router: Router,
     private menu: MenuController
-    ) {
+  ) {
     this.initializeApp();
-    
+
   }
   // ========================================================//
 
@@ -114,7 +123,8 @@ export class AppComponent {
       // this.guard.ucleaser = true
     })
     this.isMobile()
-    
+
+    // this.language(this.languages[0])
   }
 
 
@@ -129,9 +139,18 @@ export class AppComponent {
 
 
 
-  
+
   //====================================================== functions ==========================================//
-  
+
+  lang() {
+
+    if (this.lan == this.languages[0].name) {
+      return true;
+    }
+    else
+      return false;
+  }
+
   isMobile() {
     const w = document.documentElement.clientWidth;
     const breakpoint = 700;
@@ -145,22 +164,32 @@ export class AppComponent {
   }
 
 
-  
+
   userMode() {
     if (this.userAuth.auth.currentUser != null) {
       this.db.collection('users').doc(this.userAuth.auth.currentUser.uid)
         .get().subscribe(result => {
           this.manager = result.data().manager
           if (!this.isMobile()) {
-            this.userLogin.nativeElement.innerHTML = 'LogOut'
-            this.loginNickName.nativeElement.innerHTML = this.loginNickName.nativeElement.innerHTML+" "+ result.data().userName+" "
+            if (this.lan == this.languages[0].name) {
+              this.userLogin.nativeElement.innerHTML = 'LogOut'
+              this.loginNickName.nativeElement.innerHTML ="Welcome " + result.data().userName + " &darr;"
+            }
+            else {
+              this.userLogin.nativeElement.innerHTML = 'התנתק'
+              this.loginNickName.nativeElement.innerHTML =" &darr; ברוך הבא " + result.data().userName
+            }
           }
         })
     }
     else {
-      if (this.userLogin && this.loginNickName) {
+      if (this.userLogin && this.loginNickName && this.lan == this.languages[0].name) {
         this.userLogin.nativeElement.innerHTML = 'Login'
-        this.loginNickName.nativeElement.innerHTML = 'Welcome'
+        this.loginNickName.nativeElement.innerHTML = 'Welcome  &darr;'
+      }
+      else if (this.userLogin && this.loginNickName) {
+        this.userLogin.nativeElement.innerHTML = 'כניסה'
+        this.loginNickName.nativeElement.innerHTML = '&darr; ברוך הבא'
       }
     }
   }
@@ -169,13 +198,16 @@ export class AppComponent {
 
 
   login() {
-    if (this.userLogin.nativeElement.innerHTML == 'Login') {
+    if (this.userLogin.nativeElement.innerHTML == 'Login' || this.userLogin.nativeElement.innerHTML == 'התחבר') {
       this.router.navigateByUrl('/login')
     }
     else {
       this.manager = false
       this.userAuth.auth.signOut().then((result) => {
-        this.userLogin.nativeElement.innerHTML = 'Login'
+        if (this.lan == this.languages[0].name)
+          this.userLogin.nativeElement.innerHTML = 'Login'
+        else
+          this.userLogin.nativeElement.innerHTML = 'התחבר'
         this.router.navigateByUrl('/home')
       })
     }
@@ -193,7 +225,18 @@ export class AppComponent {
   // }
 
 
-//===========================================================================================================//
+  language(language) {
+    // debugger
+    this.lan = language.name
+    //  alert("laguage is " + this.lan)
+
+  }
+
+
+
+
+
+  //===========================================================================================================//
 
 }//end  class
 
