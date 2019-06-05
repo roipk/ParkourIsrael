@@ -98,6 +98,10 @@ export class EditInformationsPage {
         this.db.collection('messages', ref => ref.where('email', '==', this.info.email)).get().subscribe(
           result => {
             result.forEach(element => {
+              let from = element.data().from
+              if (from == "צוות פארקור ישראל")
+              this.db.collection('messages').doc(element.id).update({ from_manager: this.info.userName })
+              else
               this.db.collection('messages').doc(element.id).update({ from: this.info.userName })
             });
           }
