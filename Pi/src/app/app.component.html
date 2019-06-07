@@ -1,6 +1,8 @@
+
 <!-- website on Desktop -->
-<ion-content *ngIf="!isMobile()">
-  <nav class="nav">
+
+<ion-content  *ngIf="!isMobile()">
+  <nav class="nav"> 
     <ul>
 <!-- english mode -->
       <div *ngIf='lang()' class="nav-left">
@@ -65,8 +67,6 @@
   </nav>
   <router-outlet></router-outlet>
 </ion-content>
-
-
 
 
 

@@ -7,6 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['info.page.scss'],
 })
 export class InfoPage {
-  
   constructor() { }
 }

@@ -166,6 +166,7 @@ export class AppComponent {
 
 
   userMode() {
+
     if (this.userAuth.auth.currentUser != null) {
       this.db.collection('users').doc(this.userAuth.auth.currentUser.uid)
         .get().subscribe(result => {
@@ -173,10 +174,12 @@ export class AppComponent {
           if (!this.isMobile()) {
             if (this.lan == this.languages[0].name) {
               this.userLogin.nativeElement.innerHTML = 'LogOut'
+              this.loginNickName.nativeElement.innerHTML = 'Welcome  &darr;'
               this.loginNickName.nativeElement.innerHTML ="Welcome " + result.data().userName + " &darr;"
             }
             else {
               this.userLogin.nativeElement.innerHTML = 'התנתק'
+              this.loginNickName.nativeElement.innerHTML = '&darr; ברוך הבא'
               this.loginNickName.nativeElement.innerHTML =" &darr; ברוך הבא " + result.data().userName
             }
           }
@@ -233,6 +236,7 @@ export class AppComponent {
 
   language(language) {
     // debugger
+    this.userMode()
     this.lan = language.name
     //  alert("laguage is " + this.lan)
 
