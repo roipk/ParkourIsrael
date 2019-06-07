@@ -68,15 +68,21 @@ export class EditInformationsPage {
     firebase.auth().onAuthStateChanged((user) => {
       this.db.collection('users').doc(user.uid)
         .get().subscribe(result => {
+          var s=''
+          var fullname =  result.data().fullName.split(' ');
+          for (let i = 1; i < fullname.length; i++) {
+            s+=fullname[i]+' '             
+            }
           this.info.userName = result.data().userName
           this.old_userName = this.info.userName
           this.userNameField.value = this.info.userName
           this.info.fullName = result.data().fullName
           this.info.email = result.data().email
           this.info.firstName = result.data().firstName
-          this.firstNameField.value = this.info.firstName
+          
+          this.firstNameField.value = fullname[0];
           this.info.lastName = result.data().lastName
-          this.lastNameField.value = this.info.lastName
+          this.lastNameField.value = s;
           this.info.userID = user.uid
 
         })
@@ -183,7 +189,7 @@ export class EditInformationsPage {
     if (!this.showPassword)
       this.changeButton.el.innerHTML = 'Change Password'
     else
-      this.changeButton.el.innerHTML = 'Hide Password'
+      this.changeButton.el.innerHTML = 'Cancle Change'
   }
 
   CheckPassword() {

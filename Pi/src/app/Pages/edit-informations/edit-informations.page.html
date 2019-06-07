@@ -1,14 +1,15 @@
 <div class="content">
+  <ion-content>
   <ion-grid>
     <ion-row class='center-row'>
-      <ion-col size='12' size-md='2'>
+      <ion-col text-center size='12' size-md='2'>
         <ion-item>
           <ion-label id= "firstName" position="floating">First name</ion-label>
           <ion-input #firstName></ion-input>
         </ion-item>
       </ion-col>
 
-      <ion-col size='12' size-md='2'>
+      <ion-col text-center size='12' size-md='2'>
         <ion-item>
           <ion-label id= "lastName" position="floating">Last Name</ion-label>
           <ion-input #lastName></ion-input>
@@ -17,7 +18,7 @@
     </ion-row>
 
     <ion-row class='center-row'>
-        <ion-col size='12' size-md='4'>
+        <ion-col text-center size='12' size-md='4'>
         <ion-item>
           <ion-label  position="floating">Username </ion-label>
           <ion-input #userName (ionBlur)="CheckUsername()"></ion-input>
@@ -25,19 +26,23 @@
       </ion-col>
     </ion-row>
 
+    <ion-row class='center-row'>
+        <ion-col text-center size='12' size-md='2'>
     <ion-button (click) = "changeShowPassword()" #changeButton>
       Change Password
    </ion-button>
+  </ion-col>
+  </ion-row>
  
     <ion-row class='center-row' *ngIf = "showPassword">
-      <ion-col size='12' size-md='2'>
+      <ion-col text-center size='12' size-md='2'>
         <ion-item>
           <ion-label id= "password" position="floating">Password </ion-label>
           <ion-input type='password' #password></ion-input>
         </ion-item>
       </ion-col>
     
-        <ion-col size='12' size-md='2'>
+        <ion-col text-center size='12' size-md='2'>
         <ion-item>
           <ion-label id= "confirm" position="floating">Confirm</ion-label>
           <ion-input type='password' #confirm></ion-input>
@@ -57,4 +62,5 @@
     </ion-row>
 
   </ion-grid>
+</ion-content>
 </div>
