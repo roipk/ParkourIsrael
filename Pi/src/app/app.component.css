@@ -1,4 +1,6 @@
-
+*{
+  background-color: rgba(180, 255, 255, 0.445);
+}
  .right
 {
    float: right;

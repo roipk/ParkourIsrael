@@ -1,0 +1,65 @@
+<nav class="nav"> 
+  <ul>
+<!-- english mode -->
+    <div *ngIf='lang()' class="nav-left">
+      <li> <a routerLink="/home" routerLinkActive="active"> Home </a> </li>
+      <li> <a routerLink="/news" routerLinkActive="active"> News </a></li>
+      <li> <a routerLink="/maps" routerLinkActive="active"> maps </a></li>
+      <li class="dropdown">
+        <a routerLink="/contact" routerLinkActive="active" class="dropbtn">Contact &darr;</a>
+        <div class="dropdown-content">
+          <a *ngFor='let item of items' [routerLink]="item.url" routerLinkActive="active">{{item.nameEn}}</a>
+        </div>
+      </li>
+      <li><a routerLink="/info" routerLinkActive="active">info</a></li>
+      <li class="dropdown">
+          <a class="dropbtn">Language &darr;</a>
+          <div class="dropdown-content">
+              <a *ngFor='let lan of languages' (click)='language(lan)' >{{lan.name}}</a>
+          </div>
+        </li>
+    </div>
+<!-- hebrew mode -->
+    <div *ngIf='!lang()' class="nav-right">
+      <li> <a routerLink="/home" routerLinkActive="active"> ראשי </a> </li>
+      <li> <a routerLink="/news" routerLinkActive="active"> חדשות ועדכונים </a></li>
+      <li> <a routerLink="/maps" routerLinkActive="active"> מפות </a></li>
+      <li class="dropdown">
+        <a routerLink="/contact" routerLinkActive="active" class="dropbtn"> &darr; צור קשר</a>
+        <div class="dropdown-content">
+          <a *ngFor='let item of items' [routerLink]="item.url" routerLinkActive="active">{{item.nameHeb}}</a>
+        </div>
+
+      </li>
+      <li><a routerLink="/info" routerLinkActive="active">מידע</a></li>
+      <li class="dropdown">
+          <a class="dropbtn">&darr; שפה</a>
+          <div class="dropdown-content">
+            <a *ngFor='let lan of languages' (click)='language(lan)' >{{lan.name}}</a>
+          </div>
+        </li>
+    </div>
+<!-- english mode -->
+    <div *ngIf='lang()' class="nav-right">
+      <li class="dropdown">
+        <a #loginNickName routerLink="/contact" routerLinkActive="active" class="dropbtn">Welcome</a>
+        <div class="dropdown-content">
+          <a #username routerLink="/edit-informations" routerLinkActive="active">Profile</a>
+          <a #user routerLink="/manager" routerLinkActive="active" *ngIf="getManager()">Manager</a>
+          <a #user (click)="login()">Login</a>
+        </div>
+        </li>
+    </div>
+<!-- hebrew mode -->
+    <div *ngIf='!lang()' class="nav-left">
+      <li class="dropdown">
+        <a #loginNickName class="dropbtn">ברוך הבא</a>
+        <div class="dropdown-content">
+          <a #username routerLink="/edit-informations" routerLinkActive="active">איזור אישי</a>
+          <a #user routerLink="/manager" routerLinkActive="active" *ngIf="getManager()">מנהל</a>
+          <a #user (click)="login()">כניסה</a>
+        </div>
+      </li>
+    </div>
+  </ul>
+</nav>

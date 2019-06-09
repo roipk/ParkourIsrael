@@ -1,31 +1,23 @@
-// ============================= imports ===================================//
 import { Component, OnInit, ViewChild, NgZone, ElementRef } from '@angular/core';
 import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { UserService } from '../app/user.service';
+// import { UserService } from '../app/user.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-// import { IsManagerGuard } from './is-manager-guard/is-manager.guard';
-// ==========================================================================//
-
 
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css'],
+  selector: 'navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss'],
 })
-
-
-
-
-export class AppComponent {
+export class NavbarComponent implements OnInit {
   [x: string]: any;
 
   // ============================= all id from object in html ===================================//
-  // @ViewChild('user') userLogin
-  // @ViewChild('loginNickName') loginNickName
+  @ViewChild('user') userLogin
+  @ViewChild('loginNickName') loginNickName
 
   // @ViewChild('titlePage') titlePage
   // ============================================================================================//
@@ -95,7 +87,7 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    public user: UserService,
+    // public user: UserService,
 
     private uAuth: AngularFireAuth,
     private userAuth: AngularFireAuth,
@@ -248,5 +240,4 @@ export class AppComponent {
 
   //===========================================================================================================//
 
-}//end  class
-
+}

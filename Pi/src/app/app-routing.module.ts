@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadChildren: './Pages/Home/home.module#HomePageModule' },
+  { path: 'maps', loadChildren: './Pages/maps/maps.module#MapsPageModule' },
   { path: 'signup', loadChildren: './Pages/Signup/signup.module#SignupPageModule'},
   { path: 'news', loadChildren: './Pages/News/news.module#NewsPageModule' },
   { path: 'login', loadChildren: './Pages/Login/login.module#LoginPageModule'},
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'contact', loadChildren: './Pages/contact/contact.module#ContactPageModule' },
   { path: 'edit-informations', loadChildren: './Pages/edit-informations/edit-informations.module#EditInformationsPageModule' },
   { path: '**', loadChildren: './Pages/not-found/not-found.module#NotFoundPageModule' },   { path: 'edit-informations', loadChildren: './Pages/edit-informations/edit-informations.module#EditInformationsPageModule' },
+
 
 ];
 

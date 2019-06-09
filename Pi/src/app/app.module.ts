@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import {NavbarComponent} from './Pages/navbar/navbar.component';
 
 
 
@@ -22,7 +23,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,NavbarComponent],
   entryComponents: [],
   imports: [
     // IonicModule,
@@ -39,6 +40,6 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent,NavbarComponent]
 })
 export class AppModule {}
