@@ -29,5 +29,8 @@ public user = true
   }
  
  
-
+public setUser(u:boolean)
+{
+  this.user=u
+}
 }

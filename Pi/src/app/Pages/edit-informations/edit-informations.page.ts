@@ -189,7 +189,7 @@ export class EditInformationsPage {
     if (!this.showPassword)
       this.changeButton.el.innerHTML = 'Change Password'
     else
-      this.changeButton.el.innerHTML = 'Cancle Change'
+      this.changeButton.el.innerHTML = 'Cancel Changes'
   }
 
   CheckPassword() {

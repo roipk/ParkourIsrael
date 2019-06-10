@@ -44,7 +44,7 @@
       <li class="dropdown">
         <a #loginNickName routerLink="/contact" routerLinkActive="active" class="dropbtn">Welcome</a>
         <div class="dropdown-content">
-          <a #username routerLink="/edit-informations" routerLinkActive="active">Profile</a>
+          <a #username routerLink="/edit-informations" routerLinkActive="active" *ngIf="isUser()">Profile</a>
           <a #user routerLink="/manager" routerLinkActive="active" *ngIf="getManager()">Manager</a>
           <a #user (click)="login()">Login</a>
         </div>
@@ -55,7 +55,7 @@
       <li class="dropdown">
         <a #loginNickName class="dropbtn">ברוך הבא</a>
         <div class="dropdown-content">
-          <a #username routerLink="/edit-informations" routerLinkActive="active">איזור אישי</a>
+          <a #username routerLink="/edit-informations" routerLinkActive="active" *ngIf="isUser()">איזור אישי</a>
           <a #user routerLink="/manager" routerLinkActive="active" *ngIf="getManager()">מנהל</a>
           <a #user (click)="login()">כניסה</a>
         </div>

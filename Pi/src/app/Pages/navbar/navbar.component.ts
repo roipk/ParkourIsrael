@@ -5,7 +5,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 // import { UserService } from '../app/user.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
+import { Router } from '@angular/router'; 
+import { IsManagerGuard } from '../../is-manager-guard/is-manager.guard'
+  import { from } from 'rxjs';
 
 @Component({
   selector: 'navbar',
@@ -95,6 +97,7 @@ export class NavbarComponent implements OnInit {
     // private guard: IsManagerGuard,
     // private ngZone: NgZone,
     private router: Router,
+    private guard: IsManagerGuard,
     private menu: MenuController
   ) {
     this.initializeApp();
@@ -163,7 +166,7 @@ export class NavbarComponent implements OnInit {
       this.db.collection('users').doc(this.userAuth.auth.currentUser.uid)
         .get().subscribe(result => {
           this.manager = result.data().manager
-          if (!this.isMobile()) {
+          if (!this.isMobile() && this.userAuth.auth.currentUser != null) {
             if (this.lan == this.languages[0].name) {
               this.userLogin.nativeElement.innerHTML = 'LogOut'
               this.loginNickName.nativeElement.innerHTML = 'Welcome  &darr;'
@@ -217,6 +220,7 @@ export class NavbarComponent implements OnInit {
 
   getManager() {
     this.isMobile()
+    this.guard.setUser(this.manager)
     return this.manager
   }
 

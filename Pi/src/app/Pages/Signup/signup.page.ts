@@ -101,7 +101,6 @@ export class SignupPage {
   
   
   CheckUsername() {
-    alert("in user")
     this.db.collection('users', ref => ref.where('userName', '==', this.userNameField.value)).get().subscribe(result => {
       if (result.empty) {
         this.userEmpty = true
