@@ -7,6 +7,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router'; 
 import { IsManagerGuard } from '../../is-manager-guard/is-manager.guard'
+// import { HomePage } from '../Home/home.page'
   import { from } from 'rxjs';
 
 @Component({
@@ -98,6 +99,7 @@ export class NavbarComponent implements OnInit {
     // private ngZone: NgZone,
     private router: Router,
     private guard: IsManagerGuard,
+    // private home: HomePage,
     private menu: MenuController
   ) {
     this.initializeApp();
@@ -231,8 +233,10 @@ export class NavbarComponent implements OnInit {
 
 
   language(language) {
-    // debugger
-    this.userMode()
+    
+    this.userMode();
+    // this.home.setLan(language)
+  
     this.lan = language.name
     //  alert("laguage is " + this.lan)
 

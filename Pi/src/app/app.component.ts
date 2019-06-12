@@ -83,10 +83,10 @@ export class AppComponent {
 
 
 
-  public languages = [
-    { name: 'English' },
-    { name: 'עברית' },
-  ]
+  // public languages = [
+  //   { name: 'English' },
+  //   { name: 'עברית' },
+  // ]
 
 
 
@@ -142,14 +142,14 @@ export class AppComponent {
 
   //====================================================== functions ==========================================//
 
-  lang() {
+  // lang() {
 
-    if (this.lan == this.languages[0].name) {
-      return true;
-    }
-    else
-      return false;
-  }
+  //   if (this.lan == this.languages[0].name) {
+  //     return true;
+  //   }
+  //   else
+  //     return false;
+  // }
 
   isMobile() {
     const w = document.documentElement.clientWidth;
@@ -171,30 +171,30 @@ export class AppComponent {
       this.db.collection('users').doc(this.userAuth.auth.currentUser.uid)
         .get().subscribe(result => {
           this.manager = result.data().manager
-          if (!this.isMobile()) {
-            if (this.lan == this.languages[0].name) {
-              this.userLogin.nativeElement.innerHTML = 'LogOut'
-              this.loginNickName.nativeElement.innerHTML = 'Welcome  &darr;'
-              this.loginNickName.nativeElement.innerHTML ="Welcome " + result.data().userName + " &darr;"
-            }
-            else {
-              this.userLogin.nativeElement.innerHTML = 'התנתק'
-              this.loginNickName.nativeElement.innerHTML = '&darr; ברוך הבא'
-              this.loginNickName.nativeElement.innerHTML =" &darr; ברוך הבא " + result.data().userName
-            }
-          }
+          // if (!this.isMobile()) {
+          //   if (this.lan == this.languages[0].name) {
+          //     this.userLogin.nativeElement.innerHTML = 'LogOut'
+          //     this.loginNickName.nativeElement.innerHTML = 'Welcome  &darr;'
+          //     this.loginNickName.nativeElement.innerHTML ="Welcome " + result.data().userName + " &darr;"
+          //   }
+          //   else {
+          //     this.userLogin.nativeElement.innerHTML = 'התנתק'
+          //     this.loginNickName.nativeElement.innerHTML = '&darr; ברוך הבא'
+          //     this.loginNickName.nativeElement.innerHTML =" &darr; ברוך הבא " + result.data().userName
+          //   }
+          // }
         })
     }
-    else {
-      if (this.userLogin && this.loginNickName && this.lan == this.languages[0].name) {
-        this.userLogin.nativeElement.innerHTML = 'Login'
-        this.loginNickName.nativeElement.innerHTML = 'Welcome  &darr;'
-      }
-      else if (this.userLogin && this.loginNickName) {
-        this.userLogin.nativeElement.innerHTML = 'כניסה'
-        this.loginNickName.nativeElement.innerHTML = '&darr; ברוך הבא'
-      }
-    }
+    // else {
+    //   if (this.userLogin && this.loginNickName && this.lan == this.languages[0].name) {
+    //     this.userLogin.nativeElement.innerHTML = 'Login'
+    //     this.loginNickName.nativeElement.innerHTML = 'Welcome  &darr;'
+    //   }
+    //   else if (this.userLogin && this.loginNickName) {
+    //     this.userLogin.nativeElement.innerHTML = 'כניסה'
+    //     this.loginNickName.nativeElement.innerHTML = '&darr; ברוך הבא'
+    //   }
+    // }
   }
 
 
@@ -206,21 +206,21 @@ export class AppComponent {
   }
 
 
-  login() {
-    if (this.userLogin.nativeElement.innerHTML == 'Login' || this.userLogin.nativeElement.innerHTML == 'התחבר') {
-      this.router.navigateByUrl('/login')
-    }
-    else {
-      this.manager = false
-      this.userAuth.auth.signOut().then((result) => {
-        if (this.lan == this.languages[0].name)
-          this.userLogin.nativeElement.innerHTML = 'Login'
-        else
-          this.userLogin.nativeElement.innerHTML = 'התחבר'
-        this.router.navigateByUrl('/home')
-      })
-    }
-  }
+  // login() {
+  //   if (this.userLogin.nativeElement.innerHTML == 'Login' || this.userLogin.nativeElement.innerHTML == 'התחבר') {
+  //     this.router.navigateByUrl('/login')
+  //   }
+  //   else {
+  //     this.manager = false
+  //     this.userAuth.auth.signOut().then((result) => {
+  //       if (this.lan == this.languages[0].name)
+  //         this.userLogin.nativeElement.innerHTML = 'Login'
+  //       else
+  //         this.userLogin.nativeElement.innerHTML = 'התחבר'
+  //       this.router.navigateByUrl('/home')
+  //     })
+  //   }
+  // }
 
 
   getManager() {
@@ -234,13 +234,14 @@ export class AppComponent {
   // }
 
 
-  language(language) {
-    // debugger
-    this.userMode()
-    this.lan = language.name
-    //  alert("laguage is " + this.lan)
+  // language(language) {
+  //   // debugger
+  //   this.userMode()
+  //   this.lan = language.name
+  //   debugger
+  //   //  alert("laguage is " + this.lan)
 
-  }
+  // }
 
 
 
