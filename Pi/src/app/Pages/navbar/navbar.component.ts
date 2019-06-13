@@ -71,12 +71,10 @@ export class NavbarComponent implements OnInit {
 
   // ============ example for item ===============//
   public items = [
-    { url: '1', nameEn: 'test', nameHeb: 'בדיקה' },
-    { url: '1', nameEn: 'test2', nameHeb: 'בדיקה' },
-    { url: '1', nameEn: 'test3', nameHeb: 'בדיקה' },
-    { url: '1', nameEn: 'test4', nameHeb: 'בדיקה' },
-    { url: '1', nameEn: 'test5', nameHeb: 'בדיקה' },
-    { url: '1', nameEn: 'test6', nameHeb: 'בדיקה' }
+    { url: '/parkour', nameEn: 'parkour', nameHeb: 'פארקור' },
+    { url: '/us', nameEn: 'how we are', nameHeb: 'מי אנחנו' },
+    { url: '/doc', nameEn: 'document', nameHeb: 'מסמכים' },
+   
   ]
   // =============================================//
 

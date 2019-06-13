@@ -22,7 +22,7 @@ export class NewsPage {
   email = ''
 
   messages = []
-
+  static message=[]
 
 
   constructor(
@@ -88,6 +88,9 @@ export class NewsPage {
           this.messages = [...result]
         }
       )
+    }
+    for (let index = 0; index <  this.messages.length; index++) {
+      NewsPage.message[index]=this.messages[index]
     }
   }
 
