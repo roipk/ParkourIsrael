@@ -3,15 +3,15 @@
 <!-- english mode -->
     <div *ngIf='lang()' class="nav-left">
       <li> <a routerLink="/home" routerLinkActive="active"> Home </a> </li>
-      <li> <a routerLink="/news" routerLinkActive="active"> News </a></li>
+      <li><a routerLink="/info" routerLinkActive="active">info</a></li>
       <li> <a routerLink="/maps" routerLinkActive="active"> Spots Map </a></li>
+      <li> <a routerLink="/news" routerLinkActive="active"> News </a></li>
       <li class="dropdown">
         <a routerLink="/contact" routerLinkActive="active" class="dropbtn">Contact &darr;</a>
         <div class="dropdown-content">
           <a *ngFor='let item of items' [routerLink]="item.url" routerLinkActive="active">{{item.nameEn}}</a>
         </div>
       </li>
-      <li><a routerLink="/info" routerLinkActive="active">info</a></li>
       <li class="dropdown">
           <a class="dropbtn">Language &darr;</a>
           <div class="dropdown-content">
@@ -22,6 +22,7 @@
 <!-- hebrew mode -->
     <div *ngIf='!lang()' class="nav-right">
       <li> <a routerLink="/home" routerLinkActive="active"> ראשי </a> </li>
+      <li><a routerLink="/info" routerLinkActive="active">מידע</a></li>
       <li> <a routerLink="/news" routerLinkActive="active"> חדשות ועדכונים </a></li>
       <li> <a routerLink="/maps" routerLinkActive="active"> מפות </a></li>
       <li class="dropdown">
@@ -31,7 +32,6 @@
         </div>
 
       </li>
-      <li><a routerLink="/info" routerLinkActive="active">מידע</a></li>
       <li class="dropdown">
           <a class="dropbtn">&darr; שפה</a>
           <div class="dropdown-content">

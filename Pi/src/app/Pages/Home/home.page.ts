@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
+// import { NavbarComponent } from '../navbar/navbar.component';
 
-// import {LanguageComponent} from '../language/language.component'
+
+import { LanguageComponent } from '../language/language.component'
+
 
 
 @Component({
@@ -10,25 +13,40 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  lan = true
+  @ViewChild('generalTitle') generalTitle
+
+  lan = true;
+
+
   constructor(
-    // private langu:LanguageComponent
+    private cdRef : ChangeDetectorRef
+    
   ) { }
- 
+
 
   ngOnInit(): void {
- 
-
-  }
-
-  setLan(l:boolean)
-  {
    
-    this.lan = l
   }
 
-  lang()
-  { 
+
+
+  ngAfterViewChecked() {
+    let show = this.isShowExpand();
+    if (show != this.lan) { // check if it change, tell CD update view
+      this.lan = show;
+      this.cdRef.detectChanges();
+    }
 
   }
+
+  isShowExpand()
+  {
+    return LanguageComponent.lan
+  }
+  lang() {
+    return this.lan
+    
+  }
+
+
 }
