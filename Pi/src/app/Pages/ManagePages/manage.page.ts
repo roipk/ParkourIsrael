@@ -1,9 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { post } from 'selenium-webdriver/http';
 import * as firebase from 'firebase';
+import { PostEditorPage } from '../post-editor/post-editor.page';
 
 
 
@@ -19,7 +21,7 @@ export class ManagePage {
 
 
   file_name = ''
-
+  loadingRef = null
   manager = false;
   showPages = false;
   showPosts = false;
@@ -49,7 +51,7 @@ export class ManagePage {
       // icon: 'home'
     },
   ]
-  loadingController: any;
+  
 
 
 
@@ -59,20 +61,19 @@ export class ManagePage {
   constructor(
     private uAuth: AngularFireAuth,
     private router: Router,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private route: Router,
+    private loadingController: LoadingController,
   ) { }
 
 
   ngOnInit(): void {
-    this.db.collection('users').valueChanges().subscribe(
-      result => {
-        result.sort((m1, m2) => {
-          if (m1['userName'] > m2['userName']) return 1
-          else return -1
-        })
-        this.users = [...result]
-      })
+    
+  this.LoadUsers()
+  this.LoadMessage()
+  }
 
+  LoadMessage() {
     this.db.collection('messages').valueChanges().subscribe(
       result => {
         result.sort((m1, m2) => {
@@ -80,11 +81,24 @@ export class ManagePage {
           else return -1
         })
         this.posts = [...result]
+        if(this.loadingRef != null)
+          this.dismissLoading()
       })
   }
 
-
-
+  LoadUsers()
+  {
+    this.db.collection('users').valueChanges().subscribe(
+      result => {
+        result.sort((m1, m2) => {
+          if (m1['userName'] > m2['userName']) return 1
+          else return -1
+        })
+        this.users = [...result]
+        if(this.loadingRef != null)
+          this.dismissLoading()
+      })
+  }
 
   search(list, find) {
     if (list == this.posts) {
@@ -123,15 +137,31 @@ export class ManagePage {
     }
   }
 
+
+async EditPost(docId: string)
+{
+  this.db.collection('messages', ref => ref.where('timestamp', '==', docId)).get().subscribe(result => {
+    PostEditorPage.docId = result.docs[0].id
+    this.route.navigateByUrl('/writePost')
+  })
+}
+
   async deletePost(docId: string, file_name: string) {
+    this.presentLoading();
     this.file_name = file_name
     if (this.file_name != '') {
       this.removeFile()
     }
-
-    await this.db.collection("messages").doc(docId).delete().catch(() => {
-      alert('error while removing message')
-    });
+    this.db.collection('messages', ref => ref.where('timestamp', '==', docId)).get().subscribe(result => {
+      this.db.collection("messages").doc(result.docs[0].id).delete().catch(() => {
+        if(this.loadingRef != null)
+          this.dismissLoading()
+       alert('error while removing message')
+}).then(()=>{
+  this.LoadMessage()
+});
+      
+    })
   }
 
   removeFile() {
@@ -153,6 +183,19 @@ export class ManagePage {
   openUsersList() {
     this.showUsers = !this.showUsers;
   }
+
+
+  async presentLoading() {
+    this.loadingRef = await this.loadingController.create({ message: 'Please wait...', })
+    await this.loadingRef.present()
+  }
+
+  
+  dismissLoading() {
+    this.loadingRef.dismiss()
+    this.loadingRef = null
+  }
+
 }
 
 

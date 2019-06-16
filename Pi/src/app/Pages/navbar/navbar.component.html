@@ -49,7 +49,7 @@
 <!-- english mode -->
     <div *ngIf='lang()' class="nav-right">
       <li class="dropdown">
-        <a #loginNickName routerLink="/contact" routerLinkActive="active" class="dropbtn">Welcome</a>
+        <a #loginNickName class="dropbtn">Welcome</a>
         <div class="dropdown-content">
           <a #username routerLink="/edit-informations" routerLinkActive="active" *ngIf="isUser()">Profile</a>
           <a #user routerLink="/manager" routerLinkActive="active" *ngIf="getManager()">Manager</a>

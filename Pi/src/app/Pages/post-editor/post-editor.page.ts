@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
 import { LoadingController } from '@ionic/angular';
-import { AppComponent} from '../../app.component'
+import { AppComponent } from '../../app.component'
 import { defineBase } from '@angular/core/src/render3';
 
 
@@ -31,8 +31,9 @@ export class PostEditorPage implements OnInit {
   loadingRef = null
 
   manager = false
-
+  static docId = ''
   nameFile = ''
+  oldNameFile=''
   userName = ''
   fullName = ''
   nameToShow = ''
@@ -49,7 +50,7 @@ export class PostEditorPage implements OnInit {
     private route: Router,
     private loadingController: LoadingController,
     private db: AngularFirestore,
-    private admin : AppComponent) { }
+    private admin: AppComponent) { }
 
 
 
@@ -57,6 +58,9 @@ export class PostEditorPage implements OnInit {
     this.uAuth.user.subscribe(() => {
       this.afterUserInside()
     })
+    if (PostEditorPage.docId != '') {
+      this.GetPost()
+    }
   }
 
   afterUserInside() {
@@ -66,7 +70,7 @@ export class PostEditorPage implements OnInit {
         this.fullName = result.data().fullName
         this.email = result.data().email
       })
-      
+
   }
 
 
@@ -74,55 +78,65 @@ export class PostEditorPage implements OnInit {
     if (this.isMessageInvalid()) {
       return
     }
-    
-    if (this.nameToShow == "צוות פארקור ישראל"){
+
+    if (PostEditorPage.docId != '') {
+      this.db.collection('messages').doc(PostEditorPage.docId).update({
+
+        title: this.MessageTitleField.value,
+        email: this.email,
+        from: this.nameToShow,
+        content: this.messageField.value,
+        timestamp: new Date().getTime(),
+        file_name: this.nameFile,
+        date: this.postDate()[1],
+        show_date: this.postDate()[0]
+      }).then(() => {
+        if (this.nameToShow == "צוות פארקור ישראל") {
+          this.db.collection('messages').doc(PostEditorPage.docId).update({
+            from_manager: this.userName
+          })
+        }
+      }).catch(e => {
+        alert('Failed to update the firebase')
+      })
+
+
+    }
+    else {
       this.db.collection('messages').add({
         title: this.MessageTitleField.value,
         email: this.email,
         from: this.nameToShow,
-        from_manager: this.userName,
         content: this.messageField.value,
         timestamp: new Date().getTime(),
         file_name: this.nameFile,
-        date : this.postDate()[1],
-        show_date : this.postDate()[0]
-      }).then( result => {
-        result.update({docId: result.id});
+        date: this.postDate()[1],
+        show_date: this.postDate()[0]
+      }).then(res => {
+        if (this.nameToShow == "צוות פארקור ישראל") {
+          res.update({
+            from_manager: this.userName
+          })
+        }
       }).catch(e => {
         alert('Failed to update the firebase')
       })
     }
-
-    else{
-    this.db.collection('messages').add({
-      title: this.MessageTitleField.value,
-      email: this.email,
-      from: this.userName,
-      content: this.messageField.value,
-      timestamp: new Date().getTime(),
-      file_name: this.nameFile,
-      date : this.postDate()[1],
-      show_date : this.postDate()[0]
-    }).then( result => {
-      result.update({docId: result.id});
-    }).catch(e => {
-      alert('Failed to update the firebase')
-    })
-  }
     if (this.nameFile != '')
       this.uploadFile()
     else {
       this.messageField.value = ''
       this.MessageTitleField.value = ''
+      PostEditorPage.docId = ''
       this.route.navigateByUrl('/news')
     }
   }
 
   isMessageInvalid(): boolean {
-    if (this.messageField == null || this.messageField.value == null || this.messageField.value.length <= 0 || this.messageField.value!='&nbsp') {
+    if (this.messageField == null || this.messageField.value == null || this.messageField.value.length <= 0 || this.messageField.value == '&nbsp') {
       return true
     }
-    if (this.MessageTitleField == null || this.MessageTitleField.value == null || this.MessageTitleField.value.length <= 0|| this.MessageTitleField.value!= '&nbsp') {
+    if (this.MessageTitleField == null || this.MessageTitleField.value == null || this.MessageTitleField.value.length <= 0 || this.MessageTitleField.value == '&nbsp') {
       return true
     }
     return false
@@ -130,7 +144,7 @@ export class PostEditorPage implements OnInit {
 
 
   fileChangeEvent(e) {
-    
+
     this.img.src = URL.createObjectURL(e.target.files[0])
     this.file = e.target.files[0]
     this.nameFile = "pi_" + Date.now() + "_" + this.file.name
@@ -140,7 +154,7 @@ export class PostEditorPage implements OnInit {
     if (e.target.value == 'userName') {
       this.nameToShow = this.userName
     }
-    else if(e.target.value == 'manager') {
+    else if (e.target.value == 'manager') {
       this.nameToShow = 'צוות פארקור ישראל'
     }
   }
@@ -149,15 +163,34 @@ export class PostEditorPage implements OnInit {
 
     this.presentLoading()
     var storageRef = firebase.storage().ref()
-    storageRef.child('images/' + this.nameFile).put(this.file).then(res => {
-      this.messageField.value = ''
-      this.MessageTitleField.value = ''
-      this.loadingRef.dismiss()
-      this.route.navigateByUrl('/news')
-    }).catch(() => {
-      this.loadingRef.dismiss()
-      alert('file error')
-    })
+    if (PostEditorPage.docId != '') {
+      this.db.collection('messages').doc(PostEditorPage.docId).get().subscribe(result=>{
+        if(this.oldNameFile!='' && this.oldNameFile!= result.data().nameFile)
+          {
+            storageRef.child('images/' + this.oldNameFile).delete()
+            storageRef.child('images/' + this.nameFile).put(this.file).then(res => {
+              this.messageField.value = ''
+              this.MessageTitleField.value = ''
+              this.loadingRef.dismiss()
+              this.route.navigateByUrl('/news')
+            }).catch(() => {
+              this.loadingRef.dismiss()
+              alert('file error')
+            })
+          }
+      })
+    }
+    else {
+      storageRef.child('images/' + this.nameFile).put(this.file).then(res => {
+        this.messageField.value = ''
+        this.MessageTitleField.value = ''
+        this.loadingRef.dismiss()
+        this.route.navigateByUrl('/news')
+      }).catch(() => {
+        this.loadingRef.dismiss()
+        alert('file error')
+      })
+    }
   }
 
   removeViewFile() {
@@ -176,23 +209,41 @@ export class PostEditorPage implements OnInit {
     this.loadingRef.dismiss()
   }
 
-  getManager(){
-return this.admin.getManager()
+  getManager() {
+    return this.admin.getManager()
   }
 
-  postDate(){
+  postDate() {
     var d = new Date();
 
-    if (d.getMinutes()<10)
-    var min = "0"+d.getMinutes()
-    else 
-    var min = d.getMinutes().toString()
-    
-    var showDate = +d.getDate()+"."+(d.getMonth()+1)+"."+d.getFullYear()+" at "+d.getHours()+":"+min
-    
-    var dbDate = d.getFullYear()+"/"+(d.getMonth()+1)+"/"+d.getDate()+" at "+d.getHours()+":"+min
+    if (d.getMinutes() < 10)
+      var min = "0" + d.getMinutes()
+    else
+      var min = d.getMinutes().toString()
+
+    var showDate = +d.getDate() + "." + (d.getMonth() + 1) + "." + d.getFullYear() + " at " + d.getHours() + ":" + min
+
+    var dbDate = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate() + " at " + d.getHours() + ":" + min
 
     var date = [showDate, dbDate]
     return date
   }
+
+
+
+  GetPost() {
+    this.db.collection("messages").doc(PostEditorPage.docId).get().subscribe(result => {
+      this.messageField.value = result.data().content
+      this.MessageTitleField.value = result.data().title
+      this.oldNameFile=result.data().file_name
+      if (result.data().file_name != '') {
+        var storageRef = firebase.storage().ref()
+        storageRef.child('images/' + result.data().file_name).getDownloadURL().then(res => {
+          this.img.src = res
+        })
+      }
+
+    })
+  }
+
 }
