@@ -5,8 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
-import { PostBubbleComponent } from '../post-bubble/post-bubble.component';
-// import { NavbarComponent } from '../navbar/navbar.component';
+import { PostBubbleModule } from '../post-bubble/post-bubble.module';
 
 
 
@@ -15,7 +14,7 @@ import { PostBubbleComponent } from '../post-bubble/post-bubble.component';
     CommonModule,
     FormsModule,
     IonicModule,
-    // NavbarComponent,
+    PostBubbleModule,
     RouterModule.forChild([
       {
         path: '',
@@ -23,7 +22,7 @@ import { PostBubbleComponent } from '../post-bubble/post-bubble.component';
       }
     ])
   ],
-  declarations: [HomePage,PostBubbleComponent ]
+  declarations: [HomePage ]
 })
 export class HomePageModule {
   

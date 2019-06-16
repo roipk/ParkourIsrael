@@ -20,7 +20,7 @@ export class NewsPage {
 
   fullName = ''
   email = ''
-
+  test='test'
   messages = []
   static message=[]
 

@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { NewsPage } from './news.page';
-import { PostBubbleComponent } from '../post-bubble/post-bubble.component';
+import { PostBubbleModule } from '../post-bubble/post-bubble.module';
 
 
 @NgModule({
@@ -14,6 +14,7 @@ import { PostBubbleComponent } from '../post-bubble/post-bubble.component';
     CommonModule,
     FormsModule,
     IonicModule,
+    PostBubbleModule,
     RouterModule.forChild([
       {
         path: '',
@@ -21,6 +22,6 @@ import { PostBubbleComponent } from '../post-bubble/post-bubble.component';
       }
     ])
   ],
-  declarations: [NewsPage, PostBubbleComponent]
+  declarations: [NewsPage]
 })
 export class NewsPageModule {}

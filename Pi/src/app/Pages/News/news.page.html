@@ -42,10 +42,11 @@
 
     <ion-row>
       <ion-col>
+          <!-- <app-post-bubble  [data]='test' ></app-post-bubble> -->
         <ion-row *ngFor='let m of messages'>
           <!-- <ion-col size='12' size-md=7> -->
           <ion-col>
-            <app-post-bubble [fullName]='fullName' [data]='m'></app-post-bubble>
+            <app-post-bubble  [data]='m'></app-post-bubble>
           </ion-col>
         </ion-row>
       </ion-col>

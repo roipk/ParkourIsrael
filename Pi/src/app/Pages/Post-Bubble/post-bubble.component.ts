@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild,Input } from '@angular/core';
-import * as firebase from 'firebase';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-post-bubble',
@@ -8,40 +7,10 @@ import * as firebase from 'firebase';
 })
 export class PostBubbleComponent implements OnInit {
 
-  @ViewChild('image') image
-  @ViewChild('post') post
-  @Input() fullName
-  @Input() data
-
-  _isimage = true
-
+  @Input() data: any
 
   constructor() { }
 
-
-
-  ngOnInit() { 
-    if(this.data.file_name !='')
-      firebase.storage().ref().child('/images/'+this.data.file_name).getDownloadURL().then(result=>{
-        this.image.src = result  
-        
-      })
-      else{
-        this._isimage = false
-      }
-    
-  }
-
-
-  isImage()
-  {
-    return this._isimage
-  }
-
-  getContentColor(m) {
-    if(this.fullName != null && m != null && this.fullName === m.from) {
-      return 'red'
-    }
-  }
+  ngOnInit() {}
 
 }
