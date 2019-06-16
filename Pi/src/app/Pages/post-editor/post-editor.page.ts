@@ -119,10 +119,10 @@ export class PostEditorPage implements OnInit {
   }
 
   isMessageInvalid(): boolean {
-    if (this.messageField == null || this.messageField.value == null || this.messageField.value.length <= 0) {
+    if (this.messageField == null || this.messageField.value == null || this.messageField.value.length <= 0 || this.messageField.value!='&nbsp') {
       return true
     }
-    if (this.MessageTitleField == null || this.MessageTitleField.value == null || this.MessageTitleField.value.length <= 0) {
+    if (this.MessageTitleField == null || this.MessageTitleField.value == null || this.MessageTitleField.value.length <= 0|| this.MessageTitleField.value!= '&nbsp') {
       return true
     }
     return false

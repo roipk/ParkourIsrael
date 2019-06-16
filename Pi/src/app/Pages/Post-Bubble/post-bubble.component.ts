@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-post-bubble',
@@ -8,9 +9,20 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PostBubbleComponent implements OnInit {
 
   @Input() data: any
+  @ViewChild('img') img
 
+  
+  
   constructor() { }
 
-  ngOnInit() {}
-
+  ngOnInit() {
+if(this.data.file_name!='')
+{
+    var storageRef = firebase.storage().ref()
+    storageRef.child('images/' + this.data.file_name).getDownloadURL().then(res => {
+      this.img.src=res
+     
+    })
+  }
+  }
 }
