@@ -23,8 +23,9 @@ export class NavbarComponent implements OnInit {
   [x: string]: any;
 
   // ============================= all id from object in html ===================================//
-  @ViewChild('user') userLogin
   @ViewChild('loginNickName') loginNickName
+  @ViewChild('user') userLogin
+
 
   // @ViewChild('titlePage') titlePage
   // ============================================================================================//
@@ -179,13 +180,13 @@ export class NavbarComponent implements OnInit {
           if (!this.isMobile() && this.userAuth.auth.currentUser != null) {
             if (this.lan == this.languages[0].name) {
               this.userLogin.nativeElement.innerHTML = 'LogOut'
-              this.loginNickName.nativeElement.innerHTML = 'Welcome  &darr;'
-              this.loginNickName.nativeElement.innerHTML ="Welcome " + result.data().userName + " &darr;"
+              this.loginNickName.nativeElement.innerHTML = 'Welcome  <ion-icon name="arrow-dropdown"></ion-icon>'
+              this.loginNickName.nativeElement.innerHTML ="Welcome " + result.data().userName + ' <ion-icon name="arrow-dropdown"></ion-icon>'
             }
             else {
               this.userLogin.nativeElement.innerHTML = 'התנתק'
-              this.loginNickName.nativeElement.innerHTML = '&darr; ברוך הבא'
-              this.loginNickName.nativeElement.innerHTML =" &darr; ברוך הבא " + result.data().userName
+              this.loginNickName.nativeElement.innerHTML = ' <ion-icon name="arrow-dropdown"></ion-icon> ברוך הבא'
+              this.loginNickName.nativeElement.innerHTML =' <ion-icon name="arrow-dropdown"></ion-icon>ברוך הבא ' + result.data().userName
             }
           }
         })
