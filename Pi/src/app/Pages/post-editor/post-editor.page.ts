@@ -79,6 +79,8 @@ export class PostEditorPage implements OnInit {
       return
     }
 
+    if (this.nameToShow == '')
+      this.nameToShow = this.userName
     if (PostEditorPage.docId != '') {
       this.db.collection('messages').doc(PostEditorPage.docId).update({
 
@@ -221,9 +223,24 @@ export class PostEditorPage implements OnInit {
     else
       var min = d.getMinutes().toString()
 
+      if (d.getDate() < 10)
+      var ddate = "0" + d.getDate()
+    else
+      var ddate = d.getDate().toString()
+
+      if (d.getMonth() < 9)
+      var dmonth = "0" + (d.getMonth()+1)
+    else
+      var dmonth = (d.getMonth()+1).toString()
+
+      if (d.getHours() < 10)
+      var dhours = "0" + d.getHours()
+    else
+      var dhours = d.getHours().toString()
+
     var showDate = +d.getDate() + "." + (d.getMonth() + 1) + "." + d.getFullYear() + " at " + d.getHours() + ":" + min
 
-    var dbDate = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate() + " at " + d.getHours() + ":" + min
+    var dbDate = d.getFullYear() + "/" + dmonth + "/" + ddate + " at " + dhours + ":" + min
 
     var date = [showDate, dbDate]
     return date

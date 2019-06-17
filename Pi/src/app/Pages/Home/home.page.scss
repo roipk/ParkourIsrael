@@ -4,6 +4,7 @@ ion-grid {
     display: flex;
     flex-direction: column;
     // justify-content: center;
+    margin : 0px;
 }
 
 .welcome-card ion-img {
@@ -14,7 +15,7 @@ ion-grid {
   .content{
     height: 93%;
      overflow-y: auto;
-     background-color: #f0f0f0;
+     //background-color: #f0f0f0;
    }
 
    
