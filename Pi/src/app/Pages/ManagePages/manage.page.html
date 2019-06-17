@@ -56,7 +56,9 @@
                     <ion-label>Users ({{users.length}})</ion-label>
                 </ion-list-header>
                 <ion-list [hidden]="!showUsers">
-                    <ion-item *ngFor='let user of users'>UserName: {{user.userName}} <br> Email: {{user.email}}
+                    <ion-item  *ngFor='let user of users'>UserName: {{user.userName}} <br> Email: {{user.email}}
+                        <ion-button slot='end' class="upgrade" *ngIf ="!isManager(user)" (click) = "changeStatus(user)">upgrade</ion-button>
+                        <ion-button slot='end' class="upgrade" *ngIf ="isManager(user)" (click) = "changeStatus(user)">downgrade</ion-button>                        
                     </ion-item>
                 </ion-list>
             </ion-col>

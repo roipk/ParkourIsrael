@@ -5,7 +5,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { post } from 'selenium-webdriver/http';
 import * as firebase from 'firebase';
+import { AppComponent } from '../../app.component'
 import { PostEditorPage } from '../post-editor/post-editor.page';
+import { UseExistingWebDriver } from 'protractor/built/driverProviders';
 
 
 
@@ -64,6 +66,7 @@ export class ManagePage {
     private db: AngularFirestore,
     private route: Router,
     private loadingController: LoadingController,
+    
   ) { }
 
 
@@ -71,6 +74,7 @@ export class ManagePage {
     
   this.LoadUsers()
   this.LoadMessage()
+  
   }
 
   LoadMessage() {
@@ -195,6 +199,43 @@ async EditPost(docId: string)
     this.loadingRef.dismiss()
     this.loadingRef = null
   }
+
+  upgradeUser(){
+
+  }
+
+  isManager(user){
+    return user.manager
+  }
+
+  changeStatus(user){
+    if (user.manager){
+      this.db.collection('users', ref => ref.where('userName', '==', user.userName)).get().subscribe(
+        result => {
+          result.forEach(element => {
+            this.db.collection('users').doc(element.id).update({ manager : false })
+          });
+        }
+      )
+    }
+    
+    else{
+      this.db.collection('users', ref => ref.where('userName', '==', user.userName)).get().subscribe(
+        result => {
+          result.forEach(element => {
+            this.db.collection('users').doc(element.id).update({ manager : true })
+          });
+        }
+      )
+    }
+
+    
+    
+  }
+
+
+  
+
 
 }
 
