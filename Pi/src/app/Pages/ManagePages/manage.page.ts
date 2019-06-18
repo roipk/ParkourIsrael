@@ -8,6 +8,7 @@ import * as firebase from 'firebase';
 import { AppComponent } from '../../app.component'
 import { PostEditorPage } from '../post-editor/post-editor.page';
 import { UseExistingWebDriver } from 'protractor/built/driverProviders';
+//import * as admin from 'firebase-admin';
 
 
 
@@ -66,6 +67,7 @@ export class ManagePage {
     private db: AngularFirestore,
     private route: Router,
     private loadingController: LoadingController,
+    
     
   ) { }
 
@@ -227,9 +229,18 @@ async EditPost(docId: string)
           });
         }
       )
-    }
+    } 
+  }
 
-    
+  deleteUser(user){
+      this.db.collection('users', ref => ref.where('userName', '==', user.userName)).get().subscribe(
+        result => {
+          result.forEach(element => {
+            this.db.collection('users').doc(element.id).delete()
+            //admin.auth().deleteUser(element.id)
+          });
+        }
+      )
     
   }
 
