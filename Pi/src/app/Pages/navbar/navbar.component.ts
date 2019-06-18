@@ -194,11 +194,11 @@ export class NavbarComponent implements OnInit {
     else {
       if (this.userLogin && this.loginNickName && this.lan == this.languages[0].name) {
         this.userLogin.nativeElement.innerHTML = 'Login'
-        this.loginNickName.nativeElement.innerHTML = 'Welcome  &darr;'
+        this.loginNickName.nativeElement.innerHTML = 'Welcome  <ion-icon name="arrow-dropdown"></ion-icon>'
       }
       else if (this.userLogin && this.loginNickName) {
         this.userLogin.nativeElement.innerHTML = 'כניסה'
-        this.loginNickName.nativeElement.innerHTML = '&darr; ברוך הבא'
+        this.loginNickName.nativeElement.innerHTML = '<ion-icon name="arrow-dropdown"></ion-icon> ברוך הבא'
       }
     }
   }

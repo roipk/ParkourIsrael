@@ -4,10 +4,10 @@
     <div *ngIf='lang()' class="nav-left">
       <li> <a routerLink="/home" routerLinkActive="active"> Home </a> </li>
          <li class="dropdown">
-        <a class="dropbtn">Info   <ion-icon name="arrow-dropdown"></ion-icon></a>
-        <div class="dropdown-content">
+        <a class="dropbtn"> Info<ion-icon name="arrow-dropdown"></ion-icon></a>
+        <ul class="dropdown-content">
           <a *ngFor='let item of items' [routerLink]="item.url" routerLinkActive="active">{{item.nameEn}}</a>
-        </div>
+        </ul>
       </li>
 
       <!-- <li><a routerLink="/info" routerLinkActive="active">info</a></li> -->
@@ -15,15 +15,15 @@
       <li> <a routerLink="/news" routerLinkActive="active"> News </a></li>
       <li class="dropdown">
         <a routerLink="/contact" routerLinkActive="active" class="dropbtn">Contact <ion-icon name="arrow-dropdown"></ion-icon></a>
-        <div class="dropdown-content">
+        <ul class="dropdown-content">
           <a *ngFor='let item of items' [routerLink]="item.url" routerLinkActive="active">{{item.nameEn}}</a>
-        </div>
+        </ul>
       </li>
       <li class="dropdown">
           <a class="dropbtn">Language  <ion-icon name="arrow-dropdown"></ion-icon></a>
-          <div class="dropdown-content">
+          <ul class="dropdown-content">
               <a *ngFor='let lan of languages' (click)='language(lan)' >{{lan.name}}</a>
-          </div>
+          </ul>
         </li>
     </div>
 <!-- hebrew mode -->
@@ -34,38 +34,38 @@
       <li> <a routerLink="/maps" routerLinkActive="active"> מפות </a></li>
       <li class="dropdown">
         <a routerLink="/contact" routerLinkActive="active" class="dropbtn">  <ion-icon name="arrow-dropdown"></ion-icon> צור קשר</a>
-        <div class="dropdown-content">
+        <ul class="dropdown-content">
           <a *ngFor='let item of items' [routerLink]="item.url" routerLinkActive="active">{{item.nameHeb}}</a>
-        </div>
+        </ul>
 
       </li>
       <li class="dropdown">
           <a class="dropbtn"> <ion-icon name="arrow-dropdown"></ion-icon> שפה</a>
-          <div class="dropdown-content">
+          <ul class="dropdown-content">
             <a *ngFor='let lan of languages' (click)='language(lan)' >{{lan.name}}</a>
-          </div>
+          </ul>
         </li>
     </div>
 <!-- english mode -->
     <div *ngIf='lang()' class="nav-right">
       <li class="dropdown">
         <a #loginNickName class="dropbtn">Welcome</a>
-        <div class="dropdown-content">
+        <ul class="dropdown-content">
           <a #username routerLink="/edit-informations" routerLinkActive="active" *ngIf="isUser()">Profile</a>
           <a routerLink="/manager" routerLinkActive="active" *ngIf="getManager()">Manager</a>
           <a #user (click)="login()">Login</a>
-        </div>
+        </ul>
         </li>
     </div>
 <!-- hebrew mode -->
     <div *ngIf='!lang()' class="nav-left">
       <li class="dropdown">
         <a #loginNickName class="dropbtn">ברוך הבא</a>
-        <div class="dropdown-content">
+        <ul class="dropdown-content">
           <a #username routerLink="/edit-informations" routerLinkActive="active" *ngIf="isUser()">איזור אישי</a>
           <a routerLink="/manager" routerLinkActive="active" *ngIf="getManager()">מנהל</a>
           <a #user (click)="login()">כניסה</a>
-        </div>
+        </ul>
       </li>
     </div>
   </ul>

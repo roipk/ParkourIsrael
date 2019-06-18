@@ -44,7 +44,7 @@
    text-decoration: none;
  }
  
- li a:hover, .dropdown:hover .dropbtn {
+ ulli a:hover, .dropdown:hover .dropbtn {
    //background-color: rgba(157, 225, 241, 0.733);
     //border-bottom: 2px solid rgba(255, 0, 0, 0.644); 
      transition:1s;
@@ -115,14 +115,15 @@
    margin-left: 0%;
  }
 
- .nav-left, .nav-right{
-  margin-top: 5px;
-  margin-bottom: 20px;
- }
+//  .nav-left{
+//   margin-top: 5px;
+//   margin-bottom: 20px;
+//  }
 
- .nav-right{
-   margin-top: -5px;
- }
+//  .nav-right{
+//    margin-top: 5px;
+//    margin-bottom: 20px;
+//  }
  
  .nav-right li{
    float: right;
