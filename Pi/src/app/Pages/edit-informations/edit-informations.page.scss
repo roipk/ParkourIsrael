@@ -1,5 +1,15 @@
   
   .content{
-    height: 92%;
+    height: 93%;
      overflow-y: auto;
    }
+
+   .center-row {
+    display: flex;
+    justify-content: center;
+  }
+
+  .avatar{
+    // width: 200px;
+    // height: 200px;
+  }

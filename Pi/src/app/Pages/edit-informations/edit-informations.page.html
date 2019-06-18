@@ -1,6 +1,13 @@
 <div class="content">
   <ion-content>
+    <br>
   <ion-grid>
+    <ion-row class="center-row">
+        <ion-avatar>
+          <img class="avatar" src="https://firebasestorage.googleapis.com/v0/b/parkour-israel.appspot.com/o/images%2Favatar.jpg?alt=media&token=ec1dfd38-fa0d-4f73-a953-51e2c7756f5f">
+        </ion-avatar>
+    </ion-row>
+    <br><br>
     <ion-row class='center-row'>
       <ion-col text-center size='12' size-md='2'>
         <ion-item>
@@ -27,9 +34,18 @@
     </ion-row>
 
     <ion-row class='center-row'>
+        <ion-col text-center>
+          <ion-button (click)='update()'>Save</ion-button>
+          
+        </ion-col>
+      </ion-row>
+
+    <br><br><br>
+
+    <ion-row class='center-row'>
         <ion-col text-center size='12' size-md='2'>
     <ion-button (click) = "changeShowPassword()" #changeButton>
-      Change Password
+      Reset Password
    </ion-button>
   </ion-col>
   </ion-row>
@@ -47,17 +63,6 @@
           <ion-label id= "confirm" position="floating">Confirm</ion-label>
           <ion-input type='password' #confirm></ion-input>
         </ion-item>
-      </ion-col>
-    </ion-row>
-
-    
-
-    
-
-    <ion-row class='center-row'>
-      <ion-col text-center>
-        <ion-button (click)='update()'>Save</ion-button>
-        
       </ion-col>
     </ion-row>
 
