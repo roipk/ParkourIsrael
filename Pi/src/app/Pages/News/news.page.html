@@ -11,8 +11,7 @@
     </ion-item>
   </div>
   -->
-  <div class="content">
-<ion-content>
+<ion-content class="content">
   <ion-grid>
     
     <ion-row>
@@ -40,18 +39,11 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
-      <ion-col>
-          <!-- <app-post-bubble  [data]='test' ></app-post-bubble> -->
-        <ion-row *ngFor='let m of messages'>
-          <!-- <ion-col size='12' size-md=7> -->
-          <ion-col>
-            <app-post-bubble [data]='m'></app-post-bubble>
-          </ion-col>
-        </ion-row>
+    <ion-row class="center-row" *ngFor='let m of messages'>
+      <ion-col size='12' size-md=6>
+        <app-post-bubble [data]='m'></app-post-bubble>
       </ion-col>
     </ion-row>
+
   </ion-grid>
-  <!-- <br><br><br><br><br><br><br><br> -->
 </ion-content>
-</div>
