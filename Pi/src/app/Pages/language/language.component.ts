@@ -15,6 +15,5 @@ export class LanguageComponent implements OnInit , OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
  
-  debugger
  }
 }

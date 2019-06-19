@@ -5,3 +5,7 @@
 * this.ngZone.run(() => { /*do something*/ }) //Do something and reload the page 
 
 * router.navigateByUrl('/page') //load page in router link application
+
+* ng build --prod // 
+
+* firebase deploy // up to real server
