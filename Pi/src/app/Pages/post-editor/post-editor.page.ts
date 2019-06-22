@@ -32,8 +32,8 @@ export class PostEditorPage implements OnInit {
 
   manager = false
   static docId = ''
-  nameFile = ''
-  oldNameFile=''
+  nameFile = ""
+  oldNameFile = ''
   userName = ''
   fullName = ''
   nameToShow = ''
@@ -146,10 +146,21 @@ export class PostEditorPage implements OnInit {
 
 
   fileChangeEvent(e) {
-
-    this.img.src = URL.createObjectURL(e.target.files[0])
+    if (e == undefined) {
+      this.file = null
+      this.nameFile = ""
+      this.img.src = ""
+      return
+    }
+    // debugger
     this.file = e.target.files[0]
-    this.nameFile = "pi_" + Date.now() + "_" + this.file.name
+    if (this.file != undefined) {
+      this.nameFile = "pi_" + Date.now() + "_" + this.file.name
+      setTimeout(() => {
+        this.img.src = URL.createObjectURL(e.target.files[0])
+      },
+        100);
+    }
   }
 
   radioButtonEvent(e) {
@@ -166,20 +177,19 @@ export class PostEditorPage implements OnInit {
     this.presentLoading()
     var storageRef = firebase.storage().ref()
     if (PostEditorPage.docId != '') {
-      this.db.collection('messages').doc(PostEditorPage.docId).get().subscribe(result=>{
-        if(this.oldNameFile!='' && this.oldNameFile!= result.data().nameFile)
-          {
-            storageRef.child('images/' + this.oldNameFile).delete()
-            storageRef.child('images/' + this.nameFile).put(this.file).then(res => {
-              this.messageField.value = ''
-              this.MessageTitleField.value = ''
-              this.loadingRef.dismiss()
-              this.route.navigateByUrl('/news')
-            }).catch(() => {
-              this.loadingRef.dismiss()
-              alert('file error')
-            })
-          }
+      this.db.collection('messages').doc(PostEditorPage.docId).get().subscribe(result => {
+        if (this.oldNameFile != '' && this.oldNameFile != result.data().nameFile) {
+          storageRef.child('images/' + this.oldNameFile).delete()
+          storageRef.child('images/' + this.nameFile).put(this.file).then(res => {
+            this.messageField.value = ''
+            this.MessageTitleField.value = ''
+            this.loadingRef.dismiss()
+            this.route.navigateByUrl('/news')
+          }).catch(() => {
+            this.loadingRef.dismiss()
+            alert('file error')
+          })
+        }
       })
     }
     else {
@@ -196,7 +206,11 @@ export class PostEditorPage implements OnInit {
   }
 
   removeViewFile() {
-    this.img.src = ""
+    if (this.img != undefined) {
+      this.img.src = ""
+      this.nameFile = ""
+      this.fileButton.value = ""
+    }
   }
 
 
@@ -223,17 +237,17 @@ export class PostEditorPage implements OnInit {
     else
       var min = d.getMinutes().toString()
 
-      if (d.getDate() < 10)
+    if (d.getDate() < 10)
       var ddate = "0" + d.getDate()
     else
       var ddate = d.getDate().toString()
 
-      if (d.getMonth() < 9)
-      var dmonth = "0" + (d.getMonth()+1)
+    if (d.getMonth() < 9)
+      var dmonth = "0" + (d.getMonth() + 1)
     else
-      var dmonth = (d.getMonth()+1).toString()
+      var dmonth = (d.getMonth() + 1).toString()
 
-      if (d.getHours() < 10)
+    if (d.getHours() < 10)
       var dhours = "0" + d.getHours()
     else
       var dhours = d.getHours().toString()
@@ -252,7 +266,7 @@ export class PostEditorPage implements OnInit {
     this.db.collection("messages").doc(PostEditorPage.docId).get().subscribe(result => {
       this.messageField.value = result.data().content
       this.MessageTitleField.value = result.data().title
-      this.oldNameFile=result.data().file_name
+      this.oldNameFile = result.data().file_name
       if (result.data().file_name != '') {
         var storageRef = firebase.storage().ref()
         storageRef.child('images/' + result.data().file_name).getDownloadURL().then(res => {

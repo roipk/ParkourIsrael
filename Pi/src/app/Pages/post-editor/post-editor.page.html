@@ -5,7 +5,7 @@
   <ion-grid>
     <ion-card class="welcome-card">
       <ion-title>edit post </ion-title>
-      <ion-img #img class="image"></ion-img>
+      <ion-img #img class="image" *ngIf='nameFile!=""' style="width: 400px; height: 400px;"></ion-img>
       <ion-card>
         <ion-input (change)="fileChangeEvent($event)" type="file" accept="image/*" #fileButton></ion-input>
         <ion-button (click)="removeViewFile()">remove file</ion-button>

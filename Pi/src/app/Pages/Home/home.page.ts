@@ -23,13 +23,21 @@ export class HomePage {
     src: 'https://static.wixstatic.com/media/3f6e79_3e7ef9b2a01643afbb6b76d253a1120c~mv2.jpg/v1/fill/w_1500,h_628,al_c,q_90/3f6e79_3e7ef9b2a01643afbb6b76d253a1120c~mv2.webp'
   },
   {
-    src: 'https://static.wixstatic.com/media/3f6e79_edffb7457e594159ad8860143c48f0cd~mv2.jpg/v1/fill/w_1203,h_640,al_c,q_90,usm_0.66_1.00_0.01/3f6e79_edffb7457e594159ad8860143c48f0cd~mv2.webp'
-  }
+    src: 'https://static.wixstatic.com/media/3f6e79_edffb7457e594159ad8860143c48f0cd~mv2.jpg/v1/fill/w_1500,h_628,al_c,q_90/3f6e79_edffb7457e594159ad8860143c48f0cd~mv2.webp'
+  },
+  {
+    src: 'https://static.wixstatic.com/media/3f6e79_83ed46c3d0d943198a7ae7a04f657683~mv2.jpg/v1/fill/w_1500,h_628,al_c,q_90/3f6e79_83ed46c3d0d943198a7ae7a04f657683~mv2.webp'
+  },
+ 
+  {
+    src: 'https://static.wixstatic.com/media/3f6e79_da6b905e89ef4c9e8cc1253d623ed970~mv2.jpg/v1/fill/w_1500,h_628,al_c,q_90/3f6e79_da6b905e89ef4c9e8cc1253d623ed970~mv2.webp'
+  },
+ 
   ]
   message = []
   slideIndex = 0;
 
-  timeLeft: number = 10;
+  timeLeft: number = 5;
   interval;
 
   constructor(
@@ -89,7 +97,7 @@ startTimer() {
       if(this.timeLeft > 0) {
         this.timeLeft--;
       } else {
-        this.timeLeft = 10;
+        this.timeLeft = 5;
         this.plusSlides(1)
         
       }
@@ -100,7 +108,7 @@ startTimer() {
 
 
   plusSlides(n) {
-    this.timeLeft = 10;
+    this.timeLeft = 5;
   this.slideIndex +=n
   if(this.slideIndex>=this.dots.length)
     this.slideIndex=0;
@@ -115,7 +123,7 @@ startTimer() {
 
   imageSlides(n)
   {
-    this.timeLeft = 10;
+    this.timeLeft = 5;
     this.test.src=n.src
   }
 
