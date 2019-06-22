@@ -5,14 +5,15 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 // import { UserService } from '../app/user.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Router } from '@angular/router'; 
+import { Router } from '@angular/router';
 import { IsManagerGuard } from '../../is-manager-guard/is-manager.guard'
 
-  import { from } from 'rxjs';
+import { from } from 'rxjs';
 
-  import {LanguageComponent} from '../language/language.component'
+import { LanguageComponent } from '../language/language.component'
+import { MapsPage } from '../maps/maps.page';
 
-  // import {HomePage} from '../Home/home.page'
+// import {HomePage} from '../Home/home.page'
 
 @Component({
   selector: 'navbar',
@@ -25,8 +26,7 @@ export class NavbarComponent implements OnInit {
   // ============================= all id from object in html ===================================//
   @ViewChild('loginNickName') loginNickName
   @ViewChild('user') userLogin
-
-
+  @ViewChild('testMap') testMap
   // @ViewChild('titlePage') titlePage
   // ============================================================================================//
 
@@ -40,9 +40,10 @@ export class NavbarComponent implements OnInit {
   fullName = '';
   title = 'user-servic';
   lan = 'English'
+  map = 'Spots'
+ 
 
-  // ===============================//
-
+ // ===============================//
 
 
 
@@ -63,6 +64,26 @@ export class NavbarComponent implements OnInit {
   ];
   // ================================//
 
+  public allMaps = [
+    {
+      titleEn: 'Spots',
+      titleHeb: 'ספוטים',
+      url: '/maps',
+    },
+    {
+      titleEn: 'Training Class',
+      titleHeb: 'חוגים',
+      url: '/maps',
+      // icon: 'news'
+    },
+    {
+      titleEn: 'Training People',
+      titleHeb: 'מאמנים',
+      url: '/maps',
+      // icon: 'news'
+    },
+  ];
+  // ================================//
 
 
 
@@ -75,7 +96,7 @@ export class NavbarComponent implements OnInit {
     { url: '/parkour', nameEn: 'parkour', nameHeb: 'פארקור' },
     { url: '/us', nameEn: 'how we are', nameHeb: 'מי אנחנו' },
     { url: '/doc', nameEn: 'document', nameHeb: 'מסמכים' },
-   
+
   ]
   // =============================================//
 
@@ -115,15 +136,15 @@ export class NavbarComponent implements OnInit {
 
 
   // ======== page initialization =============//
-  ngOnInit(): void {
-
+    ngOnInit(): void {
+      
     this.userMode()
     this.userAuth.user.subscribe(() => {
       this.userMode()
       // this.guard.ucleaser = true
     })
     this.isMobile()
-
+    // this.testMap="https://www.google.com/maps/d/embed?mid=1zIAU9gEwIa6zZTQv7l8W_Ohbwds"
     // this.language(this.languages[0])
   }
 
@@ -138,24 +159,37 @@ export class NavbarComponent implements OnInit {
   // ==========================================//
 
 
-
-
   //====================================================== functions ==========================================//
 
   lang() {
 
     if (this.lan == this.languages[0].name) {
-      LanguageComponent.lan=true
+      LanguageComponent.lan = true
       // HomePage.lan=true
       return true;
     }
-    else
-      {
-        LanguageComponent.lan=false
-        // HomePage.lan=false
-        return false;
-      }
+    else {
+      LanguageComponent.lan = false
+      // HomePage.lan=false
+      return false;
+    }
   }
+
+
+  // maps()
+  // {
+  //   if (this.map == this.allMaps[0].titleEn || this.map == this.allMaps[0].titleHeb ) {
+  //     LanguageComponent.lan=true
+  //     // HomePage.lan=true
+  //     return true;
+  //   }
+  //   else
+  //     {
+  //       LanguageComponent.lan=false
+  //       // HomePage.lan=false
+  //       return false;
+  //     }
+  // }
 
   isMobile() {
     const w = document.documentElement.clientWidth;
@@ -181,12 +215,12 @@ export class NavbarComponent implements OnInit {
             if (this.lan == this.languages[0].name) {
               this.userLogin.nativeElement.innerHTML = 'LogOut'
               this.loginNickName.nativeElement.innerHTML = 'Welcome  <ion-icon name="arrow-dropdown"></ion-icon>'
-              this.loginNickName.nativeElement.innerHTML ="Welcome " + result.data().userName + ' <ion-icon name="arrow-dropdown"></ion-icon>'
+              this.loginNickName.nativeElement.innerHTML = "Welcome " + result.data().userName + ' <ion-icon name="arrow-dropdown"></ion-icon>'
             }
             else {
               this.userLogin.nativeElement.innerHTML = 'התנתק'
               this.loginNickName.nativeElement.innerHTML = ' <ion-icon name="arrow-dropdown"></ion-icon> ברוך הבא'
-              this.loginNickName.nativeElement.innerHTML =' <ion-icon name="arrow-dropdown"></ion-icon>ברוך הבא ' + result.data().userName
+              this.loginNickName.nativeElement.innerHTML = ' <ion-icon name="arrow-dropdown"></ion-icon>ברוך הבא ' + result.data().userName
             }
           }
         })
@@ -204,11 +238,11 @@ export class NavbarComponent implements OnInit {
   }
 
 
-  isUser(){
+  isUser() {
     if (this.userAuth.auth.currentUser != null)
-    return true
+      return true
     else
-    return false
+      return false
   }
 
 
@@ -242,7 +276,7 @@ export class NavbarComponent implements OnInit {
 
 
   language(language) {
-    
+
     this.userMode();
     // this.home.setLan(language) 
     this.lan = language.name
@@ -250,6 +284,30 @@ export class NavbarComponent implements OnInit {
 
   }
 
+  maps(map) {
+    
+    this.userMode();
+    if (map.titleEn == 'Spots')
+     {
+       MapsPage.mapSpot=true;
+       MapsPage.mapTrain=false;
+       MapsPage.mapClass=false;
+     }
+    else if (map.titleEn == 'Training Class')
+     {
+      MapsPage.mapSpot=false;
+      MapsPage.mapTrain=true;
+      MapsPage.mapClass=false;
+     }
+     else if (map.titleEn == 'Training People')
+     {
+      MapsPage.mapSpot=false;
+      MapsPage.mapTrain=false;
+      MapsPage.mapClass=true;
+     }
+     
+    // debugger;
+  }
 
 
 
