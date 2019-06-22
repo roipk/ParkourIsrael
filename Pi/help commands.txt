@@ -9,3 +9,34 @@
 * ng build --prod // 
 
 * firebase deploy // up to real server
+
+
+
+/*
+lan=true;
+
+
+ private cdRef: ChangeDetectorRef,
+    
+  ngAfterViewChecked() {
+    let show = this.isShowExpand();
+    if (show != this.lan) { // check if it change, tell CD update view
+      this.lan = show;
+      this.cdRef.detectChanges();
+    }
+
+  }
+
+  isShowExpand() {
+    return LanguageComponent.lan
+  }
+  lang() {
+    return this.lan
+
+  }
+
+
+
+
+
+*/

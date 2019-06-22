@@ -5,14 +5,17 @@
     <br>
     <ion-row class="center-row">
         <ion-col size='12' size-md=4>
-            <p>'Parkour Israel' is a non-profit organisation that targets the promotion and
+            <p *ngIf='lang()'>'Parkour Israel' is a non-profit organisation that targets the promotion and
                 improvment of the Parkour discipline in Israel.
                 Founded by Israels' most experienced practitioners and aims to be a home
                 to the Israeli Parkour community, and an address to the people inside and outside of the community.
             </p>
+            <p *ngIf='!lang()'>עמותת 'פארקור ישראל' היא ארגון ללא כוונות רווח השמה לעצמה כמטרה את קידום ענף הפארקור בישראל.
+                    העמותה נוסדה ע"י וותיקי הענף בארץ כדי להוות בית לקהילת הפארקור בישראל, כתובת ומענה לאנשי הקהילה ומחוץ לה לענף הפארקור.
+                </p>
         </ion-col>
     </ion-row>
-    <ion-row class="center-row">
+    <ion-row class="center-row" *ngIf='lang()'>
         <ion-col size='12' size-md=4>
             <h3><u>Our goals:</u></h3>
             <ol>
@@ -69,6 +72,62 @@
             </ol>
         </ion-col>
     </ion-row>
+
+
+    <ion-row class="center-row" *ngIf='lang()'>
+            <ion-col size='12' size-md=4>
+                <h3><u>מטרות העמותה:</u></h3>
+                <ol>
+                    <li>העמותה תהווה בית לקהילת הפארקור בישראל, כתובת ומענה לאנשי הקהילה ומחוץ לה
+                            לענף הפארקור.</li>
+                    <li>קידום ענף הפארקור בישראל בנושאים:</li>
+                    <ol style="list-style-type: lower-alpha">
+                        <li>.הקמת מתקני אימון לקהילה, פארקים ואולמות.</li>
+                        <li> ביצוע אירועים ומופעים לקהילה כגון מפגשים, תחרויות וכינוסים.</li>
+                        <li> מיסוד הענף בישראל: יצירת הדרכות והסמכות, חקיקה והסדרים למול הרשויות.</li>
+                    </ol>
+                    <li> ייצוג ענף הפארקור בארץ ישראל.</li>
+                    <li>ייצוג מדינת ישראל בענף הפארקור בחו"ל.</li>
+                    <li>הנגשה והטמעת מידע לאימונים נכונים, יעילים ובטוחים לקהילת המתאמנים בישראל.</li>
+                    <li>העלאת המודעות לענף ושיפור תדמיתו כפעילות גופנית לגיטימית ומומלצת לציבור הרחב.</li>
+                    <li>שילוב הענף בחינוך הנוער.</li>
+    
+    
+                    <!--  -->
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    <li>Combination of the branch in the education of the youth.</li>
+                    
+                    <!--  -->
+                </ol>
+            </ion-col>
+        </ion-row>
+    
 </ion-grid>
 <!-- <br><br><br><br><br><br><br><br> -->
 </div>

@@ -1,12 +1,13 @@
 <div class="content">
-<h2>Contact us</h2>
+<h2 *ngIf='lang()'>Contact us</h2>
+<h2 *ngIf='!lang()'>יצירת קשר</h2>
 <br>
  
 <ion-grid>
-    <ion-col size="12" size-md=4>
+    <ion-col size="12" size-md=4 *ngIf='lang()'>
         <img class="center" src="https://firebasestorage.googleapis.com/v0/b/parkour-israel.appspot.com/o/logo%2Flogo.png?alt=media&token=09a5eb4c-3c53-4640-ab03-cd3f15d5b4e3">
         <br>
-        <div class="container">
+        <div class="container" >
             <ion-item autofocus>
                 <ion-input placeholder="Email or Username"></ion-input>
             </ion-item>
@@ -18,5 +19,22 @@
         </div>
         <ion-button size="small" float-right>Submit</ion-button>
     </ion-col>
+    
+    <ion-col size="12" size-md=4 *ngIf='!lang()'>
+            <img class="center" src="https://firebasestorage.googleapis.com/v0/b/parkour-israel.appspot.com/o/logo%2Flogo.png?alt=media&token=09a5eb4c-3c53-4640-ab03-cd3f15d5b4e3">
+            <br>
+            <div class="container" >
+                <ion-item autofocus>
+                    <ion-input placeholder="שם משמש / אימייל"></ion-input>
+                </ion-item>
+                <br><br>
+                <ion-item>
+                    <ion-input placeholder="נושא"></ion-input>
+                </ion-item>
+                <ion-textarea rows="9" placeholder="תוכן ההודעה"></ion-textarea>
+            </div>
+            <ion-button size="small" float-right>שליחה</ion-button>
+        </ion-col>
+        
 </ion-grid>
 </div>

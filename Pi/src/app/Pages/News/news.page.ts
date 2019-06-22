@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild, NgZone, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone, Input, ChangeDetectorRef } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { IsManagerGuard } from 'src/app/is-manager-guard/is-manager.guard';
 import * as firebase from 'firebase';
+import { LanguageComponent } from '../language/language.component';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class NewsPage {
   test='test'
   messages = []
   static message=[]
-
+  lan = true;
 
   constructor(
     private uAuth: AngularFireAuth,
@@ -31,6 +32,7 @@ export class NewsPage {
     private route: Router,
     private db: AngularFirestore,
     private guard: IsManagerGuard,
+    private cdRef: ChangeDetectorRef,
   ) { }
 
 
@@ -117,6 +119,25 @@ export class NewsPage {
     else if (e.target.value == 'myPosts') {
       this.getPostsFromDb('myPosts')
     }
+  }
+
+
+  
+  ngAfterViewChecked() {
+    let show = this.isShowExpand();
+    if (show != this.lan) { // check if it change, tell CD update view
+      this.lan = show;
+      this.cdRef.detectChanges();
+    }
+
+  }
+
+  isShowExpand() {
+    return LanguageComponent.lan
+  }
+  lang() {
+    return this.lan
+
   }
 
 

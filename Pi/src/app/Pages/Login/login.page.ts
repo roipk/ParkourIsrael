@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, NgZone,Input } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone,Input, ChangeDetectorRef } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LoadingController, AlertController, ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -7,6 +7,7 @@ import { auth } from 'firebase'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { disableBindings } from '@angular/core/src/render3';
 import { DISABLED } from '@angular/forms/src/model';
+import { LanguageComponent } from '../language/language.component';
 
 
 
@@ -29,6 +30,7 @@ export class LoginPage {
   emailSent = false
   email = ''
   SignIn = true
+  lan = true
   uid = this.afAuth.authState.pipe(
     map(authState => {
       if (!authState) {
@@ -51,6 +53,7 @@ export class LoginPage {
     private db: AngularFirestore,
     private uAuth: AngularFireAuth,
     private alertController: AlertController,
+    private cdRef: ChangeDetectorRef,
 ) { }
 
   ngOnInit(): void {
@@ -225,5 +228,27 @@ onKeyUp(data) {
     this.signInUser()
   }
 }
+
+
+
+
+    
+ngAfterViewChecked() {
+  let show = this.isShowExpand();
+  if (show != this.lan) { // check if it change, tell CD update view
+    this.lan = show;
+    this.cdRef.detectChanges();
+  }
+
+}
+
+isShowExpand() {
+  return LanguageComponent.lan
+}
+lang() {
+  return this.lan
+
+}
+
 
 }

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -8,6 +8,7 @@ import * as firebase from 'firebase';
 import { AppComponent } from '../../app.component'
 import { PostEditorPage } from '../post-editor/post-editor.page';
 import { UseExistingWebDriver } from 'protractor/built/driverProviders';
+import { LanguageComponent } from '../language/language.component';
 //import * as admin from 'firebase-admin';
 
 
@@ -29,28 +30,39 @@ export class ManagePage {
   showPages = false;
   showPosts = false;
   showUsers = false;
+  lan=true;
 
   public posts = []
   public users = []
   public pages = [
     {
-      title: 'Home',
+      titleEn: 'Home',
+      titleHeb: 'ראשי',
       url: '/home',
       icon: 'home'
     },
     {
-      title: 'Contact',
+      titleEn: 'Contact',
+      titleHeb: 'יצירת קשר',
       url: '/contact',
      // icon: 'home'
     },
     {
-      title: 'News',
+      titleEn: 'News',
+      titleHeb: 'חדשות ועדכונים',
       url: '/news',
       // icon: 'home'
     },
     {
-      title: 'Signup',
+      titleEn: 'Signup',
+      titleHeb: 'הרשמה',
       url: '/signup',
+      // icon: 'home'
+    },
+    {
+      titleEn: 'Maps',
+      titleHeb: 'מפות',
+      url: '/mpss',
       // icon: 'home'
     },
   ]
@@ -67,6 +79,7 @@ export class ManagePage {
     private db: AngularFirestore,
     private route: Router,
     private loadingController: LoadingController,
+    private cdRef: ChangeDetectorRef,
     
     
   ) { }
@@ -246,6 +259,24 @@ async EditPost(docId: string)
 
 
   
+    
+  ngAfterViewChecked() {
+    let show = this.isShowExpand();
+    if (show != this.lan) { // check if it change, tell CD update view
+      this.lan = show;
+      this.cdRef.detectChanges();
+    }
+
+  }
+
+  isShowExpand() {
+    return LanguageComponent.lan
+  }
+  lang() {
+    return this.lan
+
+  }
+
 
 
 }

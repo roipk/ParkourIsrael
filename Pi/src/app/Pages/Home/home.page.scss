@@ -1,3 +1,9 @@
+.content{
+  height: 91%;
+   overflow-y: auto;
+   //background-color: #f0f0f0;
+ }
+
 * {box-sizing: border-box}
 .bodyImg {font-family: Verdana, sans-serif; margin:0}
 .mySlides {display: block;}
@@ -117,11 +123,7 @@ ion-grid {
     overflow: hidden;
   }
   
-  .content{
-    height: 92%;
-     overflow-y: auto;
-     //background-color: #f0f0f0;
-   }
+  
 
    
 .center{

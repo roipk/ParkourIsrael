@@ -1,8 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { LanguageComponent } from '../language/language.component';
 
 
 
@@ -29,6 +30,8 @@ export class SignupPage {
   loadingRef = null
   userEmpty = true
   emailEmpty = true
+  lan = true;
+
 
   users = []
 
@@ -40,6 +43,7 @@ export class SignupPage {
     private loadingController: LoadingController,
     private router: Router,
     private uAuth: AngularFireAuth,
+    private cdRef: ChangeDetectorRef,
   ) { }
 
 
@@ -141,5 +145,27 @@ export class SignupPage {
     dismissLoading() {
       this.loadingRef.dismiss()
     }
+
+
+
+
+    
+  ngAfterViewChecked() {
+    let show = this.isShowExpand();
+    if (show != this.lan) { // check if it change, tell CD update view
+      this.lan = show;
+      this.cdRef.detectChanges();
+    }
+
+  }
+
+  isShowExpand() {
+    return LanguageComponent.lan
+  }
+  lang() {
+    return this.lan
+
+  }
+
   
 }

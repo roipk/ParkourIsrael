@@ -7,14 +7,16 @@
     <ion-row class='center-row'>
       <ion-col size='12' size-md='2'>
         <ion-item>
-          <ion-label id= "firstName" position="floating">First name</ion-label>
+          <ion-label *ngIf='lang()' id= "firstName" position="floating">First name</ion-label>
+          <ion-label *ngIf='!lang()' id= "firstName" position="floating">שם פרטי</ion-label>
           <ion-input #firstName></ion-input>
         </ion-item>
       </ion-col>
 
       <ion-col size='12' size-md='2'>
         <ion-item>
-          <ion-label id= "lastName" position="floating">Last Name</ion-label>
+          <ion-label *ngIf='lang()' id= "lastName" position="floating">Last Name</ion-label>
+          <ion-label *ngIf='!lang()' id= "lastName" position="floating">שם משפחה</ion-label>
           <ion-input #lastName></ion-input>
         </ion-item>
       </ion-col>
@@ -23,7 +25,8 @@
     <ion-row class='center-row'>
         <ion-col size='12' size-md='4'>
         <ion-item>
-          <ion-label id= "userName" position="floating">Username *</ion-label>
+          <ion-label *ngIf='lang()' id= "userName" position="floating">Username *</ion-label>
+          <ion-label *ngIf='!lang()' id= "userName" position="floating">שם משתמש *</ion-label>
           <ion-input #userName (ionBlur)="CheckUsername()"></ion-input>
         </ion-item>
       </ion-col>
@@ -32,7 +35,8 @@
     <ion-row class='center-row'>
         <ion-col size='12' size-md=4>
         <ion-item>
-          <ion-label id= "email" position="floating" >Email *</ion-label>
+          <ion-label *ngIf='lang()' id= "email" position="floating" >Email *</ion-label>
+          <ion-label *ngIf='!lang()' id= "email" position="floating" >אימייל *</ion-label>
           <ion-input  #email (ionBlur)="CheckEmail()"></ion-input>
         </ion-item>
       </ion-col>
@@ -41,14 +45,16 @@
     <ion-row class='center-row'>
       <ion-col size='12' size-md='2'>
         <ion-item>
-          <ion-label id= "password" position="floating">Password *</ion-label>
+          <ion-label  *ngIf='lang()' id= "password" position="floating">Password *</ion-label>
+          <ion-label  *ngIf='!lang()' id= "password" position="floating">סיסמא *</ion-label>
           <ion-input type='password' #password></ion-input>
         </ion-item>
       </ion-col>
     
         <ion-col size='12' size-md='2'>
         <ion-item>
-          <ion-label id= "confirm" position="floating">Confirm</ion-label>
+          <ion-label  *ngIf='lang()' id= "confirm" position="floating">Confirm</ion-label>
+          <ion-label  *ngIf='!lang()' id= "confirm" position="floating">אישור סיסמא</ion-label>
           <ion-input type='password' #confirm></ion-input>
         </ion-item>
       </ion-col>
@@ -56,8 +62,10 @@
 
     <ion-row class='center-row'>
       <ion-col text-center>
-        <ion-button (click)='createNewUser()'>Sign Up</ion-button>
-        <h6>* Required </h6>
+        <ion-button *ngIf='lang()' (click)='createNewUser()'>Sign Up</ion-button>
+        <ion-button *ngIf='!lang()' (click)='createNewUser()'>הרשמה</ion-button>
+        <h6  *ngIf='lang()'>* Required </h6>
+        <h6  *ngIf='!lang()'>* שדה חובה </h6>
       </ion-col>
     </ion-row>
 

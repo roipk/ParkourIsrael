@@ -7,7 +7,8 @@
     <ion-row class='center-row'>
       <ion-col size='12' size-md=4>
         <ion-item autofocus>
-          <ion-label position="floating">Email or Username</ion-label>
+          <ion-label *ngIf='lang()' position="floating">Email /Username</ion-label>
+          <ion-label *ngIf='!lang()' position="floating">שם משתמש / אימייל</ion-label>
           <ion-input  (keyup)='onKeyUp($event)' #email (ionBlur)="CheckUser(email.value)"  ></ion-input>
         </ion-item>
       </ion-col>
@@ -16,7 +17,8 @@
     <ion-row class='center-row'>
       <ion-col size='12' size-md=4>
         <ion-item>
-          <ion-label position="floating">Password</ion-label>
+          <ion-label *ngIf='lang()' position="floating">Password</ion-label>
+          <ion-label *ngIf='!lang()' position="floating">סיסמא</ion-label>
           <ion-input (keyup)='onKeyUp($event)' [type]="passwordType" clearOnEdit="false" #password></ion-input>
           <ion-icon  [hidden]='isPasswordInEmpty()' slot='end' [name]="passwordIcon"
             class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
@@ -26,7 +28,8 @@
 
     <ion-row class='center-row'>
       <ion-col size='12' size-md=4>
-        <ion-button expand="block" (click)='signInUser()'>Login</ion-button>
+        <ion-button *ngIf='lang()' expand="block" (click)='signInUser()'>Login</ion-button>
+        <ion-button *ngIf='!lang()' expand="block" (click)='signInUser()'>התחבר</ion-button>
       </ion-col>
     </ion-row>
 
@@ -35,8 +38,11 @@
 
 
   <ion-text text-center size-font=3.5px>
-    <h6> <a routerLink='/signup'> Don't have an account? Register here. </a></h6>
-    <h6> <a style ="cursor: pointer;" (click)='alertPassword()'> Forgot password? </a></h6>
+    <h6 *ngIf='lang()'> <a routerLink='/signup'> Don't have an account? Register here. </a></h6>
+    <h6 *ngIf='lang()'> <a style ="cursor: pointer;" (click)='alertPassword()'> Forgot password? </a></h6>
+
+    <h6 *ngIf='!lang()'> <a routerLink='/signup'> אין לך חשבון? הרשמה </a></h6>
+    <h6 *ngIf='!lang()'> <a style ="cursor: pointer;" (click)='alertPassword()'> שיחזור סיסמא </a></h6>
   </ion-text>
 
   <hr class="hr-text" data-content="OR">

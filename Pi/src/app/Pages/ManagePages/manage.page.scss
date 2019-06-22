@@ -1,3 +1,8 @@
+.content{
+    height: 91%;
+     overflow-y: auto;
+   }
+
 ion-list-header
 {
     background-color: lightgrey;
@@ -22,8 +27,5 @@ ion-icon
 .trash:hover {
     color: red
 }
-  .content{
-    height: 92%;
-     overflow-y: auto;
-   }
+
 

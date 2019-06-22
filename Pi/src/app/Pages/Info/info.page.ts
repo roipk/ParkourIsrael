@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { LanguageComponent } from '../language/language.component';
 
 
 @Component({
@@ -7,5 +8,27 @@ import { Component } from '@angular/core';
   styleUrls: ['info.page.scss'],
 })
 export class InfoPage {
-  constructor() { }
+  lan=true;
+
+
+  constructor(private cdRef: ChangeDetectorRef,) { }
+  ngOnInit(): void {}
+
+  ngAfterViewChecked() {
+    let show = this.isShowExpand();
+    if (show != this.lan) { // check if it change, tell CD update view
+      this.lan = show;
+      this.cdRef.detectChanges();
+    }
+
+  }
+
+  isShowExpand() {
+    return LanguageComponent.lan
+  }
+  lang() {
+    return this.lan
+
+  }
+
 }

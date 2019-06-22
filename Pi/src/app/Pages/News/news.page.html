@@ -13,31 +13,59 @@
   -->
 <ion-content class="content">
   <ion-grid>
-    
-    <ion-row>
-      <ion-col size='12' size-md=3>
-        <ion-card>
-          <ion-col (ionChange)="radioButtonEvent($event)">
-            <div class="btn-wrapper">
-              <ion-button (click)='write()'>new post</ion-button>
-            </div>
-            <hr>
-            <ion-radio-group>
-              <ion-list>
-                <ion-item>
-                  <ion-label>All posts</ion-label>
-                  <ion-radio value="allPosts" checked></ion-radio>
-                </ion-item>
-                <ion-item>
-                  <ion-label>My posts</ion-label>
-                  <ion-radio value="myPosts"></ion-radio>
-                </ion-item>
-              </ion-list>
-            </ion-radio-group>
+
+    <ion-row *ngIf='lang()'>
+        <ion-col size='12' size-md=3>
+          <ion-card>
+            <ion-col (ionChange)="radioButtonEvent($event)">
+              <div class="btn-wrapper">
+                <ion-button (click)='write()'>new post</ion-button>
+              </div>
+              <hr>
+              <ion-radio-group>
+                <ion-list>
+                  <ion-item>
+                    <ion-label>All posts</ion-label>
+                    <ion-radio value="allPosts" checked></ion-radio>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>My posts</ion-label>
+                    <ion-radio value="myPosts"></ion-radio>
+                  </ion-item>
+                </ion-list>
+              </ion-radio-group>
+            </ion-col>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+  
+
+      <ion-row *ngIf='!lang()'>
+          <ion-col size='12' size-md=3>
+            <ion-card>
+              <ion-col (ionChange)="radioButtonEvent($event)">
+                <div class="btn-wrapper">
+                  <ion-button (click)='write()'>יצירת פוסט חדש</ion-button>
+                </div>
+                <hr>
+                <ion-radio-group>
+                  <ion-list>
+                    <ion-item>
+                      <ion-label>כל הפוסטים</ion-label>
+                      <ion-radio value="allPosts" checked></ion-radio>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label>הפוסטים שלי</ion-label>
+                      <ion-radio value="myPosts"></ion-radio>
+                    </ion-item>
+                  </ion-list>
+                </ion-radio-group>
+              </ion-col>
+            </ion-card>
           </ion-col>
-        </ion-card>
-      </ion-col>
-    </ion-row>
+        </ion-row>
+    
+
 
     <ion-row class="center-row" *ngFor='let m of messages'>
       <ion-col size='12' size-md=6>
