@@ -305,6 +305,7 @@ export class NavbarComponent implements OnInit {
       MapsPage.mapTrain=false;
       MapsPage.mapClass=true;
      }
+     this.router.navigateByUrl('/maps')
      
     // debugger;
   }
