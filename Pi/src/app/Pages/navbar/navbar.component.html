@@ -4,7 +4,7 @@
     <div *ngIf='lang()' class="nav-left">
       <li> <a routerLink="/home" routerLinkActive="active"> Home </a> </li>
          <li class="dropdown">
-        <a class="dropbtn"> Info<ion-icon name="arrow-dropdown"></ion-icon></a>
+        <a class="dropbtn" routerLink="/info" routerLinkActive="active"> Info<ion-icon name="arrow-dropdown"></ion-icon></a>
         <ul class="dropdown-content">
           <a *ngFor='let item of items' [routerLink]="item.url" routerLinkActive="active">{{item.nameEn}}</a>
         </ul>
@@ -30,9 +30,15 @@
 <!-- hebrew mode -->
     <div *ngIf='!lang()' class="nav-right">
       <li> <a routerLink="/home" routerLinkActive="active"> ראשי </a> </li>
-      <li><a routerLink="/info" routerLinkActive="active">מידע</a></li>
+      <!-- <li><a routerLink="/info" routerLinkActive="active">מידע</a></li> -->
       <li class="dropdown">
-        <a class="dropbtn">מפות <ion-icon name="arrow-dropdown"></ion-icon></a>
+          <a class="dropbtn" routerLink="/info" routerLinkActive="active"> <ion-icon name="arrow-dropdown"></ion-icon>מידע</a>
+          <ul class="dropdown-content">
+            <a *ngFor='let item of items' [routerLink]="item.url" routerLinkActive="active">{{item.nameHeb}}</a>
+          </ul>
+        </li>
+      <li class="dropdown">
+        <a class="dropbtn"><ion-icon name="arrow-dropdown"></ion-icon>מפות</a>
         <ul class="dropdown-content">
           <a *ngFor='let map of allMaps' (click)='maps(map)'>{{map.titleHeb}}</a>
         </ul>
