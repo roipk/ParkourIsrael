@@ -13,7 +13,7 @@
   -->
 <ion-content class="content">
   <ion-grid>
-
+    <div class="newPost" [hidden]="!isUser()">
     <ion-row *ngIf='lang()'>
         <ion-col size='12' size-md=3>
           <ion-card>
@@ -65,7 +65,7 @@
           </ion-col>
         </ion-row>
     
-
+      </div>
 
     <ion-row class="center-row" *ngFor='let m of messagesView'>
       <ion-col size='12' size-md=6>

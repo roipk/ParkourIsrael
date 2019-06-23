@@ -47,6 +47,13 @@ export class NewsPage {
     })
   }
 
+  isUser(){
+    if(this.uAuth.auth.currentUser != null){
+      return true;
+    }
+    return false;
+  }
+
   async afterUserInside() {
     await this.db.collection('users').doc(this.uAuth.auth.currentUser.uid)
       .get().subscribe(result => {
