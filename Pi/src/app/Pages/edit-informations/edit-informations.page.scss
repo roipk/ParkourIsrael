@@ -9,7 +9,11 @@
     justify-content: center;
   }
 
-  .avatar{
-    // width: 200px;
-    // height: 200px;
-  }
+.editIcon:hover{
+  cursor: pointer;
+}
+
+.removeBtn{
+  margin: -4px;
+  padding: 0px;
+}

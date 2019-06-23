@@ -4,13 +4,19 @@
   <ion-grid>
     <ion-row class="center-row">
         <ion-avatar>
-          <img class="avatar" src="https://firebasestorage.googleapis.com/v0/b/parkour-israel.appspot.com/o/images%2Favatar.jpg?alt=media&token=ec1dfd38-fa0d-4f73-a953-51e2c7756f5f">
+          <ion-img #avatar></ion-img>
         </ion-avatar>
     </ion-row>
     <ion-row>
-      <ion-col offset="6">
-        <ion-button size="small" fill="clear" color="dark">
-          <ion-icon name="create"></ion-icon>
+      <ion-col size="0.5" offset="6.25">
+        <input type="file" accept="image/*" capture="camera" (change)="fileChangeEvent($event)" id="fileInput" hidden/>
+        <label for="fileInput" icon-only ion-button>
+          <ion-icon class="editIcon" name="create"></ion-icon>
+        </label>
+      </ion-col>
+      <ion-col  class="removeBtn" size="0.5">
+        <ion-button fill="#fff" color="dark" size="small" (click)="removeAvatar()">
+          <ion-icon name="trash"></ion-icon>
         </ion-button>
       </ion-col>
     </ion-row>

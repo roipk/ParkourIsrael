@@ -21,6 +21,7 @@ export class EditInformationsPage {
   @ViewChild('password') passField
   @ViewChild('confirm') confirmField
   @ViewChild('changeButton') changeButton
+  @ViewChild('avatar') avatar
 
 
   info = {
@@ -40,7 +41,8 @@ export class EditInformationsPage {
   newPassword = ""
   userNameChange = false
 
-
+  defaultAvatar = "https://firebasestorage.googleapis.com/v0/b/parkour-israel.appspot.com/o/images%2Favatar.jpg?alt=media&token=ec1dfd38-fa0d-4f73-a953-51e2c7756f5f"
+  file = File
 
 
 
@@ -62,6 +64,8 @@ export class EditInformationsPage {
     this.uAuth.user.subscribe(() => {
       this.afterUserInside()
     })
+
+    this.avatar.src = this.defaultAvatar;
   }
 
   afterUserInside() {
@@ -88,6 +92,18 @@ export class EditInformationsPage {
         })
     });
 
+  }
+
+
+  fileChangeEvent(e) {
+
+    this.avatar.src = URL.createObjectURL(e.target.files[0])
+    this.file = e.target.files[0]
+    //this.nameFile = "pi_" + Date.now() + "_" + this.file.name
+  }
+
+  removeAvatar(){
+    this.avatar.src = this.defaultAvatar;
   }
 
   update() {
