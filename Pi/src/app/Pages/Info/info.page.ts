@@ -1,5 +1,7 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { LanguageComponent } from '../language/language.component';
+import { NavController } from '@ionic/angular';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -9,9 +11,11 @@ import { LanguageComponent } from '../language/language.component';
 })
 export class InfoPage {
   lan=true;
+  vid = "https://www.youtube.com/embed/TeV10LwQ1tk";
 
-
-  constructor(private cdRef: ChangeDetectorRef,) { }
+  constructor(private cdRef: ChangeDetectorRef, public navCtrl: NavController, private dom: DomSanitizer)
+  { }
+  
   ngOnInit(): void {}
 
   ngAfterViewChecked() {
@@ -29,6 +33,10 @@ export class InfoPage {
   lang() {
     return this.lan
 
+  }
+
+  sanitize(vid){
+    return this.dom.bypassSecurityTrustResourceUrl(this.vid);
   }
 
 }

@@ -14,6 +14,12 @@
     margin-left: auto;
     margin-right: auto;
   }
+
+  .instaButton{
+    background: linear-gradient(to bottom left, #FCC246, #FF9D48, #FF5B42, #FE193F, #FF1D65, #E62193, #CC25B1, #A030C3, #5E40DC);
+    color: white;
+    border-radius: 4px;
+  }
   
   @media(min-width: 320px) and (max-width: 480px){
     .center{
