@@ -67,11 +67,18 @@
     
 
 
-    <ion-row class="center-row" *ngFor='let m of messages'>
+    <ion-row class="center-row" *ngFor='let m of messagesView'>
       <ion-col size='12' size-md=6>
         <app-post-bubble [data]='m'></app-post-bubble>
       </ion-col>
     </ion-row>
+
+
+    <ion-row class="center-row">
+        <ion-col size='12' size-md=6>
+          <ion-button *ngIf='more' (click)='viewMore()'>more</ion-button>
+        </ion-col>
+      </ion-row>
 
   </ion-grid>
 </ion-content>

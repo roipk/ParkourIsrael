@@ -21,10 +21,12 @@ export class NewsPage {
 
   fullName = ''
   email = ''
-  test='test'
+  test = 'test'
   messages = []
-  static message=[]
+  messagesView = [];
+  static message = []
   lan = true;
+  more = false;
 
   constructor(
     private uAuth: AngularFireAuth,
@@ -39,7 +41,7 @@ export class NewsPage {
   ngOnInit() {
     this.uAuth.user.subscribe(() => {
       this.getPostsFromDb('allPosts')
-      if(this.uAuth.auth.currentUser != null) {
+      if (this.uAuth.auth.currentUser != null) {
         this.afterUserInside()
       }
     })
@@ -78,6 +80,15 @@ export class NewsPage {
             else return -1
           })
           this.messages = [...result]
+          if (this.messages.length > 10) {
+            this.more = true;
+            for (let i = 0; i < 10; i++) {
+              this.messagesView[i] = this.messages[i]
+            }
+          }
+          else {
+            this.messagesView = [...this.messages]
+          }
         })
     }
     else if (param == 'myPosts') {
@@ -88,13 +99,42 @@ export class NewsPage {
             else return -1
           })
           this.messages = [...result]
+          this.messages = [...result]
+          if (this.messages.length > 10) {
+            this.more = true;
+            for (let i = 0; i < 10; i++) {
+              this.messagesView[i] = this.messages[i]
+            }
+          }
+          else {
+            this.messagesView = [...this.messages]
+            this.more = false;
+          }
         }
       )
     }
-    for (let index = 0; index <  this.messages.length; index++) {
-      NewsPage.message[index]=this.messages[index]
+    for (let index = 0; index < this.messages.length; index++) {
+      NewsPage.message[index] = this.messages[index]
     }
   }
+
+
+
+  viewMore() {
+    if (this.messages.length > this.messagesView.length + 10) {
+      let a = this.messagesView.length
+      let b = this.messagesView.length + 10
+      this.more = true;
+      for (let i = a; i < b; i++) {
+        this.messagesView[i] = this.messages[i]
+      }
+    }
+    else {
+      this.messagesView = [...this.messages]
+      this.more = false;
+    }
+  }
+
 
   createExit() {
     let cross = this.exit.createElement('div')
@@ -122,7 +162,7 @@ export class NewsPage {
   }
 
 
-  
+
   ngAfterViewChecked() {
     let show = this.isShowExpand();
     if (show != this.lan) { // check if it change, tell CD update view
