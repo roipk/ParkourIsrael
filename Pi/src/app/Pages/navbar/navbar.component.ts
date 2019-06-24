@@ -71,7 +71,7 @@ export class NavbarComponent implements OnInit {
       url: '/maps',
     },
     {
-      titleEn: 'Training Class',
+      titleEn: 'Training Classes',
       titleHeb: 'חוגים',
       url: '/maps',
       // icon: 'news'
@@ -94,7 +94,7 @@ export class NavbarComponent implements OnInit {
   // ============ example for item ===============//
   public items = [
     { url: '/parkour', nameEn: 'parkour', nameHeb: 'פארקור' },
-    { url: '/us', nameEn: 'how we are', nameHeb: 'מי אנחנו' },
+    { url: '/us', nameEn: 'who we are', nameHeb: 'מי אנחנו' },
     { url: '/doc', nameEn: 'document', nameHeb: 'מסמכים' },
 
   ]
@@ -293,7 +293,7 @@ export class NavbarComponent implements OnInit {
        MapsPage.mapTrain=false;
        MapsPage.mapClass=false;
      }
-    else if (map.titleEn == 'Training Class')
+    else if (map.titleEn == 'Training Classes')
      {
       MapsPage.mapSpot=false;
       MapsPage.mapTrain=true;
