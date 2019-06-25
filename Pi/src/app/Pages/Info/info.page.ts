@@ -9,9 +9,10 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: 'info.page.html',
   styleUrls: ['info.page.scss'],
 })
+
 export class InfoPage {
   lan=true;
-  vid = "https://www.youtube.com/embed/TeV10LwQ1tk";
+  //vid = "https://www.youtube.com/embed/TeV10LwQ1tk";
 
   constructor(private cdRef: ChangeDetectorRef, public navCtrl: NavController, private dom: DomSanitizer)
   { }
@@ -34,9 +35,10 @@ export class InfoPage {
     return this.lan
 
   }
-
+  /*
   sanitize(vid){
     return this.dom.bypassSecurityTrustResourceUrl(this.vid);
   }
+  */
 
 }
