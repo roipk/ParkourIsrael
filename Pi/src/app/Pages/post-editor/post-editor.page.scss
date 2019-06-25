@@ -43,3 +43,7 @@ ion-radio-group {
     margin-top: -1px;
     vertical-align: middle;
   }
+
+  :host ::ng-deep .ck-editor__editable_inline {
+    min-height: 500px;
+}

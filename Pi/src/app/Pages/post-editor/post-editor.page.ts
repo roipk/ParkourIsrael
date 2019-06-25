@@ -6,6 +6,8 @@ import * as firebase from 'firebase';
 import { LoadingController } from '@ionic/angular';
 import { AppComponent } from '../../app.component'
 import { defineBase } from '@angular/core/src/render3';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 
 
 
@@ -14,6 +16,7 @@ import { defineBase } from '@angular/core/src/render3';
   selector: 'app-post-editor',
   templateUrl: './post-editor.page.html',
   styleUrls: ['./post-editor.page.scss'],
+  
 })
 
 
@@ -28,6 +31,10 @@ export class PostEditorPage implements OnInit {
   @ViewChild('img') img
 
 
+  public config = {
+    placeholder: 'Type the content here!'
+}
+  public Editor = ClassicEditor;
   loadingRef = null
 
   manager = false
@@ -40,8 +47,8 @@ export class PostEditorPage implements OnInit {
   email = ''
 
   file = File
-  messages = []
-
+  messages =""
+ 
 
 
   constructor(
@@ -87,7 +94,7 @@ export class PostEditorPage implements OnInit {
         title: this.MessageTitleField.value,
         email: this.email,
         from: this.nameToShow,
-        content: this.messageField.value,
+        content: this.messages,
         timestamp: new Date().getTime(),
         file_name: this.nameFile,
         date: this.postDate()[1],
@@ -276,5 +283,16 @@ export class PostEditorPage implements OnInit {
 
     })
   }
+
+
+
+
+
+
+
+  public onChange( { editor }: ChangeEvent ) {
+    this.messages = editor.getData();
+ 
+}
 
 }
