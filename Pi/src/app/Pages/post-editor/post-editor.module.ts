@@ -5,6 +5,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 import { PostEditorPage } from './post-editor.page';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+
+
+
 
 const routes: Routes = [
   {
@@ -15,6 +19,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    CKEditorModule,
     CommonModule,
     FormsModule,
     IonicModule,

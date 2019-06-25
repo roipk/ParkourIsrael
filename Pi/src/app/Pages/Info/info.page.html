@@ -4,7 +4,7 @@
     <img class="center" src="https://firebasestorage.googleapis.com/v0/b/parkour-israel.appspot.com/o/logo%2Flogo.png?alt=media&token=09a5eb4c-3c53-4640-ab03-cd3f15d5b4e3">
     <br>
     <ion-row class="center-row">
-        <ion-col size='12' size-md=4>
+        <ion-col size='12' size-md=8>
             <p *ngIf='lang()'>'Parkour Israel' is a non-profit organisation that targets the promotion and
                 improvment of the Parkour discipline in Israel.
                 Founded by Israels' most experienced practitioners and aims to be a home
@@ -16,7 +16,7 @@
         </ion-col>
     </ion-row>
     <ion-row class="center-row" *ngIf='lang()'>
-        <ion-col size='12' size-md=4>
+        <ion-col size='12' size-md=10>
             <h3><u>Our goals:</u></h3>
             <ol>
                 <li>The organisation will constitute a house to the community of Parkour Israel,
@@ -75,7 +75,7 @@
 
 
     <ion-row class="center-row" *ngIf='!lang()'>
-            <ion-col size='12' size-md=4>
+            <ion-col size='12' size-md=10>
                 <h3><u>מטרות העמותה:</u></h3>
                 <ol>
                     <li>העמותה תהווה בית לקהילת הפארקור בישראל, כתובת ומענה לאנשי הקהילה ומחוץ לה
@@ -125,6 +125,35 @@
                      -->
                     <!--  -->
                 </ol>
+            </ion-col>
+        </ion-row>
+
+        <br><br>
+
+        <ion-row class="center-row">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/TeV10LwQ1tk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </ion-row>
+
+        <br><br>
+
+        <ion-row class="center-row">
+            <ion-col size="3" size-md="2" size-lg="1">
+                <ion-button class="fbButton" expand="block" fill="clear" href="https://www.facebook.com/israelparkour/" target="_blank">
+                    <ion-icon class="icon" name="logo-facebook"></ion-icon>
+                </ion-button>
+            </ion-col>
+
+            <ion-col size="3" size-md="2" size-lg="1">
+                <ion-button class="ytButton" expand="block" fill="clear" href="https://www.youtube.com/channel/UCA5dGaF46R51j3dhP6nkUEQ">
+                    <ion-icon class="icon" name="logo-youtube"></ion-icon>
+                </ion-button>
+            </ion-col>
+
+            <ion-col size="3" size-md="2" size-lg="1">
+                <ion-button class="instaButton" fill="clear" expand="block" href="https://www.instagram.com/parkourisraelnpo/">
+                    <ion-icon class="instaIcon" name="logo-instagram"></ion-icon>
+                </ion-button>
             </ion-col>
         </ion-row>
     

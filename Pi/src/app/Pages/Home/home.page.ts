@@ -23,14 +23,18 @@ export class HomePage {
     src: 'https://static.wixstatic.com/media/3f6e79_3e7ef9b2a01643afbb6b76d253a1120c~mv2.jpg/v1/fill/w_1500,h_628,al_c,q_90/3f6e79_3e7ef9b2a01643afbb6b76d253a1120c~mv2.webp'
   },
   {
-    src: 'https://static.wixstatic.com/media/3f6e79_edffb7457e594159ad8860143c48f0cd~mv2.jpg/v1/fill/w_1500,h_628,al_c,q_90/3f6e79_edffb7457e594159ad8860143c48f0cd~mv2.webp'
+    src: 'https://firebasestorage.googleapis.com/v0/b/parkour-israel.appspot.com/o/ImagesHome%2F14372106_1091934970897532_7430857650098497195_o.jpg?alt=media&token=86bbc47d-597f-4cef-9e11-a6ab20251c3e'
   },
   {
-    src: 'https://static.wixstatic.com/media/3f6e79_83ed46c3d0d943198a7ae7a04f657683~mv2.jpg/v1/fill/w_1500,h_628,al_c,q_90/3f6e79_83ed46c3d0d943198a7ae7a04f657683~mv2.webp'
+    src: 'https://firebasestorage.googleapis.com/v0/b/parkour-israel.appspot.com/o/ImagesHome%2F14435214_1100360520054977_9221040805172502489_o.jpg?alt=media&token=370942e5-6dc6-4366-bb62-43b14d721bcc'
   },
  
   {
-    src: 'https://static.wixstatic.com/media/3f6e79_da6b905e89ef4c9e8cc1253d623ed970~mv2.jpg/v1/fill/w_1500,h_628,al_c,q_90/3f6e79_da6b905e89ef4c9e8cc1253d623ed970~mv2.webp'
+    src: 'https://firebasestorage.googleapis.com/v0/b/parkour-israel.appspot.com/o/ImagesHome%2F14500332_1100360583388304_1170007292514886847_o.jpg?alt=media&token=ea0ff8fb-3f60-49bc-a0b1-1edd98604192'
+  },
+
+  {
+    src: 'https://firebasestorage.googleapis.com/v0/b/parkour-israel.appspot.com/o/ImagesHome%2F15732162_1194606803963681_828908767134338318_o.jpg?alt=media&token=7546abff-c1dc-4c02-8245-cda63df80bfd'
   },
  
   ]
