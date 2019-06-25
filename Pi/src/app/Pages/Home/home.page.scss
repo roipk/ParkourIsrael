@@ -5,11 +5,18 @@
  }
 
 * {box-sizing: border-box}
-.bodyImg {font-family: Verdana, sans-serif; margin:0}
-.mySlides {display: block;}
+
+.bodyImg {
+  font-family: Verdana, 
+  sans-serif; margin:0;
+}
+
+.mySlides {
+  display: block;
+}
+
 img {
-  vertical-align: middle;
- 
+  vertical-align: middle; 
 }
 
 /* Slideshow container */
