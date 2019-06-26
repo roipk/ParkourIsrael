@@ -171,6 +171,7 @@ export class AppComponent {
       this.db.collection('users').doc(this.userAuth.auth.currentUser.uid)
         .get().subscribe(result => {
           this.manager = result.data().manager
+          return true
           // if (!this.isMobile()) {
           //   if (this.lan == this.languages[0].name) {
           //     this.userLogin.nativeElement.innerHTML = 'LogOut'
@@ -184,7 +185,10 @@ export class AppComponent {
           //   }
           // }
         })
-    }
+      }
+      else
+        return false
+    
     // else {
     //   if (this.userLogin && this.loginNickName && this.lan == this.languages[0].name) {
     //     this.userLogin.nativeElement.innerHTML = 'Login'

@@ -64,7 +64,7 @@ export class SignupPage {
     const fullName = firstName + ' ' + lastName
     const userName = this.userNameField.value
     const confirm = this.confirmField.value
-
+    const imageProfile = "https://firebasestorage.googleapis.com/v0/b/parkour-israel.appspot.com/o/images%2Favatar.jpg?alt=media&token=ec1dfd38-fa0d-4f73-a953-51e2c7756f5f"
 
 
     if (fullName == '' || userName == '') {
@@ -87,10 +87,10 @@ export class SignupPage {
         this.userAuth.auth.createUserWithEmailAndPassword(email, password)
 
           .then((result) => {
-            this.db.collection('users').doc(result.user.uid).set({ fullName: fullName, email: email, userName: userName, firstName : firstName,  lastName : lastName})
+            this.db.collection('users').doc(result.user.uid).set({ fullName: fullName, email: email, userName: userName,imageProfile: imageProfile ,firstName : firstName,  lastName : lastName})
               .then(() => {
                 this.dismissLoading()
-                this.router.navigateByUrl('/news')
+                this.router.navigateByUrl('/login')
               })
           })
       }

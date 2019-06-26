@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, NgZone, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -7,8 +7,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { IsManagerGuard } from '../../is-manager-guard/is-manager.guard'
+import * as firebase from 'firebase';
 
-import { from } from 'rxjs';
 
 import { LanguageComponent } from '../language/language.component'
 import { MapsPage } from '../maps/maps.page';
@@ -27,6 +27,7 @@ export class NavbarComponent implements OnInit {
   @ViewChild('loginNickName') loginNickName
   @ViewChild('user') userLogin
   @ViewChild('testMap') testMap
+  @ViewChild('avatar') avatar
   // @ViewChild('titlePage') titlePage
   // ============================================================================================//
 
@@ -41,6 +42,8 @@ export class NavbarComponent implements OnInit {
   title = 'user-servic';
   lan = 'English'
   map = 'Spots'
+ static reload = false
+  defaultAvatar = "https://firebasestorage.googleapis.com/v0/b/parkour-israel.appspot.com/o/images%2Favatar.jpg?alt=media&token=ec1dfd38-fa0d-4f73-a953-51e2c7756f5f"
  
 
  // ===============================//
@@ -114,6 +117,7 @@ export class NavbarComponent implements OnInit {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
+    private cdRef: ChangeDetectorRef,
     // public user: UserService,
 
     private uAuth: AngularFireAuth,
@@ -137,7 +141,7 @@ export class NavbarComponent implements OnInit {
 
   // ======== page initialization =============//
     ngOnInit(): void {
-      
+     NavbarComponent.reload=false
     this.userMode()
     this.userAuth.user.subscribe(() => {
       this.userMode()
@@ -146,6 +150,18 @@ export class NavbarComponent implements OnInit {
     this.isMobile()
     // this.testMap="https://www.google.com/maps/d/embed?mid=1zIAU9gEwIa6zZTQv7l8W_Ohbwds"
     // this.language(this.languages[0])
+    // this.avatar.src = this.defaultAvatar;
+    
+  }
+
+  
+  
+  ngAfterViewChecked() {
+    if (NavbarComponent.reload) { // check if it change, tell CD update view
+    //  debugger
+    this.ngOnInit()
+      this.cdRef.detectChanges();
+    }
   }
 
 
@@ -210,6 +226,16 @@ export class NavbarComponent implements OnInit {
     if (this.userAuth.auth.currentUser != null) {
       this.db.collection('users').doc(this.userAuth.auth.currentUser.uid)
         .get().subscribe(result => {
+          if (result.data().imageProfile!= '' && result.data().imageProfile!=this.defaultAvatar) {
+            var storageRef = firebase.storage().ref()
+            storageRef.child('ImageProfile/' + result.data().imageProfile).getDownloadURL().then(res => {
+              this.avatar.src = res
+            })
+          }
+          else{
+            this.avatar.src =this.defaultAvatar
+          }
+          
           this.manager = result.data().manager
           if (!this.isMobile() && this.userAuth.auth.currentUser != null) {
             if (this.lan == this.languages[0].name) {

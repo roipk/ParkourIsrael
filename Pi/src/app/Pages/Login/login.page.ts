@@ -71,7 +71,7 @@ export class LoginPage {
           this.dismissLoading()
           // don't need this line
           //this.ngZone.run(() => {  this.router.navigateByUrl('/news') })
-          this.router.navigateByUrl('/news')
+          this.router.navigateByUrl('/home')
         
         }).catch(() => {
           this.dismissLoading()
@@ -90,7 +90,7 @@ export class LoginPage {
 
   googlelogin() {
     this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then((result) => {
-      this.router.navigateByUrl('/news')
+      this.router.navigateByUrl('/home')
     }).catch(() => {
       this.dismissLoading()
     })
