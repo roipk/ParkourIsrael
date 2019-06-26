@@ -32,14 +32,8 @@
   
    }
 
-ion-list-header
-{
-    background-color: lightgrey;
-}
-
-ion-icon
-{
-    background-color: transparent;
+ion-list-header{
+    color: lightgrey;
 }
 
 .title {
@@ -57,4 +51,30 @@ ion-icon
     color: red
 }
 
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  @media(min-width: 320px) and (max-width: 480px){
+    .center{
+      height: 150px;
+      width: 153px
+    }
+  }
+  
+  @media(min-width: 481px) and (max-width: 767px){
+    .center{
+      height: 200px;
+      width: 204px;
+    }
+  }
+  
+  @media(min-width: 768px) and (orientation: landscape){
+    .center{
+      height: 250px;
+      width: 255px;
+    }
+  }
 
