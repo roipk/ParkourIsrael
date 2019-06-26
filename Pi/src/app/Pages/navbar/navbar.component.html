@@ -58,12 +58,8 @@
       <li >
           <ion-item *ngIf="isUser()">
               <ion-avatar>
-                  <ion-img #avatar></ion-img>
+                  <ion-img #avatar  routerLink="/edit-informations" routerLinkActive="active"></ion-img>
                 </ion-avatar>
-              <!-- <ion-avatar slot="start">
-                  <ion-img #avatar></ion-img> -->
-                <!-- <img #avatar src="https://firebasestorage.googleapis.com/v0/b/parkour-israel.appspot.com/o/images%2Favatar.jpg?alt=media&token=ec1dfd38-fa0d-4f73-a953-51e2c7756f5f"> -->
-              <!-- </ion-avatar> -->
             </ion-item>
       </li>
       <li class="dropdown">
@@ -77,6 +73,13 @@
     </div>
 <!-- hebrew mode -->
     <div *ngIf='!lang()' class="nav-left">
+        <li >
+            <ion-item *ngIf="isUser()">
+                <ion-avatar>
+                    <ion-img #avatar  routerLink="/edit-informations" routerLinkActive="active"></ion-img>
+                  </ion-avatar>
+              </ion-item>
+        </li>
       <li class="dropdown">
         <a #loginNickName class="dropbtn">ברוך הבא</a>
         <ul class="dropdown-content">

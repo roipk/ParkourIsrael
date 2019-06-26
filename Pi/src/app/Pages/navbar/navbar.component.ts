@@ -22,7 +22,7 @@ import { MapsPage } from '../maps/maps.page';
 })
 export class NavbarComponent implements OnInit {
   [x: string]: any;
-
+  
   // ============================= all id from object in html ===================================//
   @ViewChild('loginNickName') loginNickName
   @ViewChild('user') userLogin
@@ -32,21 +32,22 @@ export class NavbarComponent implements OnInit {
   // ============================================================================================//
 
 
-
+  
 
   // ========= variables ===========//
   showFiller = true;
   mobile = false;
   manager = false;
+  user='';
   fullName = '';
   title = 'user-servic';
   lan = 'English'
   map = 'Spots'
- static reload = false
+  static reload = false
   defaultAvatar = "https://firebasestorage.googleapis.com/v0/b/parkour-israel.appspot.com/o/images%2Favatar.jpg?alt=media&token=ec1dfd38-fa0d-4f73-a953-51e2c7756f5f"
- 
+  oldLan = ''
 
- // ===============================//
+  // ===============================//
 
 
 
@@ -140,8 +141,9 @@ export class NavbarComponent implements OnInit {
 
 
   // ======== page initialization =============//
-    ngOnInit(): void {
-     NavbarComponent.reload=false
+  ngOnInit(): void {
+
+    NavbarComponent.reload = false
     this.userMode()
     this.userAuth.user.subscribe(() => {
       this.userMode()
@@ -151,17 +153,33 @@ export class NavbarComponent implements OnInit {
     // this.testMap="https://www.google.com/maps/d/embed?mid=1zIAU9gEwIa6zZTQv7l8W_Ohbwds"
     // this.language(this.languages[0])
     // this.avatar.src = this.defaultAvatar;
-    
+
   }
 
-  
-  
+
+
   ngAfterViewChecked() {
     if (NavbarComponent.reload) { // check if it change, tell CD update view
-    //  debugger
-    this.ngOnInit()
+      //  debugger
+      this.ngOnInit()
       this.cdRef.detectChanges();
     }
+    
+    if(this.user!='')
+    {
+      if (this.lan == this.languages[0].name) {
+        this.userLogin.nativeElement.innerHTML = 'LogOut'
+        this.loginNickName.nativeElement.innerHTML = 'Welcome  <ion-icon name="arrow-dropdown"></ion-icon>'
+        this.loginNickName.nativeElement.innerHTML = "Welcome " + this.user + ' <ion-icon name="arrow-dropdown"></ion-icon>'
+      }
+      else {
+        this.userLogin.nativeElement.innerHTML = 'התנתק'
+        this.loginNickName.nativeElement.innerHTML = ' <ion-icon name="arrow-dropdown"></ion-icon> ברוך הבא'
+        this.loginNickName.nativeElement.innerHTML = ' <ion-icon name="arrow-dropdown"></ion-icon>ברוך הבא ' + this.user
+      }
+      this.user=''
+    }
+
   }
 
 
@@ -226,28 +244,23 @@ export class NavbarComponent implements OnInit {
     if (this.userAuth.auth.currentUser != null) {
       this.db.collection('users').doc(this.userAuth.auth.currentUser.uid)
         .get().subscribe(result => {
-          if (result.data().imageProfile!= '' && result.data().imageProfile!=this.defaultAvatar) {
+          this.oldLan = result.data().language
+          if (this.oldLan != '') {
+          this.lan = this.oldLan
+          }
+          if (result.data().imageProfile != '' && result.data().imageProfile != this.defaultAvatar) {
             var storageRef = firebase.storage().ref()
             storageRef.child('ImageProfile/' + result.data().imageProfile).getDownloadURL().then(res => {
               this.avatar.src = res
             })
           }
-          else{
-            this.avatar.src =this.defaultAvatar
+          else {
+            this.avatar.src = this.defaultAvatar
           }
-          
+
           this.manager = result.data().manager
           if (!this.isMobile() && this.userAuth.auth.currentUser != null) {
-            if (this.lan == this.languages[0].name) {
-              this.userLogin.nativeElement.innerHTML = 'LogOut'
-              this.loginNickName.nativeElement.innerHTML = 'Welcome  <ion-icon name="arrow-dropdown"></ion-icon>'
-              this.loginNickName.nativeElement.innerHTML = "Welcome " + result.data().userName + ' <ion-icon name="arrow-dropdown"></ion-icon>'
-            }
-            else {
-              this.userLogin.nativeElement.innerHTML = 'התנתק'
-              this.loginNickName.nativeElement.innerHTML = ' <ion-icon name="arrow-dropdown"></ion-icon> ברוך הבא'
-              this.loginNickName.nativeElement.innerHTML = ' <ion-icon name="arrow-dropdown"></ion-icon>ברוך הבא ' + result.data().userName
-            }
+           this.user=result.data().userName
           }
         })
     }
@@ -306,33 +319,37 @@ export class NavbarComponent implements OnInit {
     this.userMode();
     // this.home.setLan(language) 
     this.lan = language.name
+    if (this.userAuth.auth.currentUser != null && this.lan != this.oldLan) {
+      this.db.collection('users').doc(this.userAuth.auth.currentUser.uid).update({ language: this.lan })
+
+    }
+
+
+
     //  alert("laguage is " + this.lan)
 
   }
 
   maps(map) {
-    
+
     this.userMode();
-    if (map.titleEn == 'Spots')
-     {
-       MapsPage.mapSpot=true;
-       MapsPage.mapTrain=false;
-       MapsPage.mapClass=false;
-     }
-    else if (map.titleEn == 'Training Classes')
-     {
-      MapsPage.mapSpot=false;
-      MapsPage.mapTrain=true;
-      MapsPage.mapClass=false;
-     }
-     else if (map.titleEn == 'Training People')
-     {
-      MapsPage.mapSpot=false;
-      MapsPage.mapTrain=false;
-      MapsPage.mapClass=true;
-     }
-     this.router.navigateByUrl('/maps')
-     
+    if (map.titleEn == 'Spots') {
+      MapsPage.mapSpot = true;
+      MapsPage.mapTrain = false;
+      MapsPage.mapClass = false;
+    }
+    else if (map.titleEn == 'Training Classes') {
+      MapsPage.mapSpot = false;
+      MapsPage.mapTrain = true;
+      MapsPage.mapClass = false;
+    }
+    else if (map.titleEn == 'Training People') {
+      MapsPage.mapSpot = false;
+      MapsPage.mapTrain = false;
+      MapsPage.mapClass = true;
+    }
+    this.router.navigateByUrl('/maps')
+
     // debugger;
   }
 
