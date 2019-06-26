@@ -10,8 +10,10 @@
       <ion-radio value="myPosts"></ion-radio>
     </ion-item>
   </div>
-  -->
-<ion-content class="content">
+-->
+<ion-content>
+  <div class="content">
+    <h2>News</h2>
   <ion-grid>
     <div class="newPost" [hidden]="!isUser()">
     <ion-row *ngIf='lang()'>
@@ -23,8 +25,8 @@
               </div>
               <hr>
               <ion-radio-group>
-                <ion-list>
-                  <ion-item>
+                <ion-list class="list">
+                  <ion-item color="transparent">
                     <ion-label>All posts</ion-label>
                     <ion-radio value="allPosts" checked></ion-radio>
                   </ion-item>
@@ -81,4 +83,5 @@
       </ion-row>
 
   </ion-grid>
+</div>
 </ion-content>
