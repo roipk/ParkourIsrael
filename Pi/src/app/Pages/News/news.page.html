@@ -18,21 +18,23 @@
     <div class="newPost" [hidden]="!isUser()">
     <ion-row *ngIf='lang()'>
         <ion-col size='12' size-md=3>
-          <ion-card>
+          <ion-card color="white">
             <ion-col (ionChange)="radioButtonEvent($event)">
               <div class="btn-wrapper">
-                <ion-button (click)='write()'>new post</ion-button>
+                <ion-button color="pi" (click)='write()'>new post</ion-button>
               </div>
-              <hr>
+              <hr class="hr">
+              <br><br>
               <ion-radio-group>
-                <ion-list class="list">
-                  <ion-item color="transparent">
+                <ion-list>
+                    <h4>Sort by:</h4>
+                  <ion-item >
                     <ion-label>All posts</ion-label>
-                    <ion-radio value="allPosts" checked></ion-radio>
+                    <ion-radio color="pi" value="allPosts" checked></ion-radio>
                   </ion-item>
                   <ion-item>
                     <ion-label>My posts</ion-label>
-                    <ion-radio value="myPosts"></ion-radio>
+                    <ion-radio color="pi" value="myPosts"></ion-radio>
                   </ion-item>
                 </ion-list>
               </ion-radio-group>
@@ -44,7 +46,7 @@
 
       <ion-row *ngIf='!lang()'>
           <ion-col size='12' size-md=3>
-            <ion-card>
+            <ion-card color="white">
               <ion-col (ionChange)="radioButtonEvent($event)">
                 <div class="btn-wrapper">
                   <ion-button (click)='write()'>יצירת פוסט חדש</ion-button>
@@ -52,13 +54,14 @@
                 <hr>
                 <ion-radio-group>
                   <ion-list>
+                      <h4>סינון לפי:</h4>
                     <ion-item>
                       <ion-label>כל הפוסטים</ion-label>
-                      <ion-radio value="allPosts" checked></ion-radio>
+                      <ion-radio color="pi" value="allPosts" checked></ion-radio>
                     </ion-item>
                     <ion-item>
                       <ion-label>הפוסטים שלי</ion-label>
-                      <ion-radio value="myPosts"></ion-radio>
+                      <ion-radio color="pi" value="myPosts"></ion-radio>
                     </ion-item>
                   </ion-list>
                 </ion-radio-group>
@@ -78,7 +81,7 @@
 
     <ion-row class="center-row">
         <ion-col size='12' size-md=6>
-          <ion-button *ngIf='more' (click)='viewMore()'>more</ion-button>
+          <ion-button color="pi" *ngIf='more' (click)='viewMore()'>more</ion-button>
         </ion-col>
       </ion-row>
 
