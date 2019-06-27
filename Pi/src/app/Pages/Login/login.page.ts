@@ -75,7 +75,6 @@ export class LoginPage {
           }
           else {
             this.db.collection('users', ref => ref.where('email', '==', this.email)).get().subscribe(result => {
-              debugger
               let id = result.docs[0].id
               this.db.collection('users').doc(id).update({
                 emailVerified: true
