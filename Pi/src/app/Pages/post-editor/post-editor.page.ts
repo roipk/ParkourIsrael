@@ -16,7 +16,7 @@ import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
   selector: 'app-post-editor',
   templateUrl: './post-editor.page.html',
   styleUrls: ['./post-editor.page.scss'],
-  
+
 })
 
 
@@ -24,8 +24,8 @@ import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 export class PostEditorPage implements OnInit {
 
 
-  @ViewChild('messageTitleField') MessageTitleField
-  @ViewChild('messageContentField') messageField
+  // @ViewChild('messageTitleField') MessageTitleField
+  // @ViewChild('messageContentField') messageField
   @ViewChild('fileButton') fileButton
   @ViewChild('uploader') uploader
   @ViewChild('img') img
@@ -33,10 +33,12 @@ export class PostEditorPage implements OnInit {
 
   public config = {
     placeholder: 'Type the content here!'
-}
+  }
   public Editor = ClassicEditor;
   loadingRef = null
-
+  title = ''
+  show_message=''
+  find_title = []
   manager = false
   static docId = ''
   nameFile = ""
@@ -45,10 +47,10 @@ export class PostEditorPage implements OnInit {
   fullName = ''
   nameToShow = ''
   email = ''
-
+  userProfile=''
   file = File
-  messages =""
- 
+  messages = ""
+
 
 
   constructor(
@@ -73,6 +75,7 @@ export class PostEditorPage implements OnInit {
   afterUserInside() {
     this.db.collection('users').doc(this.uAuth.auth.currentUser.uid)
       .get().subscribe(result => {
+        this.userProfile=result.data().imageProfile
         this.userName = result.data().userName
         this.fullName = result.data().fullName
         this.email = result.data().email
@@ -89,9 +92,11 @@ export class PostEditorPage implements OnInit {
     if (this.nameToShow == '')
       this.nameToShow = this.userName
     if (PostEditorPage.docId != '') {
+
+
       this.db.collection('messages').doc(PostEditorPage.docId).update({
 
-        title: this.MessageTitleField.value,
+        title: this.title,
         email: this.email,
         from: this.nameToShow,
         content: this.messages,
@@ -112,11 +117,15 @@ export class PostEditorPage implements OnInit {
 
     }
     else {
+      this.createMessage()
+      
       this.db.collection('messages').add({
-        title: this.MessageTitleField.value,
+        show_message: this.show_message,
+        userProfile: this.userProfile,
+        title: this.title,
         email: this.email,
         from: this.nameToShow,
-        content: this.messageField.value,
+        content: this.messages,
         timestamp: new Date().getTime(),
         file_name: this.nameFile,
         date: this.postDate()[1],
@@ -134,20 +143,49 @@ export class PostEditorPage implements OnInit {
     if (this.nameFile != '')
       this.uploadFile()
     else {
-      this.messageField.value = ''
-      this.MessageTitleField.value = ''
-      PostEditorPage.docId = ''
-      this.route.navigateByUrl('/news')
+    this.messages=''
+    this.title=''
+    PostEditorPage.docId = ''
+    this.route.navigateByUrl('/news')
+    }
+  }
+
+
+  createMessage() {
+    this.find_title = this.messages.split('</h2>')
+    this.find_title = this.find_title[0].split('<h2>')
+    if (this.find_title[1]) {
+      this.title = this.find_title[1]
+
+    }
+    else
+    {
+      this.title=''
+    }
+    if(this.messages.length>400)
+    {
+      for (let i = 0; i <400; i++) {
+        this.show_message+= this.messages[i];
+      }
+
+      for (let i = 0; i <10; i++) {
+        this.show_message += '.';
+      }
+    }
+    else
+    {
+      this.show_message=this.messages
+      for (let i = 0; i <10; i++) {
+        this.show_message += '.';
+      }
     }
   }
 
   isMessageInvalid(): boolean {
-    if (this.messageField == null || this.messageField.value == null || this.messageField.value.length <= 0 || this.messageField.value == '&nbsp') {
+    if (this.messages == '&nbsp' || this.messages.length <= 0) {
       return true
     }
-    if (this.MessageTitleField == null || this.MessageTitleField.value == null || this.MessageTitleField.value.length <= 0 || this.MessageTitleField.value == '&nbsp') {
-      return true
-    }
+
     return false
   }
 
@@ -188,8 +226,8 @@ export class PostEditorPage implements OnInit {
         if (this.oldNameFile != '' && this.oldNameFile != result.data().nameFile) {
           storageRef.child('images/' + this.oldNameFile).delete()
           storageRef.child('images/' + this.nameFile).put(this.file).then(res => {
-            this.messageField.value = ''
-            this.MessageTitleField.value = ''
+            this.messages=''
+            this.title=''
             this.loadingRef.dismiss()
             this.route.navigateByUrl('/news')
           }).catch(() => {
@@ -201,8 +239,8 @@ export class PostEditorPage implements OnInit {
     }
     else {
       storageRef.child('images/' + this.nameFile).put(this.file).then(res => {
-        this.messageField.value = ''
-        this.MessageTitleField.value = ''
+        this.messages=''
+            this.title=''
         this.loadingRef.dismiss()
         this.route.navigateByUrl('/news')
       }).catch(() => {
@@ -271,8 +309,8 @@ export class PostEditorPage implements OnInit {
 
   GetPost() {
     this.db.collection("messages").doc(PostEditorPage.docId).get().subscribe(result => {
-      this.messageField.value = result.data().content
-      this.MessageTitleField.value = result.data().title
+      // this.messageField.value = result.data().content
+      // this.MessageTitleField.value = result.data().title
       this.oldNameFile = result.data().file_name
       if (result.data().file_name != '') {
         var storageRef = firebase.storage().ref()
@@ -290,9 +328,9 @@ export class PostEditorPage implements OnInit {
 
 
 
-  public onChange( { editor }: ChangeEvent ) {
+  public onChange({ editor }: ChangeEvent) {
     this.messages = editor.getData();
- 
-}
+
+  }
 
 }

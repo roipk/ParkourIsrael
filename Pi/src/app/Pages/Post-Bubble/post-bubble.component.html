@@ -1,13 +1,14 @@
-<ion-card  color="white" class="welcome-card">
-    <ion-img  #img *ngIf='data.file_name!=""'></ion-img>
+<ion-card  color="white" class="welcome-card" >
+    <ion-img  #img *ngIf='data.file_name!=""' style="float:right; width: 200; height:200px; "></ion-img>
     <ion-card-header>
-      <ion-card-title>{{data.title}}</ion-card-title>
-      <ion-card-subtitle>{{data.content}}</ion-card-subtitle>
+      <!-- <ion-card-title>{{data.title}}</ion-card-title> -->
+      <ion-card-subtitle #test></ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
+      <ion-button (click)='postPage()'>view post</ion-button>
         <ion-item>
             <ion-avatar slot="start">
-              <img src="https://firebasestorage.googleapis.com/v0/b/parkour-israel.appspot.com/o/images%2Favatar.jpg?alt=media&token=ec1dfd38-fa0d-4f73-a953-51e2c7756f5f">
+                <ion-img #src></ion-img>
             </ion-avatar>
             From: {{data.from}} at {{data.show_date}}
           </ion-item>

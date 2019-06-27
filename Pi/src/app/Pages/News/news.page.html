@@ -13,7 +13,12 @@
 -->
 
   <div class="content">
+    <div class="center-row" *ngIf='lang()'>
     <h2>News</h2>
+  </div>
+  <div class="center-row" *ngIf='!lang()'>
+      <h2>חדשות ועדכונים</h2>
+    </div>
   <ion-grid>
     <div class="newPost" [hidden]="!isUser()">
     <ion-row *ngIf='lang()'>
@@ -74,7 +79,7 @@
 
     <ion-row class="center-row" *ngFor='let m of messagesView'>
       <ion-col size='12' size-md=6>
-        <app-post-bubble [data]='m'></app-post-bubble>
+        <app-post-bubble  [data]='m'></app-post-bubble>
       </ion-col>
     </ion-row>
 

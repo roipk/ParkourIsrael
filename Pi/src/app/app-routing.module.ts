@@ -19,7 +19,9 @@ const routes: Routes = [
   { path: 'contact', loadChildren: './Pages/contact/contact.module#ContactPageModule' },
   { path: 'writePost', loadChildren: './Pages/post-editor/post-editor.module#PostEditorPageModule'/*,  canActivate: [ IsManagerGuard ] */},
   { path: 'manager', loadChildren: './Pages/ManagePages/manage.module#ManagePageModule', canActivate: [ IsManagerGuard ] },
+  { path: 'post-page', loadChildren: './Pages/post-page/post-page.module#PostPagePageModule' },
   { path: '**', loadChildren: './Pages/not-found/not-found.module#NotFoundPageModule' },  
+ 
   
 ];
 

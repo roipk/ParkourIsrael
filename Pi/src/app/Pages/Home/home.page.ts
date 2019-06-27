@@ -60,10 +60,14 @@ export class HomePage {
           if (m1['timestamp'] < m2['timestamp']) return 1
           else return -1
         })
+        if(result.length>3)
+        {
         for (let i = 0; i < 3; i++) {
           this.message[i] = result[i]
         }
-        // this.message = [...result]
+      }
+      else 
+        this.message = [...result]
       })
     this.test.src=this.dots[0].src
     this.startTimer()
