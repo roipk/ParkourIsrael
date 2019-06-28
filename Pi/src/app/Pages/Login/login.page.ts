@@ -76,8 +76,13 @@ export class LoginPage {
           else {
             this.db.collection('users', ref => ref.where('email', '==', this.email)).get().subscribe(result => {
               let id = result.docs[0].id
-              this.db.collection('users').doc(id).update({
-                emailVerified: true
+              let emailVerified: boolean
+              this.db.collection('users').doc(id).get().subscribe(result2 => {
+                emailVerified = result2.get('emailVerified')
+                if (emailVerified == null || emailVerified == false)
+                  this.db.collection('users').doc(id).update({
+                    emailVerified: true
+                  })
               })
             })
             this.dismissLoading()
