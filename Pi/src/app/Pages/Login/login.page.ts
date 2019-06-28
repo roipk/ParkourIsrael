@@ -8,6 +8,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { disableBindings } from '@angular/core/src/render3';
 import { DISABLED } from '@angular/forms/src/model';
 import { LanguageComponent } from '../language/language.component';
+import { AppComponent } from '../../app.component'
 
 
 
@@ -55,6 +56,7 @@ export class LoginPage {
     private uAuth: AngularFireAuth,
     private alertController: AlertController,
     private cdRef: ChangeDetectorRef,
+    private appComponent: AppComponent,
   ) { }
 
   ngOnInit(): void {
@@ -79,6 +81,7 @@ export class LoginPage {
               let emailVerified: boolean
               this.db.collection('users').doc(id).get().subscribe(result2 => {
                 emailVerified = result2.get('emailVerified')
+                debugger
                 if (emailVerified == null || emailVerified == false)
                   this.db.collection('users').doc(id).update({
                     emailVerified: true
@@ -91,12 +94,14 @@ export class LoginPage {
         }).catch(() => {
           this.dismissLoading()
           //alert('Email or password not are correct')
-          this.simpleAlert('Email or password are not correct')
+          //this.simpleAlert('Email or password are not correct')
+          this.appComponent.simpleAlert("Email or password are not correct")
         })
     }
     else {
       //alert('Email or password are not correct')
-      this.simpleAlert('Email or password are not correct')
+      //this.simpleAlert('Email or password are not correct')
+      this.appComponent.simpleAlert("Email or password are not correct")
     }
   }
 
@@ -176,6 +181,7 @@ export class LoginPage {
     return strMail.length <= 0
   }
 
+  /*
   async simpleAlert(msg: string) {
     const alert = await this.alertController.create({
       message: msg,
@@ -186,6 +192,7 @@ export class LoginPage {
     });
     await alert.present();
   }
+  */
 
   async alertMailConfirmation(result: auth.UserCredential, msg: string) {
     const alert = await this.alertController.create({

@@ -1,6 +1,6 @@
 // ============================= imports ===================================//
 import { Component, OnInit, ViewChild, NgZone, ElementRef } from '@angular/core';
-import { Platform, MenuController } from '@ionic/angular';
+import { Platform, MenuController, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { UserService } from '../app/user.service';
@@ -103,7 +103,8 @@ export class AppComponent {
     // private guard: IsManagerGuard,
     // private ngZone: NgZone,
     private router: Router,
-    private menu: MenuController
+    private menu: MenuController,
+    private alertController: AlertController,
   ) {
     this.initializeApp();
 
@@ -230,6 +231,17 @@ export class AppComponent {
   getManager() {
     this.isMobile()
     return this.manager
+  }
+
+  async simpleAlert(msg: string) {
+    const alert = await this.alertController.create({
+      message: msg,
+      buttons: [
+        {
+          text: 'OK'
+        }]
+    });
+    await alert.present();
   }
 
   // setPage(page)

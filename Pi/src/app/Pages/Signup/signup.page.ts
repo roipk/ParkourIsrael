@@ -1,5 +1,6 @@
 import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+//import { AlertController } from '@ionic/angular';
+import { AppComponent } from '../../app.component'
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { LoadingController } from '@ionic/angular';
@@ -43,7 +44,8 @@ export class SignupPage {
     private db: AngularFirestore,
     private loadingController: LoadingController,
     private router: Router,
-    private alertController: AlertController,
+    //private alertController: AlertController,
+    private appComponent: AppComponent,
     private uAuth: AngularFireAuth,
     private cdRef: ChangeDetectorRef,
   ) { }
@@ -110,17 +112,18 @@ export class SignupPage {
   async SendVerificationMail() {
     return await this.userAuth.auth.currentUser.sendEmailVerification()
       .then(() => {
-        //this.router.navigate(['<!-- enter your route name here -->']);
         //alert("A verification mail have been sent to your mail box.\nPlease click on the link to confirm your registration.");
-        this.simpleAlert("A verification mail have been sent to your mail box.\nPlease click on the link to confirm your registration.");
+        //this.simpleAlert("A verification mail have been sent to your mail box.\nPlease click on the link to confirm your registration.");
+        this.appComponent.simpleAlert("A verification mail have been sent to your mail box.\nPlease click on the link to confirm your registration.")
       }).catch(() => {
         //alert("An error occured sending confirmation mail");
-        this.simpleAlert("An error occured sending confirmation mail")
+        //this.simpleAlert("An error occured sending confirmation mail")
+        this.appComponent.simpleAlert("An error occured sending confirmation mail")
       })
   }
   //==========================================================================================//
 
-
+/*
   async simpleAlert(msg: string) {
     const alert = await this.alertController.create({
       message: msg,
@@ -131,6 +134,7 @@ export class SignupPage {
     });
     await alert.present();
   }
+  */
 
 
   CheckUsername() {
