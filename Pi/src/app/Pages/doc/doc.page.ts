@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./doc.page.scss'],
 })
 export class DocPage implements OnInit {
-
+ lan=true;
   constructor() { }
 
   ngOnInit() {
   }
 
+  lang() {
+    return this.lan
+  }
 }
