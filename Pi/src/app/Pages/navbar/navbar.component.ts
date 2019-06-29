@@ -97,9 +97,9 @@ export class NavbarComponent implements OnInit {
 
   // ============ example for item ===============//
   public items = [
-    { url: '/parkour', nameEn: 'parkour', nameHeb: 'פארקור' },
-    { url: '/us', nameEn: 'who we are', nameHeb: 'מי אנחנו' },
-    { url: '/doc', nameEn: 'document', nameHeb: 'מסמכים' },
+    { url: '/parkour', nameEn: 'Parkour', nameHeb: 'פארקור' },
+    { url: '/us', nameEn: 'Who we are', nameHeb: 'מי אנחנו' },
+    { url: '/doc', nameEn: 'documents', nameHeb: 'מסמכים' },
 
   ]
   // =============================================//
@@ -175,7 +175,7 @@ export class NavbarComponent implements OnInit {
       else {
         this.userLogin.nativeElement.innerHTML = 'התנתק'
         this.loginNickName.nativeElement.innerHTML = ' <ion-icon name="arrow-dropdown"></ion-icon> ברוך הבא'
-        this.loginNickName.nativeElement.innerHTML = ' <ion-icon name="arrow-dropdown"></ion-icon>ברוך הבא ' + this.user
+        this.loginNickName.nativeElement.innerHTML = ' <ion-icon name="arrow-dropdown"></ion-icon>' + this.user + ' ברוך הבא '
       }
       this.user=''
     }
@@ -271,7 +271,7 @@ export class NavbarComponent implements OnInit {
       }
       else if (this.userLogin && this.loginNickName) {
         this.userLogin.nativeElement.innerHTML = 'כניסה'
-        this.loginNickName.nativeElement.innerHTML = '<ion-icon name="arrow-dropdown"></ion-icon> ברוך הבא'
+        this.loginNickName.nativeElement.innerHTML = '<ion-icon name="arrow-dropdown"></ion-icon>' + this.user + ' ברוך הבא '
       }
     }
   }
