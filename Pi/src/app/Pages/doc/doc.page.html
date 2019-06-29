@@ -8,7 +8,8 @@
             <p></p>
           </div>
           <div class="col-md-4">
-              <p>מסמכים</p>
+              <h2 *ngIf="!lang()">מסמכים</h2>
+              <h2 *ngIf="lang()">Documents</h2>
           </div>
           <div class="col-md-4">
               <p></p>
