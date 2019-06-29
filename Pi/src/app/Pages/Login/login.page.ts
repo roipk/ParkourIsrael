@@ -81,7 +81,7 @@ export class LoginPage {
               let emailVerified: boolean
               this.db.collection('users').doc(id).get().subscribe(result2 => {
                 emailVerified = result2.get('emailVerified')
-                debugger
+                
                 if (emailVerified == null || emailVerified == false)
                   this.db.collection('users').doc(id).update({
                     emailVerified: true

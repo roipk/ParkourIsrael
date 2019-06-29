@@ -9,6 +9,7 @@ import { AppComponent } from '../../app.component'
 import { PostEditorPage } from '../post-editor/post-editor.page';
 import { UseExistingWebDriver } from 'protractor/built/driverProviders';
 import { LanguageComponent } from '../language/language.component';
+import { Ptor } from 'protractor';
 //import * as admin from 'firebase-admin';
 
 
@@ -17,12 +18,13 @@ import { LanguageComponent } from '../language/language.component';
   selector: 'app-manage',
   templateUrl: 'manage.page.html',
   styleUrls: ['manage.page.scss'],
+  host: { "spellcheck":"showAvatar()" }
 })
 export class ManagePage {
 
   @ViewChild('title') titleField
   @ViewChild('date') dateField
-
+  @ViewChild('src') profile
 
   file_name = ''
   loadingRef = null
@@ -31,7 +33,11 @@ export class ManagePage {
   showPosts = false;
   showUsers = false;
   lan=true;
-
+  defaultAvatar = "https://firebasestorage.googleapis.com/v0/b/parkour-israel.appspot.com/o/images%2Favatar.jpg?alt=media&token=ec1dfd38-fa0d-4f73-a953-51e2c7756f5f"
+  avatar=this.defaultAvatar
+  
+  
+  profiles=[]
   public posts = []
   public users = []
   public pages = [
@@ -86,10 +92,12 @@ export class ManagePage {
 
 
   ngOnInit(): void {
-    
+   
+    // this.pt[1].name="m"
+    // this.pt[1].url="mmm"
   this.LoadUsers()
   this.LoadMessage()
-  
+  // this.profile.src = this.defaultAvatar
   }
 
   LoadMessage() {
@@ -114,6 +122,18 @@ export class ManagePage {
           else return -1
         })
         this.users = [...result]
+        var j=0
+        for (let i = 0; i < this.users.length; i++) {
+          if (this.users[i].imageProfile != '' && this.users[i].imageProfile!=this.defaultAvatar) {
+           
+            var storageRef = firebase.storage().ref()
+            storageRef.child('ImageProfile/' + this.users[i].imageProfile).getDownloadURL().then(res => {
+              this.profiles[j++]=this.users[i].userName
+              this.profiles[j++]=res
+              // debugger
+            })
+          } 
+        }
         if(this.loadingRef != null)
           this.dismissLoading()
       })
@@ -179,7 +199,6 @@ async EditPost(docId: string)
 }).then(()=>{
   this.LoadMessage()
 });
-      
     })
   }
 
@@ -277,6 +296,23 @@ async EditPost(docId: string)
 
   }
 
+
+
+ showAvatar(user)
+ {
+  //  debugger
+   for (let i = 0; i < this.profiles.length; i++) {
+    if(user.userName == this.profiles[i])
+    {
+      this.defaultAvatar=this.profiles[i+1]
+      return true
+    }
+ 
+    
+  }
+  this.defaultAvatar = "https://firebasestorage.googleapis.com/v0/b/parkour-israel.appspot.com/o/images%2Favatar.jpg?alt=media&token=ec1dfd38-fa0d-4f73-a953-51e2c7756f5f"
+  return true
+ }
 
 
 }
