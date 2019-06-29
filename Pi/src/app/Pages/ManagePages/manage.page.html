@@ -69,7 +69,7 @@
                             <ion-icon name="add" *ngIf="!showPosts"></ion-icon>
                             <ion-icon name="remove" *ngIf="showPosts"></ion-icon>
                         </button>
-                        <ion-label>פוסטים ({{posts.length}})</ion-label>
+                        <ion-label>({{posts.length}}) פוסטים</ion-label>
                     </ion-list-header>
                     <ion-list [hidden]="!showPosts">
                         <ion-item>
@@ -119,7 +119,7 @@
                             <ion-icon name="add" *ngIf="!showUsers"></ion-icon>
                             <ion-icon name="remove" *ngIf="showUsers"></ion-icon>
                         </button>
-                        <ion-label>משתמשים ({{users.length}})</ion-label>
+                        <ion-label>({{users.length}}) משתמשים</ion-label>
                     </ion-list-header>
                     <ion-list [hidden]="!showUsers">
                         <ion-item  *ngFor='let user of users'><br>שם משתמש: {{user.userName}} <br> אימייל: {{user.email}}
