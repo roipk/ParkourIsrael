@@ -154,7 +154,7 @@ export class AppComponent {
 
   isMobile() {
     const w = document.documentElement.clientWidth;
-    const breakpoint = 900;
+    const breakpoint = 1000;
     if (w < breakpoint) {
       this.mobile = true
       return true
