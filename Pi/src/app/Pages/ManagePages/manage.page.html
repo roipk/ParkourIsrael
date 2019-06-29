@@ -100,11 +100,13 @@
                 <ion-list [hidden]="!showUsers">
                     <ion-item  *ngFor='let user of users'>UserName: {{user.userName}} <br> Email: {{user.email}}
                         <br> Registration Date: {{user.date}} <br> Email Verified: {{user.emailVerified}}
-                        <!--
+                        <ion-avatar class='trash' slot='end'>
+                            <ion-img [src]='defaultAvatar' *ngIf='showAvatar(user)'></ion-img>
+                              </ion-avatar>
                         <ion-icon class='trash' name='arrow-round-up' *ngIf ="!isManager(user)" (click) = "changeStatus(user)" slot='end'></ion-icon>
                         <ion-icon class='trash' name='arrow-round-down' *ngIf ="isManager(user)" (click) = "changeStatus(user)" slot='end'></ion-icon>  
-                        <ion-icon class='trash' name='trash' (click)="deleteUser(user)" slot='end'></ion-icon>  
-                        -->                   
+                        <ion-icon class='trash' name='trash' (click)="deleteUser(user)" slot='end'></ion-icon>    
+                                          
                     </ion-item>
                 </ion-list>
             </ion-col>
@@ -120,11 +122,10 @@
                         <ion-label>משתמשים ({{users.length}})</ion-label>
                     </ion-list-header>
                     <ion-list [hidden]="!showUsers">
-                        <ion-item  *ngFor='let user of users'>שם משתמש: {{user.userName}} <br> אימייל: {{user.email}}
+                        <ion-item  *ngFor='let user of users'><br>שם משתמש: {{user.userName}} <br> אימייל: {{user.email}}
+                            <br> תאריך הצטרפות: {{user.date}} <br> אישור מייל: {{user.emailVerified}}<br>
                             <ion-avatar class='trash' slot='end'>
                                 <ion-img [src]='defaultAvatar' *ngIf='showAvatar(user)'></ion-img>
-                                <!-- *ngIf='user.userName!=roipk' -->
-                                <!-- <ion-img src='defaultAvatar' *ngIf='user.userName!=roipk'></ion-img> -->
                                   </ion-avatar>
                                  
                             <ion-icon class='trash' name='arrow-round-up' *ngIf ="!isManager(user)" (click) = "changeStatus(user)" slot='end'></ion-icon>
