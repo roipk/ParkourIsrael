@@ -1,9 +1,18 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>post-page</ion-title>
-  </ion-toolbar>
-</ion-header>
+<div class="content">
 
-<ion-content>
-
-</ion-content>
+    <ion-card  color="white" class="welcome-card" >
+        <ion-img  #img *ngIf='pic' style="float:right; width: 500; height:500; "></ion-img>
+        <ion-card-header>
+          <!-- <ion-card-title>{{data.title}}</ion-card-title> -->
+          <ion-card-subtitle #content></ion-card-subtitle>
+        </ion-card-header>
+        <!-- <ion-card-content>
+            <ion-item>
+                <ion-avatar slot="start">
+                    <ion-img #src></ion-img>
+                </ion-avatar>
+                From: {{data.from}} at {{data.show_date}}
+              </ion-item>
+          </ion-card-content> -->
+      </ion-card>
+</div>

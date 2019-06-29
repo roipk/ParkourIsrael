@@ -9,7 +9,7 @@ import { equalSegments } from '@angular/router/src/url_tree';
   styleUrls: ['./post-bubble.component.scss'],
 })
 export class PostBubbleComponent implements OnInit {
-
+  public static getData
   @Input() data: any
   @ViewChild('img') img
   @ViewChild('content') content
@@ -44,6 +44,8 @@ export class PostBubbleComponent implements OnInit {
   }
 
   postPage() {
+
+    PostBubbleComponent.getData=this.data
     this.router.navigateByUrl('/post-page')
   }
 }
