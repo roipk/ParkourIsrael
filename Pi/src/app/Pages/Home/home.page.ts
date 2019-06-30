@@ -5,6 +5,7 @@ import { Component, Input, ViewChild, ChangeDetectorRef, Renderer2 } from '@angu
 import { LanguageComponent } from '../language/language.component'
 import { NewsPage } from '../News/news.page';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AlertController } from '@ionic/angular';
 
 
 
@@ -48,6 +49,7 @@ export class HomePage {
     private cdRef: ChangeDetectorRef,
     private db: AngularFirestore,
     private renderer: Renderer2,
+    public alertController: AlertController,
 
   ) { }
 
@@ -70,11 +72,34 @@ export class HomePage {
         this.message = [...result]
       })
     this.test.src=this.dots[0].src
-    this.startTimer()
-   
+    this.startTimer();
+    this.presentAlertConfirm()
   }
 
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      header: 'Want to be a part of Parkour Israel?',
+      message: 'Dont wait and <strong>Join us now!</strong>!!!',
+      buttons: [
+        {
+          text: 'close',
+          role: 'close',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'sign up',
+          handler: () => {
+            console.log('Confirm Okay');
+          }
+        }
+      ]
+    });
 
+    await alert.present();
+  }
+  
 
   ngAfterViewChecked() {
     let show = this.isShowExpand();
