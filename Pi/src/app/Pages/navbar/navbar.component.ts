@@ -99,7 +99,7 @@ export class NavbarComponent implements OnInit {
   public items = [
     { url: '/parkour', nameEn: 'Parkour', nameHeb: 'פארקור' },
     { url: '/us', nameEn: 'Who we are', nameHeb: 'מי אנחנו' },
-    { url: '/doc', nameEn: 'documents', nameHeb: 'מסמכים' },
+    { url: '/doc', nameEn: 'Documents', nameHeb: 'מסמכים' },
 
   ]
   // =============================================//

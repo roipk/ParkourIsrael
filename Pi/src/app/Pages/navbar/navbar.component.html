@@ -67,7 +67,7 @@
       <li class="dropdown">
         <a #loginNickName class="dropbtn">Welcome</a>
         <ul class="dropdown-content">
-          <a #username routerLink="/edit-informations" routerLinkActive="active" *ngIf="isUser()">Profile</a>
+          <a #username routerLink="/edit-informations" routerLinkActive="active" *ngIf="isUser()">My Account</a>
           <a routerLink="/manager" routerLinkActive="active" *ngIf="getManager()">Manager</a>
           <a #user (click)="login()">Login</a>
         </ul>
