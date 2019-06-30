@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input } from '@angular/core';
+import { Component, ViewChild, Input, ChangeDetectorRef } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { LoadingController } from '@ionic/angular';
@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { AppComponent } from '../../app.component'
 import { NavbarComponent } from '../navbar/navbar.component';
+import { LanguageComponent } from '../language/language.component';
 
 
 @Component({
@@ -48,9 +49,10 @@ export class EditInformationsPage {
   defaultAvatar = "https://firebasestorage.googleapis.com/v0/b/parkour-israel.appspot.com/o/images%2Favatar.jpg?alt=media&token=ec1dfd38-fa0d-4f73-a953-51e2c7756f5f"
   file = File
 
-
+  lan=true;
 
   constructor(
+    private cdRef: ChangeDetectorRef,
     private userAuth: AngularFireAuth,
     private db: AngularFirestore,
     private loadingController: LoadingController,
@@ -70,6 +72,22 @@ export class EditInformationsPage {
     })
 
     this.avatar.src = this.defaultAvatar;
+  }
+
+  ngAfterViewChecked() {
+    let show = this.isShowExpand();
+    if (show != this.lan) { // check if it change, tell CD update view
+      this.lan = show;
+      this.cdRef.detectChanges();
+    }
+
+  }
+
+  isShowExpand() {
+    return LanguageComponent.lan
+  }
+  lang() {
+    return this.lan
   }
 
   afterUserInside() {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, NgZone, ChangeDetectorRef } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -8,6 +8,7 @@ import { AppComponent } from '../../app.component'
 import { defineBase } from '@angular/core/src/render3';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
+import { LanguageComponent } from '../language/language.component';
 
 
 
@@ -50,10 +51,11 @@ export class PostEditorPage implements OnInit {
   userProfile=''
   file = File
   messages = ""
-
+  lan=true
 
 
   constructor(
+    private cdRef: ChangeDetectorRef,
     private uAuth: AngularFireAuth,
     private ngZone: NgZone,
     private route: Router,
@@ -70,6 +72,22 @@ export class PostEditorPage implements OnInit {
     if (PostEditorPage.docId != '') {
       this.GetPost()
     }
+  }
+
+  ngAfterViewChecked() {
+    let show = this.isShowExpand();
+    if (show != this.lan) { // check if it change, tell CD update view
+      this.lan = show;
+      this.cdRef.detectChanges();
+    }
+
+  }
+
+  isShowExpand() {
+    return LanguageComponent.lan
+  }
+  lang() {
+    return this.lan
   }
 
   afterUserInside() {

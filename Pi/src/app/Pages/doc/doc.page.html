@@ -1,20 +1,9 @@
 
 
 <div class="content">
+  <h2 dir="rtl" *ngIf="!lang()">מסמכים</h2>
+  <h2 *ngIf="lang()">Documents</h2>
   <div class="container-fluid">
-
-      <div class="row">
-          <div class="col-md-4">
-            <p></p>
-          </div>
-          <div class="col-md-4">
-              <h2 *ngIf="!lang()">מסמכים</h2>
-              <h2 *ngIf="lang()">Documents</h2>
-          </div>
-          <div class="col-md-4">
-              <p></p>
-          </div>
-        </div>
 
     <div class="row">
       <div class="col-md-4">

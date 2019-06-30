@@ -1,6 +1,7 @@
   <ion-content>
       <div class="content">
-          <h2>Edit profile</h2>        
+          <h2 *ngIf="lang()">My account</h2> 
+          <h2 dir="rtl" *ngIf="!lang()">איזור אישי</h2>       
     <br>
   <ion-grid>
     <ion-row class="center-row">

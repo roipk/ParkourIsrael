@@ -1,20 +1,6 @@
-  <!--
-      <div *ngIf='uAuth.auth.currentUser != null'>
-    <ion-button (click)='write()'>new post</ion-button>
-    <ion-item>
-      <ion-label>All posts</ion-label>
-      <ion-radio value="allPosts" checked></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>My posts</ion-label>
-      <ion-radio value="myPosts"></ion-radio>
-    </ion-item>
-  </div>
--->
-
 <div class="content">
     <h2 *ngIf='lang()'>News</h2>
-    <h2 *ngIf='!lang()'>חדשות ועדכונים</h2>
+    <h2 dir="rtl" *ngIf='!lang()'>חדשות ועדכונים</h2>
     
   <ion-grid>
     <div class="newPost" [hidden]="!isUser()">
