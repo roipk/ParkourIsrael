@@ -100,10 +100,10 @@
                 <ion-list [hidden]="!showUsers">
                     <ion-item  *ngFor='let user of users'>
                         <ul style="list-style-type:none">
-                            <li>UserName: {{user.userName}}</li>
+                            <li>Username: {{user.userName}}</li>
                             <li>Email: {{user.email}}</li>
-                            <li>Registration Date: {{user.date}}</li>
-                            <li>Email Verified: 
+                            <li>Registration date: {{user.date}}</li>
+                            <li>Verified email: 
                                 <ion-icon class="verifIcon" color="success" [hidden]="!user.emailVerified" name="checkmark"></ion-icon>
                                 <ion-icon class="verifIcon" color="danger" [hidden]="user.emailVerified" name="close"></ion-icon>
                             </li>
@@ -130,8 +130,16 @@
                         <ion-label>({{users.length}}) משתמשים</ion-label>
                     </ion-list-header>
                     <ion-list [hidden]="!showUsers">
-                        <ion-item  *ngFor='let user of users'><br>שם משתמש: {{user.userName}} <br> אימייל: {{user.email}}
-                            <br> תאריך הצטרפות: {{user.date}} <br> אישור מייל: {{user.emailVerified}}<br>
+                        <ion-item  *ngFor='let user of users'>
+                            <ul style="list-style-type:none">
+                                <li>שם משתמש: {{user.userName}}</li>
+                                <li>מייל: {{user.email}}</li>
+                                <li>תאריך הצטרפות: <span dir="ltr">{{user.date}}</span></li>
+                                <li>אימות: 
+                                    <ion-icon class="verifIcon" color="success" [hidden]="!user.emailVerified" name="checkmark"></ion-icon>
+                                    <ion-icon class="verifIcon" color="danger" [hidden]="user.emailVerified" name="close"></ion-icon>
+                                </li>
+                            </ul>
                             <ion-avatar class='trash' slot='end'>
                                 <ion-img [src]='defaultAvatar' *ngIf='showAvatar(user)'></ion-img>
                                   </ion-avatar>
