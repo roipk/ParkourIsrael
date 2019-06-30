@@ -77,11 +77,18 @@ export class SignupPage {
       alert('one or more values empty')
     }
     else if (password.length < 8) {
+      /*
       alert('the password need to be 8 characters:\n' +
         '*One or more big letter (A-Z)\n' +
         '*One or more small letter (a-z)\n' +
         '*One or more sign (@!%)\n' +
         '*One or more number (0-9)\n')
+        */
+       this.appComponent.simpleAlert('the password need to be 8 characters:\n' +
+       '*One or more big letter (A-Z)\n' +
+       '*One or more small letter (a-z)\n' +
+       '*One or more sign (@!%)\n' +
+       '*One or more number (0-9)\n')
     }
     else if (confirm != password) {
       alert('no match password')
@@ -144,7 +151,8 @@ export class SignupPage {
       }
       else {
         this.userEmpty = false
-        alert('Username is busy Try another username')
+        //alert('Username is busy Try another username')
+        this.appComponent.simpleAlert('Username is busy Try another username')
       }
     })
   }
@@ -157,7 +165,8 @@ export class SignupPage {
       }
       else {
         this.emailEmpty = false
-        alert(" This email is associated with an existing account  ")
+        //alert(" This email is associated with an existing account  ")
+        this.appComponent.simpleAlert("This email is associated with an existing account")
       }
     })
   }
