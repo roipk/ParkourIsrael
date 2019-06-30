@@ -1,3 +1,51 @@
+@media(min-width: 1024px){
+  .instaIcon{
+    background: linear-gradient(to bottom left, #FCC246, #FF9D48, #FF5B42, #FE193F, #FF1D65, #E62193, #CC25B1, #A030C3, #5E40DC);
+    color: white;
+    font-size: 40px;
+  }
+
+  .fbButton{
+    color:  #3C5A99;
+    //font-size: 20px;
+  }
+  
+  .ytButton{
+    color: #E62117;
+    //font-size: 20px;
+    --background-hover: transparent;
+  }
+  
+  .icon{
+    font-size: 50px;
+  }
+}
+
+
+@media(min-width: 0px) and (max-width: 1023px){
+.instaIcon{
+  background: linear-gradient(to bottom left, #FCC246, #FF9D48, #FF5B42, #FE193F, #FF1D65, #E62193, #CC25B1, #A030C3, #5E40DC);
+  color: white;
+  font-size: 40px;
+}
+
+.fbButton{
+  color:  #3C5A99;
+}
+
+.ytButton{
+  color: #E62117;
+}
+
+.icon{
+  font-size: 50px;
+}
+}
+
+ion-button :hover {
+  
+}
+
 @mixin horizontal-gradient($from, $to, $stop: 100%) {
   /* fallback/image non-cover color */
   background-color: $from;

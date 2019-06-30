@@ -6,6 +6,7 @@ import { LanguageComponent } from '../language/language.component'
 import { NewsPage } from '../News/news.page';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 
 
@@ -50,6 +51,7 @@ export class HomePage {
     private db: AngularFirestore,
     private renderer: Renderer2,
     public alertController: AlertController,
+    private router: Router,
 
   ) { }
 
@@ -84,14 +86,11 @@ export class HomePage {
         {
           text: 'close',
           role: 'close',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          }
+          cssClass: 'secondary'
         }, {
           text: 'sign up',
           handler: () => {
-            console.log('Confirm Okay');
+            this.router.navigateByUrl('/signup');
           }
         }
       ]
