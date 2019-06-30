@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { LanguageComponent } from '../language/language.component';
 
 @Component({
   selector: 'app-doc',
@@ -7,11 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocPage implements OnInit {
  lan=true;
-  constructor() { }
+  constructor(private cdRef: ChangeDetectorRef,) { }
 
   ngOnInit() {
   }
+  ngAfterViewChecked() {
+    let show = this.isShowExpand();
+    if (show != this.lan) { // check if it change, tell CD update view
+      this.lan = show;
+      this.cdRef.detectChanges();
+    }
 
+  }
+
+  isShowExpand() {
+    return LanguageComponent.lan
+  }
   lang() {
     return this.lan
   }
